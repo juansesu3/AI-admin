@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const ProyectSchema = new Schema({
   title: { type: String, require: true },
@@ -7,4 +7,4 @@ const ProyectSchema = new Schema({
   linkDeploy: { type: String, require: true },
 });
 
-export const Proyect = model('Proyect', ProyectSchema);
+export const Proyect = models.Proyect || model('Proyect', ProyectSchema);

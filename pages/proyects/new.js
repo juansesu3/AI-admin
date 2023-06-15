@@ -1,19 +1,34 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
+import { useRouter } from "next/router";
+
 import { useState } from "react";
 
 const NewProduct = () => {
+  //states to storage my data proyect
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [linkCode, setLinkCode] = useState("");
   const [linkDeploy, setLinkDeploy] = useState("");
 
+  //back to proyects after created a new one
+  const [goToProyects, setGoToProyects] = useState(false);
+
+  //hook from  next/router
+  const router = useRouter();
+
+  //async arrow function to create a new proyect our database
   const createProduct = async (ev) => {
     ev.preventDefault();
-    const data = {title, description, linkCode, linkDeploy}
-    await axios.post('/api/proyects', data);
-
+    const data = { title, description, linkCode, linkDeploy };
+    await axios.post("/api/proyects", data);
+    setGoToProyects(true);
   };
+
+  if (goToProyects) {
+    //use router
+    router.push("/proyects");
+  }
 
   return (
     <Layout>
