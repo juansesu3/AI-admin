@@ -6,6 +6,10 @@ const handle = async (req, res) => {
 
   await mongooseConnect();
 
+  if(method === 'GET'){
+    res.json(await Proyect.find());
+  }
+
   if (method === "POST") {
     const { title, description, linkCode, linkDeploy } = req.body;
     const proyectDoc = await Proyect.create({
