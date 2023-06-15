@@ -32,7 +32,7 @@ const Proyects = () => {
             <tr key={proyect._id}>
               <td>{proyect.title}</td>
               <td>
-                <Link href={"/proyects/edit" + proyect._id}>
+                <Link href={"/proyects/edit/" + proyect._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
