@@ -24,6 +24,15 @@ const handle = async (req, res) => {
     });
     res.json(proyectDoc);
   }
+
+  if (method === "PUT") {
+    const { title, description, linkCode, linkDeploy, _id } = req.body;
+    await Proyect.updateOne(
+      { _id },
+      { title, description, linkCode, linkDeploy }
+    );
+    res.json(true);
+  }
 };
 
 export default handle;
