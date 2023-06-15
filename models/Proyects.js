@@ -1,0 +1,10 @@
+import { Schema, model } from "mongoose";
+
+const ProyectSchema = new Schema({
+  title: { type: String, require: true },
+  description: { type: String, require: true },
+  linkCode: { type: String, require: true },
+  linkDeploy: { type: String, require: true },
+});
+
+export const Proyect = model('Proyect', ProyectSchema);
