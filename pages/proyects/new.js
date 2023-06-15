@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import axios from "axios";
 import { useState } from "react";
 
 const NewProduct = () => {
@@ -7,7 +8,12 @@ const NewProduct = () => {
   const [linkCode, setLinkCode] = useState("");
   const [linkDeploy, setLinkDeploy] = useState("");
 
-  const createProduct = () => {};
+  const createProduct = async (ev) => {
+    ev.preventDefault();
+    const data = {title, description, linkCode, linkDeploy}
+    await axios.post('/api/proyects', data);
+
+  };
 
   return (
     <Layout>
