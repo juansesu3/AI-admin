@@ -42,6 +42,20 @@ const ProyectForm = ({
     router.push("/proyects");
   }
 
+  const uploadImages = async (ev) => {
+    const files = ev.target?.files;
+    if (files.length > 0) {
+      const data = new FormData();
+
+      for (const file of files) {
+        data.append("file", file);
+      }
+
+      const res = await axios.post("/api/upload", data);
+      console.log(res.data);
+    }
+  };
+
   return (
     <form onSubmit={saveProyect}>
       <label>Proyect name</label>
@@ -53,7 +67,7 @@ const ProyectForm = ({
       />
       <label>Photos</label>
       <div className="mb-2">
-        <label className="w-24 h-24 text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
+        <label className="w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -69,7 +83,7 @@ const ProyectForm = ({
             />
           </svg>
           <div>Upload</div>
-          <input type="file" className="hidden" />
+          <input type="file" onChange={uploadImages} className="hidden" />
         </label>
         {!images?.length && <div>No photos in this proyect</div>}
       </div>
