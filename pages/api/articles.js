@@ -7,7 +7,11 @@ const handle = async (req, res) => {
   await mongooseConnect();
 
   if (method === "GET") {
-    res.json( await Article.find());
+    if (req.query?.id) {
+      res.json(await Article.findOne({ _id: req.query.id }));
+    } else {
+      res.json(await Article.find());
+    }
   }
 
   if (method === "POST") {
