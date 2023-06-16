@@ -39,6 +39,7 @@ const Editor = ({ value, onChange }) => {
       modules={modules}
       formats={formats}
       theme={'snow'}
+      className="editor"
     />
   );
 };
