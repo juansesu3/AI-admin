@@ -8,13 +8,14 @@ const ProyectForm = ({
   description: existingDescription,
   linkCode: existingLinkCode,
   linkDeploy: existingLinkDeploy,
-  images,
+  images: existingImages,
 }) => {
   //states to storage my data proyect
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
   const [linkCode, setLinkCode] = useState(existingLinkCode || "");
   const [linkDeploy, setLinkDeploy] = useState(existingLinkDeploy || "");
+  const [images, setImages] = useState(existingImages || []);
 
   //back to proyects after created a new one
   const [goToProyects, setGoToProyects] = useState(false);
@@ -52,7 +53,9 @@ const ProyectForm = ({
       }
 
       const res = await axios.post("/api/upload", data);
-      console.log(res.data);
+      setImages((oldImages) => {
+        return [...oldImages, ...res.data.links];
+      });
     }
   };
 
@@ -67,6 +70,11 @@ const ProyectForm = ({
       />
       <label>Photos</label>
       <div className="mb-2">
+        {!!images?.length && images.map((link) => (
+        <div key={link}>
+          <img src={link} alt="image-proyect"/>
+        </div>
+        ))}
         <label className="w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"

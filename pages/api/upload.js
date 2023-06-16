@@ -34,13 +34,14 @@ const handle = async (req, res) => {
         Body: fs.readFileSync(file.path),
         ACL: "public-read",
         ContentType: mime.lookup(file.path),
-      }));
+      })
+    );
 
-      const link = `https://${bucketName}.s3.amazonaws.com/${newFilename}`;
-      links.push(link);
+    const link = `https://${bucketName}.s3.amazonaws.com/${newFilename}`;
+    links.push(link);
   }
 
-  return res.json({links});
+  return res.json({ links });
 };
 
 export const config = {
