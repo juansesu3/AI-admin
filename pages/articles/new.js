@@ -2,6 +2,7 @@ import Editor from "@/components/Editor";
 import Layout from "@/components/Layout";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const NewArticle = () => {
@@ -11,12 +12,26 @@ const NewArticle = () => {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState(session?.user?.name);
   const [imgAuthor, setImgAuthor] = useState(session?.user?.image);
+  const [goToArticles, setGoToArticles ] = useState(false);
+  
+
+  const router = useRouter();
 
   const createArticle = async (ev) => {
     ev.preventDefault();
+
+    
     const data = { title, summary, content, author, imgAuthor };
     await axios.post("/api/articles", data);
+    setGoToArticles(true);
+
   };
+
+  
+  if (goToArticles) {
+    //use router
+    router.push("/articles");
+  }
 
   return (
     <Layout>

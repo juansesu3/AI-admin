@@ -6,6 +6,10 @@ const handle = async (req, res) => {
 
   await mongooseConnect();
 
+  if (method === "GET") {
+    res.json( await Article.find());
+  }
+
   if (method === "POST") {
     const { title, summary, content, author, imgAuthor } = req.body;
     const articleDoc = await Article.create({
