@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 const DeleteProyectPage = () => {
   const router = useRouter();
-  const [proyectInfo, setProyectInfo] = useState(null);
+  const [articleInfo, setArticlesInfo] = useState(null);
 
   const { id } = router.query;
 
@@ -13,28 +13,28 @@ const DeleteProyectPage = () => {
     if (!id) {
       return;
     }
-    axios.get("/api/proyects?id=" + id).then((response) => {
-      setProyectInfo(response.data);
+    axios.get("/api/articles?id=" + id).then((response) => {
+        setArticlesInfo(response.data);
     });
   }, [id]);
 
   const goBack = () => {
-    router.push("/proyects");
+    router.push("/articles");
   };
 
-  const deleteProyect = async () => {
-    await axios.delete("/api/proyects?id=" + id);
+  const deleteArticles = async () => {
+    await axios.delete("/api/articles?id=" + id);
     goBack();
   };
 
   return (
     <Layout>
       <h1 className="text-center">
-        Do you really want to delete&nbsp;&quot;{proyectInfo?.title}&quot;
-        proyect?
+        Do you really want to delete&nbsp;&quot;{articleInfo?.title}&quot;
+        article?
       </h1>
       <div className="flex gap-2 justify-center">
-        <button className="btn-red" onClick={deleteProyect}>
+        <button className="btn-red" onClick={deleteArticles}>
           Yes
         </button>
         <button className="btn-default" onClick={goBack}>

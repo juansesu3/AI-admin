@@ -33,6 +33,12 @@ const handle = async (req, res) => {
     );
     res.json(true);
   }
+  if (method === "DELETE") {
+    if (req.query?.id) {
+      await Article.deleteOne({ _id: req.query.id });
+      res.json(true);
+    }
+  }
 };
 
 export default handle;
