@@ -15,21 +15,22 @@ const handle = async (req, res) => {
   }
 
   if (method === "POST") {
-    const { title, description, linkCode, linkDeploy } = req.body;
+    const { title, description, linkCode, linkDeploy, images } = req.body;
     const proyectDoc = await Proyect.create({
       title,
       description,
       linkCode,
       linkDeploy,
+      images,
     });
     res.json(proyectDoc);
   }
 
   if (method === "PUT") {
-    const { title, description, linkCode, linkDeploy, _id } = req.body;
+    const { title, description, linkCode, linkDeploy, images, _id } = req.body;
     await Proyect.updateOne(
       { _id },
-      { title, description, linkCode, linkDeploy }
+      { title, description, linkCode, linkDeploy, images }
     );
     res.json(true);
   }

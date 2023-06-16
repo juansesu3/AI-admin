@@ -5,6 +5,7 @@ const ProyectSchema = new Schema({
   description: { type: String, require: true },
   linkCode: { type: String, require: true },
   linkDeploy: { type: String, require: true },
+  images: [{ type: [String], require: true }],
 });
 
 export const Proyect = models.Proyect || model('Proyect', ProyectSchema);

@@ -26,7 +26,7 @@ const ProyectForm = ({
   //async arrow function to create a new proyect our database
   const saveProyect = async (ev) => {
     ev.preventDefault();
-    const data = { title, description, linkCode, linkDeploy };
+    const data = { title, description, linkCode, linkDeploy, images };
 
     if (_id) {
       //update
@@ -69,13 +69,13 @@ const ProyectForm = ({
         onChange={(ev) => setTitle(ev.target.value)}
       />
       <label>Photos</label>
-      <div className="mb-2">
+      <div className="mb-2 flex flex-wrap gap-2">
         {!!images?.length && images.map((link) => (
-        <div key={link}>
-          <img src={link} alt="image-proyect"/>
+        <div key={link} className=" h-24">
+          <img src={link} alt="image-proyect" className="rounded-lg"/>
         </div>
         ))}
-        <label className="w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
+        <label className=" w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
