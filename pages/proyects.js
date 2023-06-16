@@ -49,7 +49,7 @@ const Proyects = () => {
                   </svg>
                   Edit
                 </Link>
-                <Link href={"/proyects/" + proyect._id}>
+                <Link href={"/proyects/delete/" + proyect._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
