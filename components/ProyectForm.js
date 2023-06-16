@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Spinner from "./Spinner";
+import { ReactSortable } from "react-sortablejs";
 
 const ProyectForm = ({
   _id,
@@ -19,6 +21,8 @@ const ProyectForm = ({
 
   //back to proyects after created a new one
   const [goToProyects, setGoToProyects] = useState(false);
+
+  const [isUploading, setIsUploading] = useState(false);
 
   //hook from  next/router
   const router = useRouter();
@@ -46,6 +50,7 @@ const ProyectForm = ({
   const uploadImages = async (ev) => {
     const files = ev.target?.files;
     if (files.length > 0) {
+      setIsUploading(true);
       const data = new FormData();
 
       for (const file of files) {
@@ -56,7 +61,11 @@ const ProyectForm = ({
       setImages((oldImages) => {
         return [...oldImages, ...res.data.links];
       });
+      setIsUploading(false);
     }
+  };
+  const updateImagesOrder = (images) => {
+    setImages(images);
   };
 
   return (
@@ -69,12 +78,24 @@ const ProyectForm = ({
         onChange={(ev) => setTitle(ev.target.value)}
       />
       <label>Photos</label>
-      <div className="mb-2 flex flex-wrap gap-2">
-        {!!images?.length && images.map((link) => (
-        <div key={link} className=" h-24">
-          <img src={link} alt="image-proyect" className="rounded-lg"/>
-        </div>
-        ))}
+      <div className="mb-2 flex flex-wrap gap-1">
+        <ReactSortable
+          list={images}
+          className="flex flex-wrap gap-1"
+          setList={updateImagesOrder}
+        >
+          {!!images?.length &&
+            images.map((link) => (
+              <div key={link} className=" h-24">
+                <img src={link} alt="image-proyect" className="rounded-lg" />
+              </div>
+            ))}
+        </ReactSortable>
+        {isUploading && (
+          <div className="h-24 flex items-center ">
+            <Spinner />
+          </div>
+        )}
         <label className=" w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +114,6 @@ const ProyectForm = ({
           <div>Upload</div>
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
-        {!images?.length && <div>No photos in this proyect</div>}
       </div>
       <label>Proyect description</label>
       <textarea

@@ -25,6 +25,10 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-quill": "^2.0.0",
+    "react-sortable": "^2.0.0",
+    "react-sortablejs": "^6.1.4",
+    "react-spinners": "^0.13.8",
+    "sortablejs": "^1.15.0",
     "tailwindcss": "3.3.2"
   }
 }
