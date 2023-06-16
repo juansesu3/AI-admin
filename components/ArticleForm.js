@@ -2,8 +2,10 @@ import { useRouter } from "next/router";
 import Editor from "./Editor";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import axios from "axios";
 
 const ArticleForm = ({
+  _id,
   title: existingTitle,
   summary: existingSumary,
   content: existingContent,
@@ -21,22 +23,27 @@ const ArticleForm = ({
   const [goToArticles, setGoToArticles] = useState(false);
 
   const router = useRouter();
+  
 
-  const createArticle = async (ev) => {
+  const saveArticle = async (ev) => {
     ev.preventDefault();
-
     const data = { title, summary, content, author, imgAuthor };
-    await axios.post("/api/articles", data);
+    if (_id) {
+      //update
+      await axios.put("/api/articles", { ...data, _id });
+    } else {
+      //create
+      await axios.post("/api/articles", data);
+    }
     setGoToArticles(true);
   };
-
   if (goToArticles) {
     //use router
     router.push("/articles");
   }
 
   return (
-    <form onSubmit={createArticle}>
+    <form onSubmit={saveArticle}>
       <label>Article name</label>
       <input
         type="text"
@@ -58,16 +65,18 @@ const ArticleForm = ({
           src={imgAuthor}
           alt="image-boss"
           className="w-8 h-8 rounded-md mt-1 ml-1.5"
+          readOnly
         />
         <input
           className="mt-1.5 mr-1"
           type="text"
           placeholder="author"
           value={author}
+          readOnly
         />
       </div>
       <button type="submit" className="btn-primary">
-        Create{" "}
+        Save
       </button>
     </form>
   );

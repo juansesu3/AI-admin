@@ -25,6 +25,14 @@ const handle = async (req, res) => {
     });
     res.json(articleDoc);
   }
+  if (method === "PUT") {
+    const { title, summary, content, author, imgAuthor, _id } = req.body;
+    await Article.updateOne(
+      { _id },
+      { title, summary, content, author, imgAuthor }
+    );
+    res.json(true);
+  }
 };
 
 export default handle;
