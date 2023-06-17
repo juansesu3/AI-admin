@@ -15,21 +15,22 @@ const handle = async (req, res) => {
   }
 
   if (method === "POST") {
-    const { title, summary, content, author, imgAuthor } = req.body;
+    const { title, summary, content, author, imgAuthor, images } = req.body;
     const articleDoc = await Article.create({
       title,
       summary,
       content,
       author,
       imgAuthor,
+      images,
     });
     res.json(articleDoc);
   }
   if (method === "PUT") {
-    const { title, summary, content, author, imgAuthor, _id } = req.body;
+    const { title, summary, content, author, imgAuthor, images, _id } = req.body;
     await Article.updateOne(
       { _id },
-      { title, summary, content, author, imgAuthor }
+      { title, summary, content, author, imgAuthor, images }
     );
     res.json(true);
   }

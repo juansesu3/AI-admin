@@ -6,6 +6,7 @@ const ArticleSchema = new Schema({
   content: { type: String, require: true },
   author: { type: String, require: true },
   imgAuthor: { type: String, require: true },
+  images: [{ type: [String], require: true }],
 });
 
 export const Article = models.Article || model("Article", ArticleSchema);

@@ -3,6 +3,8 @@ import Editor from "./Editor";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import axios from "axios";
+import Spinner from "./Spinner";
+import { ReactSortable } from "react-sortablejs";
 
 const ArticleForm = ({
   _id,
@@ -23,12 +25,12 @@ const ArticleForm = ({
   );
   const [images, setImages] = useState(existingImages || []);
   const [goToArticles, setGoToArticles] = useState(false);
-
+  const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
 
   const saveArticle = async (ev) => {
     ev.preventDefault();
-    const data = { title, summary, content, author, imgAuthor };
+    const data = { title, summary, content, author, imgAuthor, images };
     if (_id) {
       //update
       await axios.put("/api/articles", { ...data, _id });
@@ -57,6 +59,9 @@ const ArticleForm = ({
       });
     }
   };
+  const updateImagesOrder = (images) => {
+    setImages(images);
+  };
 
   return (
     <form onSubmit={saveArticle}>
@@ -68,8 +73,25 @@ const ArticleForm = ({
         onChange={(ev) => setTitle(ev.target.value)}
       />
       <label>Photos</label>
-      <div className="mb-2 flex">
-        <label className="w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
+      <div className="mb-2 flex flex-wrap gap-1">
+        <ReactSortable
+          list={images}
+          className="flex flex-wrap gap-1"
+          setList={updateImagesOrder}
+        >
+          {!!images?.length &&
+            images.map((link) => (
+              <div key={link} className=" h-24">
+                <img src={link} alt="image-proyect" className="rounded-lg" />
+              </div>
+            ))}
+        </ReactSortable>
+        {isUploading && (
+          <div className="h-24 flex items-center ">
+            <Spinner />
+          </div>
+        )}
+        <label className=" w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -87,7 +109,6 @@ const ArticleForm = ({
           <div>Upload</div>
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
-        {!images?.length && <div>No photos in this article</div>}
       </div>
       <label>Article summary</label>
       <textarea
