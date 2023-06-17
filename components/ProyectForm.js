@@ -49,7 +49,7 @@ const ProyectForm = ({
 
   const uploadImages = async (ev) => {
     const files = ev.target?.files;
-    if (files.length > 0) {
+    if (files?.length > 0) {
       setIsUploading(true);
       const data = new FormData();
 

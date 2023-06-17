@@ -48,6 +48,7 @@ const ArticleForm = ({
   const uploadImages = async (ev) => {
     const files = ev.target?.files;
     if (files?.length > 0) {
+      setIsUploading(true);
       const data = new FormData();
       for (const file of files) {
         data.append("file", file);
@@ -57,6 +58,7 @@ const ArticleForm = ({
       setImages((oldImages) => {
         return [...oldImages, ...res.data.links];
       });
+      setIsUploading(false);
     }
   };
   const updateImagesOrder = (images) => {
