@@ -11,7 +11,7 @@ const ArticleForm = ({
   content: existingContent,
   author: existingAuthor,
   imgAuthor: existingImgAuthor,
-  images,
+  images: existingImages,
 }) => {
   const { data: session } = useSession();
   const [title, setTitle] = useState(existingTitle || "");
@@ -21,6 +21,7 @@ const ArticleForm = ({
   const [imgAuthor, setImgAuthor] = useState(
     existingImgAuthor || session?.user?.image
   );
+  const [images, setImages] = useState(existingImages || []);
   const [goToArticles, setGoToArticles] = useState(false);
 
   const router = useRouter();
@@ -42,16 +43,20 @@ const ArticleForm = ({
     router.push("/articles");
   }
 
-  const uploadImages =(ev)=>{
+  const uploadImages = async (ev) => {
     const files = ev.target?.files;
-    if(files?.length > 0){
-
+    if (files?.length > 0) {
       const data = new FormData();
+      for (const file of files) {
+        data.append("file", file);
+      }
 
-    } 
-
-  }
-
+      const res = await axios.post("/api/upload", data);
+      setImages((oldImages) => {
+        return [...oldImages, ...res.data.links];
+      });
+    }
+  };
 
   return (
     <form onSubmit={saveArticle}>
@@ -80,8 +85,7 @@ const ArticleForm = ({
             />
           </svg>
           <div>Upload</div>
-          <input type="file" onChange={uploadImages} className="hidden"/>
-          
+          <input type="file" onChange={uploadImages} className="hidden" />
         </label>
         {!images?.length && <div>No photos in this article</div>}
       </div>
