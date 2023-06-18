@@ -5,7 +5,8 @@ import React, { useState } from "react";
 const Catarticles = () => {
   const [name, setName] = useState("");
 
-  const saveTechnology = async () => {
+  const saveCategoryArticle = async (ev) => {
+    ev.preventDefault();
     await axios.post('/api/catarticles', {name});
     setName('');
   };
@@ -14,7 +15,7 @@ const Catarticles = () => {
     <Layout>
       <h1>Article categories</h1>
       <label>New category name</label>
-      <form onSubmit={saveTechnology} className="flex gap-1">
+      <form onSubmit={saveCategoryArticle} className="flex gap-1">
         <input
           className="mb-0"
           type="text"
