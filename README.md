@@ -13,7 +13,9 @@ After cloning it you will need to install all the dependencies with the followin
 yarn install
 ```
 
-## NextAuth 
+## Configure the following technologies
+
+### NextAuth 
 
 I am using Next auth to handle authentications in my application.
 
@@ -21,7 +23,7 @@ I am using Next auth to handle authentications in my application.
 Here is the documentation: [NextAuth](https://next-auth.js.org/providers/google)
 
 
-## Google
+### Google
 
 You will need a Google id `GOOGLE_ID` as string in your .env file Google secret `GOOGLE_SECRET` as string in your .env file. 
 You can get your credentials in google cloud
@@ -44,6 +46,8 @@ Here is the documentation: [MongoDB Atlas](https://www.mongodb.com/docs/atlas/ge
 
 
 I am using AWS S3 bucket to store the images in the cloud, so you will need some credentials to access your AWS bucket. After creating your bucket you can get your credentials and add them to your .env file in the following variables `S3_ACCESS_KEY` and `S3_SECRET_ACCESS_KEY` as string.
+
+Here is the documentation: [Amazon Simple Storage Service Documentation](https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/create-bucket-overview.html)
 
 
 
