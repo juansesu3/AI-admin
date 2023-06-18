@@ -23,7 +23,14 @@ const Catarticles = () => {
   //Save category function
   const saveCategoryArticle = async (ev) => {
     ev.preventDefault();
-    await axios.post("/api/catarticles", { name, parentArticleCategory });
+    const data = { name, parentArticleCategory };
+
+    if (editedCategoryArticle) {
+      data._id = editedCategoryArticle._id;
+      await axios.put("/api/catarticles", data);
+    } else {
+      await axios.post("/api/catarticles", data);
+    }
     setName("");
     fetchCategories();
   };
