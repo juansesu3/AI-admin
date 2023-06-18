@@ -5,10 +5,14 @@ const handle = async (req, res) => {
   const { method } = req;
   await mongooseConnect();
 
+  if (method === "GET") {
+    res.json(await CategoryArticle.find());
+  }
+
   if (method === "POST") {
     const { name } = req.body;
     const categoryArticleDoc = await CategoryArticle.create({ name });
-    res.json(categoryArticleDoc); 
+    res.json(categoryArticleDoc);
   }
 };
 

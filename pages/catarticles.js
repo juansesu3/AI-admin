@@ -1,14 +1,27 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Catarticles = () => {
   const [name, setName] = useState("");
 
+  const [categoriesArticle, setCategoriesArticle] = useState([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = () => {
+    axios.get("/api/catarticles").then((result) => {
+      setCategoriesArticle(result.data);
+    });
+  };
+
   const saveCategoryArticle = async (ev) => {
     ev.preventDefault();
-    await axios.post('/api/catarticles', {name});
-    setName('');
+    await axios.post("/api/catarticles", { name });
+    setName("");
+    fetchCategories();
   };
 
   return (
@@ -27,6 +40,21 @@ const Catarticles = () => {
           Save
         </button>
       </form>
+      <table className="basic mt-4">
+        <thead>
+          <tr>
+            <td>Category name</td>
+          </tr>
+        </thead>
+        <tbody>
+          {categoriesArticle.length > 0 &&
+            categoriesArticle.map((categoryArticle) => (
+              <tr key={categoryArticle._id}>
+                <td>{categoryArticle.name}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </Layout>
   );
 };
