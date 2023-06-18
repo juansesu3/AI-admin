@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 const Catarticles = () => {
   const [name, setName] = useState("");
-
+  const [parentArticleCategory, setParentArticleCategory] = useState("");
   const [categoriesArticle, setCategoriesArticle] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Catarticles = () => {
 
   const saveCategoryArticle = async (ev) => {
     ev.preventDefault();
-    await axios.post("/api/catarticles", { name });
+    await axios.post("/api/catarticles", { name, parentArticleCategory });
     setName("");
     fetchCategories();
   };
@@ -36,6 +36,19 @@ const Catarticles = () => {
           onChange={(ev) => setName(ev.target.value)}
           value={name}
         />
+        <select
+          className="mb-0"
+          onChange={(ev) => setParentArticleCategory(ev.target.value)}
+          value={parentArticleCategory}
+        >
+          <option value="0">No parent category</option>
+          {categoriesArticle.length > 0 &&
+            categoriesArticle.map((categoryArticle) => (
+              <option key={categoryArticle._id} value={categoryArticle._id}>
+                {categoryArticle.name}
+              </option>
+            ))}
+        </select>
         <button type="submit" className="btn-primary">
           Save
         </button>

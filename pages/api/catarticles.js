@@ -10,8 +10,11 @@ const handle = async (req, res) => {
   }
 
   if (method === "POST") {
-    const { name } = req.body;
-    const categoryArticleDoc = await CategoryArticle.create({ name });
+    const { name, parentArticleCategory } = req.body;
+    const categoryArticleDoc = await CategoryArticle.create({
+      name,
+      parent: parentArticleCategory,
+    });
     res.json(categoryArticleDoc);
   }
 };
