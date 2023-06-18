@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Catarticles = () => {
+  const [editedCategoryArticle, setEditedCategoryArticle] = useState(null);
   const [name, setName] = useState("");
   const [parentArticleCategory, setParentArticleCategory] = useState("");
   const [categoriesArticle, setCategoriesArticle] = useState([]);
@@ -23,11 +24,20 @@ const Catarticles = () => {
     setName("");
     fetchCategories();
   };
+  const editCategoryArticle = (categoryArticle) => {
+    setEditedCategoryArticle(categoryArticle);
+    setName(categoryArticle.name)
+    setParentArticleCategory(categoryArticle.parent?._id)
+  };
 
   return (
     <Layout>
       <h1>Article categories</h1>
-      <label>New category name</label>
+      <label>
+        {editedCategoryArticle
+          ? `Edit article category "${editedCategoryArticle.name}"`
+          : "Create new article categoty"}
+      </label>
       <form onSubmit={saveCategoryArticle} className="flex gap-1">
         <input
           className="mb-0"
@@ -68,7 +78,12 @@ const Catarticles = () => {
                 <td>{categoryArticle.name}</td>
                 <td>{categoryArticle?.parent?.name}</td>
                 <td>
-                  <button className="btn-primary mr-1">Edit</button>
+                  <button
+                    onClick={() => editCategoryArticle(categoryArticle)}
+                    className="btn-primary mr-1"
+                  >
+                    Edit
+                  </button>
                   <button className="btn-primary">Delete</button>
                 </td>
               </tr>
