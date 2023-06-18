@@ -3,11 +3,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Catarticles = () => {
+  //States
   const [editedCategoryArticle, setEditedCategoryArticle] = useState(null);
   const [name, setName] = useState("");
   const [parentArticleCategory, setParentArticleCategory] = useState("");
   const [categoriesArticle, setCategoriesArticle] = useState([]);
 
+  //getting article categories
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -18,16 +20,19 @@ const Catarticles = () => {
     });
   };
 
+  //Save category function
   const saveCategoryArticle = async (ev) => {
     ev.preventDefault();
     await axios.post("/api/catarticles", { name, parentArticleCategory });
     setName("");
     fetchCategories();
   };
+
+  //edit category function
   const editCategoryArticle = (categoryArticle) => {
     setEditedCategoryArticle(categoryArticle);
-    setName(categoryArticle.name)
-    setParentArticleCategory(categoryArticle.parent?._id)
+    setName(categoryArticle.name);
+    setParentArticleCategory(categoryArticle.parent?._id);
   };
 
   return (
