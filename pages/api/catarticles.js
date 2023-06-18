@@ -6,7 +6,7 @@ const handle = async (req, res) => {
   await mongooseConnect();
 
   if (method === "GET") {
-    res.json(await CategoryArticle.find());
+    res.json(await CategoryArticle.find().populate('parent'));
   }
 
   if (method === "POST") {

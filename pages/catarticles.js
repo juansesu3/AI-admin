@@ -57,6 +57,8 @@ const Catarticles = () => {
         <thead>
           <tr>
             <td>Category name</td>
+            <td>Parent category</td>
+            <td></td>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +66,11 @@ const Catarticles = () => {
             categoriesArticle.map((categoryArticle) => (
               <tr key={categoryArticle._id}>
                 <td>{categoryArticle.name}</td>
+                <td>{categoryArticle?.parent?.name}</td>
+                <td>
+                  <button className="btn-primary mr-1">Edit</button>
+                  <button className="btn-primary">Delete</button>
+                </td>
               </tr>
             ))}
         </tbody>
