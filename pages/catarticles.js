@@ -28,6 +28,7 @@ const Catarticles = () => {
     if (editedCategoryArticle) {
       data._id = editedCategoryArticle._id;
       await axios.put("/api/catarticles", data);
+      setEditedCategoryArticle(null)
     } else {
       await axios.post("/api/catarticles", data);
     }
