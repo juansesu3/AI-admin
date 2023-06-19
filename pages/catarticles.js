@@ -2,7 +2,9 @@ import Layout from "@/components/Layout";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Catarticles = () => {
+import { withSwal } from "react-sweetalert2";
+
+const Catarticles = ({ swal }) => {
   //States
   const [editedCategoryArticle, setEditedCategoryArticle] = useState(null);
   const [name, setName] = useState("");
@@ -28,7 +30,7 @@ const Catarticles = () => {
     if (editedCategoryArticle) {
       data._id = editedCategoryArticle._id;
       await axios.put("/api/catarticles", data);
-      setEditedCategoryArticle(null)
+      setEditedCategoryArticle(null);
     } else {
       await axios.post("/api/catarticles", data);
     }
@@ -41,6 +43,27 @@ const Catarticles = () => {
     setEditedCategoryArticle(categoryArticle);
     setName(categoryArticle.name);
     setParentArticleCategory(categoryArticle.parent?._id);
+  };
+
+  const deleteCategoryArticle = (categoryArticle) => {
+    swal
+      .fire({
+        title: "Are you sure? ",
+        text: `Do you want to delete "${categoryArticle.name}?"`,
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+        confirmButtonText: "yes, Delete!",
+        confirmButtonColor: "#d55",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          const { _id } = categoriesArticle;
+          await axios.delete("/api/catarticles?_id=" + _id);
+          fetchCategories();
+        }
+        // when confirmed and promise resolved...
+      });
   };
 
   return (
@@ -97,7 +120,12 @@ const Catarticles = () => {
                   >
                     Edit
                   </button>
-                  <button className="btn-primary">Delete</button>
+                  <button
+                    onClick={() => deleteCategoryArticle(categoryArticle)}
+                    className="btn-primary"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -107,4 +135,4 @@ const Catarticles = () => {
   );
 };
 
-export default Catarticles;
+export default withSwal(({ swal }, ref) => <Catarticles swal={swal} />);

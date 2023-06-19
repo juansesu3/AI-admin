@@ -29,6 +29,13 @@ const handle = async (req, res) => {
     );
     res.json(categoryArticleDoc);
   }
+
+  if (method === "DELETE"){
+    const {_id} = req.query;
+    await CategoryArticle.deleteOne({_id});
+    res.json('ok');
+
+  }
 };
 
 export default handle;
