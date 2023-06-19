@@ -8,6 +8,7 @@ const ArticleSchema = new Schema({
   imgAuthor: { type: String, require: true },
   images: [{ type: [String], require: true }],
   articleCat: { type: mongoose.Types.ObjectId, ref: "CategoryArticle" },
+  topics: {type: Object},
 });
 
 export const Article = models.Article || model("Article", ArticleSchema);

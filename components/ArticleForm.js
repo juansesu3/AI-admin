@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
-import catarticles from "@/pages/catarticles";
 
 const ArticleForm = ({
   _id,
@@ -30,6 +29,7 @@ const ArticleForm = ({
   const [isUploading, setIsUploading] = useState(false);
   const [articleCategories, setArticleCategories] = useState([]);
   const [articleCat, setArticleCat] = useState(assignedArticleCat || "");
+  const [articleTopics, setArticleTopics] = useState({});
   const router = useRouter();
 
   useEffect(() => {
@@ -48,6 +48,7 @@ const ArticleForm = ({
       imgAuthor,
       images,
       articleCat,
+      topics: articleTopics,
     };
     if (_id) {
       //update
@@ -83,10 +84,20 @@ const ArticleForm = ({
     setImages(images);
   };
 
+  const setArticleTopic = (topicName, value) => {
+    setArticleTopics((prev) => {
+      const newArticleTopics = { ...prev };
+      newArticleTopics[topicName] = value;
+      return newArticleTopics;
+    });
+  };
+
   const topictsToFill = [];
 
   if (articleCategories.length > 0 && articleCat) {
-    let ArticleCatInfo = articleCategories.find(({ _id }) => _id === articleCat);
+    let ArticleCatInfo = articleCategories.find(
+      ({ _id }) => _id === articleCat
+    );
     topictsToFill.push(...ArticleCatInfo.topics);
 
     while (ArticleCatInfo?.parent?._id) {
@@ -122,7 +133,21 @@ const ArticleForm = ({
       </select>
 
       {topictsToFill.length > 0 &&
-        topictsToFill.map((t) => <div key={t.name}>{t.name}</div>)}
+        topictsToFill.map((t) => (
+          <div className="flex gap-1" key={t.name}>
+            <div>{t.name}</div>
+            <select
+              value={articleTopics[t.name]}
+              onChange={(ev) => setArticleTopic(t.name, ev.target.value)}
+            >
+              {t.values.map((v) => (
+                <option key={v} value={v}>
+                  {v}
+                </option>
+              ))}
+            </select>
+          </div>
+        ))}
 
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
