@@ -10,21 +10,23 @@ const handle = async (req, res) => {
   }
 
   if (method === "POST") {
-    const { name, parentArticleCategory } = req.body;
+    const { name, parentArticleCategory, topics } = req.body;
     const categoryArticleDoc = await CategoryArticle.create({
       name,
-      parent: parentArticleCategory,
+      parent: parentArticleCategory || undefined,
+      topics,
     });
     res.json(categoryArticleDoc);
   }
 
   if (method === "PUT") {
-    const { name, parentArticleCategory, _id } = req.body;
+    const { name, parentArticleCategory, topics, _id } = req.body;
     const categoryArticleDoc = await CategoryArticle.updateOne(
       { _id },
       {
         name,
-        parent: parentArticleCategory,
+        parent: parentArticleCategory || undefined,
+        topics,
       }
     );
     res.json(categoryArticleDoc);
