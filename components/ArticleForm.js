@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
+import catarticles from "@/pages/catarticles";
 
 const ArticleForm = ({
   _id,
@@ -82,6 +83,21 @@ const ArticleForm = ({
     setImages(images);
   };
 
+  const topictsToFill = [];
+
+  if (articleCategories.length > 0 && articleCat) {
+    let ArticleCatInfo = articleCategories.find(({ _id }) => _id === articleCat);
+    topictsToFill.push(...ArticleCatInfo.topics);
+
+    while (ArticleCatInfo?.parent?._id) {
+      const parentArtCat = articleCategories.find(
+        ({ _id }) => _id === ArticleCatInfo?.parent?._id
+      );
+      topictsToFill.push(...parentArtCat.topics);
+      ArticleCatInfo = parentArtCat;
+    }
+  }
+
   return (
     <form onSubmit={saveArticle}>
       <label>Article name</label>
@@ -104,6 +120,10 @@ const ArticleForm = ({
             </option>
           ))}
       </select>
+
+      {topictsToFill.length > 0 &&
+        topictsToFill.map((t) => <div key={t.name}>{t.name}</div>)}
+
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
         <ReactSortable
