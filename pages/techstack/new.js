@@ -1,6 +1,7 @@
 import Layout from "@/components/Layout";
 import Spinner from "@/components/Spinner";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 
@@ -8,16 +9,28 @@ const TechStack = () => {
   const [name, setName] = useState("");
   const [images, setImages] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [goToProyects, setGoToProyects] = useState(false);
+  const [docLink, setDocLink] = useState("");
 
+  const router = useRouter();
 
   //Save technologi
-  const saveTechnology = async () => {
-    await axios.post("/api/techstack", { name });
+  const saveTechnology = async (ev) => {
+    ev.preventDefault();
+    const dataTech = { name, docLink, images };
+    await axios.post("/api/techstack", dataTech);
     setName("");
+    setDocLink("");
+    setImages([]);
+    setGoToProyects(true);
   };
 
+  if (goToProyects) {
+    //use router
+    router.push("/techstack");
+  }
 
-  //Upload images function 
+  //Upload images function
   const uploadImages = async (ev) => {
     const files = ev.target?.files;
     if (files?.length > 0) {
@@ -95,8 +108,8 @@ const TechStack = () => {
           className="mb-0"
           type="text"
           placeholder="link to docs"
-          onChange={(ev) => setName(ev.target.value)}
-          value={name}
+          onChange={(ev) => setDocLink(ev.target.value)}
+          value={docLink}
         />
         <button type="submit" className="btn-primary">
           Save
