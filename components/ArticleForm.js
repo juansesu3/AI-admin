@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Editor from "./Editor";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
@@ -14,6 +14,7 @@ const ArticleForm = ({
   author: existingAuthor,
   imgAuthor: existingImgAuthor,
   images: existingImages,
+  articleCat: assignedArticleCat,
 }) => {
   const { data: session } = useSession();
   const [title, setTitle] = useState(existingTitle || "");
@@ -26,11 +27,27 @@ const ArticleForm = ({
   const [images, setImages] = useState(existingImages || []);
   const [goToArticles, setGoToArticles] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [articleCategories, setArticleCategories] = useState([]);
+  const [articleCat, setArticleCat] = useState(assignedArticleCat || "");
   const router = useRouter();
+
+  useEffect(() => {
+    axios.get("/api/catarticles").then((result) => {
+      setArticleCategories(result.data);
+    });
+  }, []);
 
   const saveArticle = async (ev) => {
     ev.preventDefault();
-    const data = { title, summary, content, author, imgAuthor, images };
+    const data = {
+      title,
+      summary,
+      content,
+      author,
+      imgAuthor,
+      images,
+      articleCat,
+    };
     if (_id) {
       //update
       await axios.put("/api/articles", { ...data, _id });
@@ -74,6 +91,19 @@ const ArticleForm = ({
         value={title}
         onChange={(ev) => setTitle(ev.target.value)}
       />
+      <label>Article category</label>
+      <select
+        value={articleCat}
+        onChange={(ev) => setArticleCat(ev.target.value)}
+      >
+        <option value="">Uncategorized</option>
+        {articleCategories.length > 0 &&
+          articleCategories.map((articleCategory) => (
+            <option key={articleCategory._id} value={articleCategory._id}>
+              {articleCategory.name}
+            </option>
+          ))}
+      </select>
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
         <ReactSortable

@@ -15,7 +15,8 @@ const handle = async (req, res) => {
   }
 
   if (method === "POST") {
-    const { title, summary, content, author, imgAuthor, images } = req.body;
+    const { title, summary, content, author, imgAuthor, images, articleCat } =
+      req.body;
     const articleDoc = await Article.create({
       title,
       summary,
@@ -23,14 +24,24 @@ const handle = async (req, res) => {
       author,
       imgAuthor,
       images,
+      articleCat,
     });
     res.json(articleDoc);
   }
   if (method === "PUT") {
-    const { title, summary, content, author, imgAuthor, images, _id } = req.body;
+    const {
+      title,
+      summary,
+      content,
+      author,
+      imgAuthor,
+      images,
+      articleCat,
+      _id,
+    } = req.body;
     await Article.updateOne(
       { _id },
-      { title, summary, content, author, imgAuthor, images }
+      { title, summary, content, author, imgAuthor, images, articleCat }
     );
     res.json(true);
   }

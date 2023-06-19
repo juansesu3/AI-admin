@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
 const ArticleSchema = new Schema({
   title: { type: String, require: true },
@@ -7,6 +7,7 @@ const ArticleSchema = new Schema({
   author: { type: String, require: true },
   imgAuthor: { type: String, require: true },
   images: [{ type: [String], require: true }],
+  articleCat: { type: mongoose.Types.ObjectId, ref: "CategoryArticle" },
 });
 
 export const Article = models.Article || model("Article", ArticleSchema);
