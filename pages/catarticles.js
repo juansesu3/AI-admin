@@ -35,6 +35,7 @@ const Catarticles = ({ swal }) => {
       await axios.post("/api/catarticles", data);
     }
     setName("");
+    setParentArticleCategory("");
     fetchCategories();
   };
 
@@ -42,6 +43,7 @@ const Catarticles = ({ swal }) => {
   const editCategoryArticle = (categoryArticle) => {
     setEditedCategoryArticle(categoryArticle);
     setName(categoryArticle.name);
+    //setParentArticleCategory("");
     setParentArticleCategory(categoryArticle.parent?._id);
   };
 
