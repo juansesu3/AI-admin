@@ -15,6 +15,7 @@ const ArticleForm = ({
   imgAuthor: existingImgAuthor,
   images: existingImages,
   articleCat: assignedArticleCat,
+  topics:assignedTopics,
 }) => {
   const { data: session } = useSession();
   const [title, setTitle] = useState(existingTitle || "");
@@ -29,7 +30,7 @@ const ArticleForm = ({
   const [isUploading, setIsUploading] = useState(false);
   const [articleCategories, setArticleCategories] = useState([]);
   const [articleCat, setArticleCat] = useState(assignedArticleCat || "");
-  const [articleTopics, setArticleTopics] = useState({});
+  const [articleTopics, setArticleTopics] = useState(assignedTopics || {});
   const router = useRouter();
 
   useEffect(() => {
