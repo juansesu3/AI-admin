@@ -58,7 +58,7 @@ const Catarticles = ({ swal }) => {
       })
       .then(async (result) => {
         if (result.isConfirmed) {
-          const { _id } = categoriesArticle;
+          const { _id } = categoryArticle;
           await axios.delete("/api/catarticles?_id=" + _id);
           fetchCategories();
         }
