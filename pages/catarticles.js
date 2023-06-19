@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
+import { set } from "mongoose";
 import React, { useEffect, useState } from "react";
 
 import { withSwal } from "react-sweetalert2";
@@ -52,8 +53,13 @@ const Catarticles = ({ swal }) => {
   const editCategoryArticle = (categoryArticle) => {
     setEditedCategoryArticle(categoryArticle);
     setName(categoryArticle.name);
-    //setParentArticleCategory("");
     setParentArticleCategory(categoryArticle.parent?._id);
+    setTopics(
+      categoryArticle.topics.map(({ name, values }) => ({
+        name,
+        values: values.join(","),
+      }))
+    );
   };
 
   const deleteCategoryArticle = (categoryArticle) => {
@@ -183,6 +189,7 @@ const Catarticles = ({ swal }) => {
                 setEditedCategoryArticle(null);
                 setName("");
                 setParentArticleCategory("");
+                setTopics([]);
               }}
               className="btn-default"
             >
