@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 
 const TechForm = ({
+  _id,
   name: existingName,
   images: existingImages,
   docLink: existinDocLink,
@@ -21,10 +22,12 @@ const TechForm = ({
   const saveTechnology = async (ev) => {
     ev.preventDefault();
     const dataTech = { name, docLink, images };
-    await axios.post("/api/techstack", dataTech);
-    setName("");
-    setDocLink("");
-    setImages([]);
+
+    if (_id) {
+      await axios.put("/api/techstack", { ...dataTech, _id });
+    } else {
+      await axios.post("/api/techstack", dataTech);
+    }
     setGoToProyects(true);
   };
 
