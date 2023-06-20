@@ -30,6 +30,13 @@ const handle = async (req, res) => {
     await Technology.updateOne({ _id }, { name, docLink, images });
     res.json(true);
   }
+
+  if (method === "DELETE") {
+    if (req.query?.id) {
+      await Technology.deleteOne({ _id: req.query.id });
+      res.json(true);
+    }
+  }
 };
 
 export default handle;

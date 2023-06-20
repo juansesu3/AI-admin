@@ -12,8 +12,6 @@ const TechStack = () => {
     });
   }, []);
 
-  console.log(technologies);
-
   return (
     <Layout>
       <h1>Technologies Stack</h1>
