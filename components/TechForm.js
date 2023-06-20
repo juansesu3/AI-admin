@@ -1,30 +1,19 @@
-import Layout from "@/components/Layout";
-import TechForm from "@/components/TechForm";
-import React from "react";
-
-const newTechnology = () => {
-  return (
-    <Layout>
-      <TechForm />
-    </Layout>
-  );
-};
-
-export default newTechnology;
-
-/*import Layout from "@/components/Layout";
 import Spinner from "@/components/Spinner";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 
-const TechStack = () => {
-  const [name, setName] = useState("");
-  const [images, setImages] = useState([]);
+const TechForm = ({
+  name: existingName,
+  images: existingImages,
+  docLink: existinDocLink,
+}) => {
+  const [name, setName] = useState(existingName || "");
+  const [images, setImages] = useState(existingImages || []);
   const [isUploading, setIsUploading] = useState(false);
   const [goToProyects, setGoToProyects] = useState(false);
-  const [docLink, setDocLink] = useState("");
+  const [docLink, setDocLink] = useState(existinDocLink || "");
 
   const router = useRouter();
 
@@ -67,9 +56,8 @@ const TechStack = () => {
   };
 
   return (
-    <Layout>
+    <>
       <h1>Technologies Stack</h1>
-
       <form onSubmit={saveTechnology} className="flex flex-col gap-1">
         <label>New technology name</label>
         <input
@@ -129,8 +117,8 @@ const TechStack = () => {
           Save
         </button>
       </form>
-    </Layout>
+    </>
   );
 };
 
-export default TechStack;*/
+export default TechForm;
