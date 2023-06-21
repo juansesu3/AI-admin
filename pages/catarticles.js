@@ -175,7 +175,7 @@ const Catarticles = ({ swal }) => {
                 <button
                   type="button"
                   onClick={() => removeTopic(index)}
-                  className="btn-default "
+                  className="btn-red"
                 >
                   Remove
                 </button>
@@ -217,16 +217,16 @@ const Catarticles = ({ swal }) => {
                 <tr key={categoryArticle._id}>
                   <td>{categoryArticle.name}</td>
                   <td>{categoryArticle?.parent?.name}</td>
-                  <td>
+                  <td className="flex flex-wrap gap-1">
                     <button
                       onClick={() => editCategoryArticle(categoryArticle)}
-                      className="btn-primary mr-1"
+                      className="btn-default mr-1"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => deleteCategoryArticle(categoryArticle)}
-                      className="btn-primary"
+                      className="btn-red"
                     >
                       Delete
                     </button>
