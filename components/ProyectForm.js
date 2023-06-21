@@ -24,7 +24,7 @@ const ProyectForm = ({
   const [technologies, setTechnologies] = useState([]);
 
   // Selected  Technologies
-  const [selectedTech, setSelectedTech] = useState( existingSelectedTech || []);
+  const [selectedTech, setSelectedTech] = useState(existingSelectedTech || []);
 
   //back to proyects after created a new one
   const [goToProyects, setGoToProyects] = useState(false);
@@ -43,7 +43,14 @@ const ProyectForm = ({
   //async arrow function to create a new proyect our database
   const saveProyect = async (ev) => {
     ev.preventDefault();
-    const data = { title, description, selectedTech,  linkCode, linkDeploy, images };
+    const data = {
+      title,
+      description,
+      selectedTech,
+      linkCode,
+      linkDeploy,
+      images,
+    };
 
     if (_id) {
       //update
@@ -90,7 +97,6 @@ const ProyectForm = ({
     }
   };
 
-
   return (
     <form onSubmit={saveProyect}>
       <label>Proyect name</label>
@@ -109,7 +115,10 @@ const ProyectForm = ({
         >
           {!!images?.length &&
             images.map((link) => (
-              <div key={link} className=" h-24">
+              <div
+                key={link}
+                className=" h-24 bg-white p-2 shadow-sm rounded-lg border border-gray-100"
+              >
                 <img src={link} alt="image-proyect" className="rounded-lg" />
               </div>
             ))}
@@ -119,7 +128,7 @@ const ProyectForm = ({
             <Spinner />
           </div>
         )}
-        <label className=" w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
+        <label className=" w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-primary rounded-lg bg-white shadow-sm border border-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -134,7 +143,7 @@ const ProyectForm = ({
               d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
             />
           </svg>
-          <div>Upload</div>
+          <div>Add image</div>
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
       </div>

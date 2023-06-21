@@ -15,7 +15,7 @@ const ArticleForm = ({
   imgAuthor: existingImgAuthor,
   images: existingImages,
   articleCat: assignedArticleCat,
-  topics:assignedTopics,
+  topics: assignedTopics,
 }) => {
   const { data: session } = useSession();
   const [title, setTitle] = useState(existingTitle || "");
@@ -135,18 +135,21 @@ const ArticleForm = ({
 
       {topictsToFill.length > 0 &&
         topictsToFill.map((t) => (
-          <div className="flex gap-1" key={t.name}>
-            <div>{t.name}</div>
-            <select
-              value={articleTopics[t.name]}
-              onChange={(ev) => setArticleTopic(t.name, ev.target.value)}
-            >
-              {t.values.map((v) => (
-                <option key={v} value={v}>
-                  {v}
-                </option>
-              ))}
-            </select>
+          <div className="" key={t.name}>
+            <label>{t.name[0].toUpperCase() + t.name.substring(1)}</label>
+
+            <div>
+              <select
+                value={articleTopics[t.name]}
+                onChange={(ev) => setArticleTopic(t.name, ev.target.value)}
+              >
+                {t.values.map((v) => (
+                  <option key={v} value={v}>
+                    {v}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         ))}
 
@@ -159,7 +162,10 @@ const ArticleForm = ({
         >
           {!!images?.length &&
             images.map((link) => (
-              <div key={link} className=" h-24">
+              <div
+                key={link}
+                className=" h-24 bg-white p-2 shadow-sm rounded-lg border border-gray-100"
+              >
                 <img src={link} alt="image-proyect" className="rounded-lg" />
               </div>
             ))}
@@ -169,7 +175,7 @@ const ArticleForm = ({
             <Spinner />
           </div>
         )}
-        <label className=" w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
+        <label className="w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-primary rounded-lg bg-white shadow-sm border border-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
