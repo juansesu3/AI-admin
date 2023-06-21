@@ -80,17 +80,15 @@ const ProyectForm = ({
     setImages(images);
   };
 
-  const handleCheckBoxChange = (ev) => {
-    ev.preventDefault();
-    const { value, checked } = ev.target;
-
+  const handleCheckBoxChange = (event) => {
+    const { value, checked } = event.target;
     if (checked) {
-      setSelectedTech([...selectedTech, value]);
+      setSelectedTech((prev) => [...prev, value]);
     } else {
-      setSelectedTech(selectedTech.filter((item) => item !== value));
+      setSelectedTech((prev) => prev.filter((item) => item !== value));
     }
-    console.log(selectedTech);
   };
+
 
   return (
     <form onSubmit={saveProyect}>
@@ -143,7 +141,7 @@ const ProyectForm = ({
       <textarea
         placeholder="proyect description"
         value={description}
-        onChange={(ev) => setDescription(ev.target.value)}
+        onChange={(ev) => setDescription(ev)}
       ></textarea>
 
       <label>Stack of technologies</label>
@@ -154,7 +152,7 @@ const ProyectForm = ({
               <input
                 className="mb-0"
                 type="checkbox"
-                id="cbox1"
+                id={t._id}
                 value={t._id}
                 checked={selectedTech.includes(t._id)}
                 onChange={handleCheckBoxChange}
