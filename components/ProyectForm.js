@@ -8,6 +8,7 @@ const ProyectForm = ({
   _id,
   title: existingTitle,
   description: existingDescription,
+  selectedTech: existingSelectedTech,
   linkCode: existingLinkCode,
   linkDeploy: existingLinkDeploy,
   images: existingImages,
@@ -23,7 +24,7 @@ const ProyectForm = ({
   const [technologies, setTechnologies] = useState([]);
 
   // Selected  Technologies
-  const [selectedTech, setSelectedTech] = useState([]);
+  const [selectedTech, setSelectedTech] = useState( existingSelectedTech || []);
 
   //back to proyects after created a new one
   const [goToProyects, setGoToProyects] = useState(false);
@@ -42,7 +43,7 @@ const ProyectForm = ({
   //async arrow function to create a new proyect our database
   const saveProyect = async (ev) => {
     ev.preventDefault();
-    const data = { title, description, linkCode, linkDeploy, images };
+    const data = { title, description, selectedTech,  linkCode, linkDeploy, images };
 
     if (_id) {
       //update

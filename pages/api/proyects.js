@@ -15,10 +15,12 @@ const handle = async (req, res) => {
   }
 
   if (method === "POST") {
-    const { title, description, linkCode, linkDeploy, images } = req.body;
+    const { title, description, selectedTech, linkCode, linkDeploy, images } =
+      req.body;
     const proyectDoc = await Proyect.create({
       title,
       description,
+      selectedTech,
       linkCode,
       linkDeploy,
       images,
@@ -27,10 +29,18 @@ const handle = async (req, res) => {
   }
 
   if (method === "PUT") {
-    const { title, description, linkCode, linkDeploy, images, _id } = req.body;
+    const {
+      title,
+      description,
+      selectedTech,
+      linkCode,
+      linkDeploy,
+      images,
+      _id,
+    } = req.body;
     await Proyect.updateOne(
       { _id },
-      { title, description, linkCode, linkDeploy, images }
+      { title, description, selectedTech, linkCode, linkDeploy, images }
     );
     res.json(true);
   }
