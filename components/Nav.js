@@ -9,6 +9,11 @@ const Nav = () => {
   const router = useRouter();
   const { pathname } = router;
 
+  const logout = async () => {
+    await router.push("/");
+    await signOut();
+  };
+
   return (
     <aside className="text-white p-4 pr-0">
       <Link href={"/"} className="flex gap-1 mb-4 mr-4">
@@ -212,7 +217,7 @@ const Nav = () => {
           <span> Settings</span>
         </Link>
 
-        <button onClick={() => signOut()} className={inactiveLink}>
+        <button onClick={logout} className={inactiveLink}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
