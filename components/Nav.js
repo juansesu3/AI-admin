@@ -4,7 +4,10 @@ import { useRouter } from "next/router";
 
 const Nav = () => {
   const inactiveLink = "flex gap-1 p-1";
-  const activeLink = inactiveLink + " bg-highlight text-primary rounded-sm";
+  const activeLink = inactiveLink + " bg-highlight text-black rounded-sm";
+  const inactiveIcon = 'w-6 h-6';
+  const activeIcon = inactiveIcon + ' text-primary'
+
 
   const router = useRouter();
   const { pathname } = router;
@@ -31,7 +34,7 @@ const Nav = () => {
             d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"
           />
         </svg>
-        <span>MyPageAdmin</span>
+        <span>MyAdminApp</span>
       </Link>
       <nav className="flex flex-col gap-2">
         <Link
@@ -44,7 +47,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -67,7 +70,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/techstack" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -89,7 +92,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/proyects" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -111,7 +114,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/catarticles" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -132,7 +135,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/articles" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -153,7 +156,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/emails" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -175,7 +178,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/admins" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -201,7 +204,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className={pathname === "/settings"? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
