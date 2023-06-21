@@ -15,7 +15,7 @@ const Proyects = () => {
   return (
     <Layout>
       <Link
-        className="bg-blue-900 text-white py-1 px-2 rounded-lg"
+        className="btn-primary"
         href={"/proyects/new"}
       >
         Add new proyect
