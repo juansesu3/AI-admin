@@ -24,7 +24,7 @@ const Proyects = () => {
         <thead>
           <tr>
             <td>Proyect name</td>
-            <td></td>
+            <td>Options</td>
           </tr>
         </thead>
         <tbody>

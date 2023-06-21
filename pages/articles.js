@@ -4,19 +4,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Articles = () => {
-  const [articles, setArticles] = useState([])
+  const [articles, setArticles] = useState([]);
   useEffect(() => {
     axios.get("/api/articles").then((response) => {
-      setArticles(response.data)
+      setArticles(response.data);
     });
   }, []);
 
   return (
     <Layout>
-      <Link
-        className="bg-blue-900 text-white py-1 px-2 rounded-md"
-        href={"/articles/new"}
-      >
+      <Link className="btn-primary " href={"/articles/new"}>
         Add new article
       </Link>
       <table className="basic mt-2">
@@ -27,11 +24,11 @@ const Articles = () => {
           </tr>
         </thead>
         <tbody>
-          {articles.map((article)=>(
+          {articles.map((article) => (
             <tr key={article._id}>
               <td>{article.title}</td>
               <td>
-                <Link href={"/articles/edit/" +article._id}>
+                <Link href={"/articles/edit/" + article._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

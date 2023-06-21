@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
 
       <div className="flex">
         <Nav show={showNav} />
-        <div className="bg-white flex-grow my-2 mx-2 rounded-lg p-4">
+        <div className="flex-grow p-4">
           {children}
         </div>
       </div>
