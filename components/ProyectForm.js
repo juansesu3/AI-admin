@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 
@@ -19,6 +19,12 @@ const ProyectForm = ({
   const [linkDeploy, setLinkDeploy] = useState(existingLinkDeploy || "");
   const [images, setImages] = useState(existingImages || []);
 
+  //technologies come from our DB
+  const [technologies, setTechnologies] = useState([]);
+
+  // Selected  Technologies
+  const [selectedTech, setSelectedTech] = useState([]);
+
   //back to proyects after created a new one
   const [goToProyects, setGoToProyects] = useState(false);
 
@@ -26,6 +32,12 @@ const ProyectForm = ({
 
   //hook from  next/router
   const router = useRouter();
+
+  useEffect(() => {
+    axios.get("/api/techstack").then((response) => {
+      setTechnologies(response.data);
+    });
+  }, []);
 
   //async arrow function to create a new proyect our database
   const saveProyect = async (ev) => {
@@ -66,6 +78,18 @@ const ProyectForm = ({
   };
   const updateImagesOrder = (images) => {
     setImages(images);
+  };
+
+  const handleCheckBoxChange = (ev) => {
+    ev.preventDefault();
+    const { value, checked } = ev.target;
+
+    if (checked) {
+      setSelectedTech([...selectedTech, value]);
+    } else {
+      setSelectedTech(selectedTech.filter((item) => item !== value));
+    }
+    console.log(selectedTech);
   };
 
   return (
@@ -121,6 +145,25 @@ const ProyectForm = ({
         value={description}
         onChange={(ev) => setDescription(ev.target.value)}
       ></textarea>
+
+      <label>Stack of technologies</label>
+      <div className="flex flex-wrap gap-4 mb-2">
+        {technologies.length > 0 &&
+          technologies.map((t) => (
+            <label className="flex gap-1" key={t._id}>
+              <input
+                className="mb-0"
+                type="checkbox"
+                id="cbox1"
+                value={t._id}
+                checked={selectedTech.includes(t._id)}
+                onChange={handleCheckBoxChange}
+              />
+              {t.name}
+            </label>
+          ))}
+      </div>
+
       <label>Link code</label>
       <input
         type="text"
