@@ -2,12 +2,11 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const Nav = () => {
+const Nav = ({ show }) => {
   const inactiveLink = "flex gap-1 p-1";
   const activeLink = inactiveLink + " bg-highlight text-black rounded-sm";
-  const inactiveIcon = 'w-6 h-6';
-  const activeIcon = inactiveIcon + ' text-primary'
-
+  const inactiveIcon = "w-6 h-6";
+  const activeIcon = inactiveIcon + " text-primary";
 
   const router = useRouter();
   const { pathname } = router;
@@ -18,7 +17,12 @@ const Nav = () => {
   };
 
   return (
-    <aside className="text-gray-500 p-4 ">
+    <aside
+      className={
+        (show ? "left-0" : "-left-full") +
+        " top-0 text-gray-500 p-4 fixed w-full bg-bgGray h-full md:static md:w-auto transition-all"
+      }
+    >
       <Link href={"/"} className="flex gap-1 mb-4 mr-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +208,7 @@ const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={pathname === "/settings"? activeIcon : inactiveIcon}
+            className={pathname === "/settings" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
