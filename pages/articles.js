@@ -28,7 +28,10 @@ const Articles = () => {
             <tr key={article._id}>
               <td>{article.title}</td>
               <td>
-                <Link href={"/articles/edit/" + article._id}>
+                <Link
+                  className="btn-default"
+                  href={"/articles/edit/" + article._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -45,7 +48,10 @@ const Articles = () => {
                   </svg>
                   Edit
                 </Link>
-                <Link href={"/articles/delete/" + article._id}>
+                <Link
+                  className="btn-red"
+                  href={"/articles/delete/" + article._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

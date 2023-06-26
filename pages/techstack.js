@@ -44,7 +44,7 @@ const TechStack = () => {
                 </div>
               </td>
               <td>
-                <Link href={"/techstack/edit/" + technology._id}>
+                <Link className="btn-default" href={"/techstack/edit/" + technology._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -61,7 +61,7 @@ const TechStack = () => {
                   </svg>
                   Edit
                 </Link>
-                <Link href={"/techstack/delete/" + technology._id}>
+                <Link className="btn-red" href={"/techstack/delete/" + technology._id}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
