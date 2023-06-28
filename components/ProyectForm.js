@@ -151,7 +151,7 @@ const ProyectForm = ({
       <textarea
         placeholder="proyect description"
         value={description}
-        onChange={(ev) => setDescription(ev)}
+        onChange={(ev) => setDescription(ev.target.value)}
       ></textarea>
 
       <label>Stack of technologies</label>
