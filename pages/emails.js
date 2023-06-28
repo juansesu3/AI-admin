@@ -33,7 +33,7 @@ const Emails = () => {
                   <button>
                     <Link
                       className="btn-default"
-                      href={"/proyects/edit/" + email._id}
+                      href={"/emails/view/" + email._id}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

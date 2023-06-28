@@ -7,7 +7,11 @@ const handle = async (req, res) => {
   await mongooseConnect();
 
   if (method === "GET") {
-    res.json(await Email.find());
+    if (req.query?.id) {
+      res.json(await Email.findOne({ _id: req.query.id }));
+    } else {
+      res.json(await Email.find());
+    }
   }
 };
 export default handle;
