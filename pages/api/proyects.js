@@ -28,6 +28,7 @@ const handle = async (req, res) => {
       linkCode,
       linkDeploy,
       images,
+      releaseDate,
     } = req.body;
     const proyectDoc = await Proyect.create({
       title,
@@ -40,6 +41,7 @@ const handle = async (req, res) => {
       linkCode,
       linkDeploy,
       images,
+      releaseDate,
     });
     res.json(proyectDoc);
   }
@@ -56,6 +58,7 @@ const handle = async (req, res) => {
       linkCode,
       linkDeploy,
       images,
+      releaseDate,
       _id,
     } = req.body;
     await Proyect.updateOne(
@@ -71,6 +74,7 @@ const handle = async (req, res) => {
         linkCode,
         linkDeploy,
         images,
+        releaseDate,
       }
     );
     res.json(true);

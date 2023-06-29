@@ -16,6 +16,7 @@ const ProyectForm = ({
   client: existingClient,
   service: existingService,
   proyectType: existingProyectType,
+  releaseDate: existingReleaseDate,
 }) => {
   //states to storage my data proyect
   const [title, setTitle] = useState(existingTitle || "");
@@ -28,6 +29,7 @@ const ProyectForm = ({
   //
 
   const [description, setDescription] = useState(existingDescription || "");
+  const [releaseDate, setReleaseDate] = useState(existingReleaseDate || "");
   const [linkCode, setLinkCode] = useState(existingLinkCode || "");
   const [linkDeploy, setLinkDeploy] = useState(existingLinkDeploy || "");
   const [images, setImages] = useState(existingImages || []);
@@ -214,6 +216,13 @@ const ProyectForm = ({
             </label>
           ))}
       </div>
+      <label>Release date</label>
+      <input
+        type="text"
+        placeholder="format(MM/DD/YYYY)"
+        value={releaseDate}
+        onChange={(ev) => setReleaseDate(ev.target.value)}
+      />
 
       <label>Link code</label>
       <input

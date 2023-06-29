@@ -12,6 +12,7 @@ const ProyectSchema = new Schema(
     client: { type: String, require: true },
     service: { type: String, require: true },
     proyectType: { type: String, require: true },
+    releaseDate: { type: String, require: true },
   },
   {
     timestamps: true,
