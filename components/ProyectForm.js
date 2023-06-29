@@ -12,9 +12,21 @@ const ProyectForm = ({
   linkCode: existingLinkCode,
   linkDeploy: existingLinkDeploy,
   images: existingImages,
+  about: existingAbout,
+  client: existingClient,
+  service: existingService,
+  proyectType: existingProyectType,
 }) => {
   //states to storage my data proyect
   const [title, setTitle] = useState(existingTitle || "");
+
+  //new feature
+  const [about, setAbout] = useState(existingAbout || "");
+  const [client, setClient] = useState(existingClient || "");
+  const [service, setService] = useState(existingService || "");
+  const [proyectType, setProyectType] = useState(existingProyectType || "");
+  //
+
   const [description, setDescription] = useState(existingDescription || "");
   const [linkCode, setLinkCode] = useState(existingLinkCode || "");
   const [linkDeploy, setLinkDeploy] = useState(existingLinkDeploy || "");
@@ -45,7 +57,11 @@ const ProyectForm = ({
     ev.preventDefault();
     const data = {
       title,
+      about,
       description,
+      client,
+      service,
+      proyectType,
       selectedTech,
       linkCode,
       linkDeploy,
@@ -106,6 +122,12 @@ const ProyectForm = ({
         value={title}
         onChange={(ev) => setTitle(ev.target.value)}
       />
+      <label>Proyect about</label>
+      <textarea
+        placeholder="proyect about"
+        value={about}
+        onChange={(ev) => setAbout(ev.target.value)}
+      ></textarea>
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
         <ReactSortable
@@ -153,6 +175,27 @@ const ProyectForm = ({
         value={description}
         onChange={(ev) => setDescription(ev.target.value)}
       ></textarea>
+      <label>Client</label>
+      <input
+        type="text"
+        placeholder="client"
+        value={client}
+        onChange={(ev) => setClient(ev.target.value)}
+      />
+      <label>Service</label>
+      <input
+        type="text"
+        placeholder="Service"
+        value={service}
+        onChange={(ev) => setService(ev.target.value)}
+      />
+      <label>Proyect</label>
+      <input
+        type="text"
+        placeholder="Dynamic or Static"
+        value={proyectType}
+        onChange={(ev) => setProyectType(ev.target.value)}
+      />
 
       <label>Stack of technologies</label>
       <div className="flex flex-wrap gap-4 mb-2">
