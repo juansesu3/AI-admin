@@ -65,6 +65,7 @@ const ProyectForm = ({
       service,
       proyectType,
       selectedTech,
+      releaseDate,
       linkCode,
       linkDeploy,
       images,
