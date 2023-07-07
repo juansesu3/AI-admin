@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -7,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const ProfilePage = () => {
   const { data } = useSession();
 
-  const [name, setName] = useState(data?.user.name);
+  const [username, setName] = useState(data?.user.name);
 
   const [greeting, setGreeting] = useState("");
   const [shortIntro, setShortIntro] = useState("");
@@ -35,11 +36,11 @@ const ProfilePage = () => {
   const [languages, setLanguages] = useState([]);
   const [skills, setSkils] = useState([]);
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault();
 
     const data = {
-      name,
+      username,
       greeting,
       shortIntro,
       introYourSelf,
@@ -48,6 +49,8 @@ const ProfilePage = () => {
       languages,
       skills,
     };
+
+    await axios.post("/api/profile", data);
   };
 
   const addExperince = () => {
@@ -203,7 +206,13 @@ const ProfilePage = () => {
       return [...prev, dataSkill];
     });
   };
-
+  const handleSkillChange = (indexSki, skill, ev) => {
+    setSkils((prev) => {
+      const skills = [...prev];
+      skills[indexSki].skill = ev;
+      return skills;
+    });
+  };
   const removeSkill = (indexToRemove) => {
     setSkils((prev) => {
       return [...prev].filter((s, sindex) => {
@@ -216,7 +225,7 @@ const ProfilePage = () => {
       <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
         <label>Name</label>
-        <input readOnly={true} value={name} />
+        <input readOnly={true} value={username} />
         <label>Greeting!</label>
         <input
           value={greeting}
@@ -308,7 +317,11 @@ const ProfilePage = () => {
             ))}
 
           <div className="flex justify-around mb-2">
-            <button onClick={addExperince} className="btn-primary">
+            <button
+              type="button"
+              onClick={addExperince}
+              className="btn-primary"
+            >
               Add Experinces
             </button>
           </div>
@@ -354,7 +367,7 @@ const ProfilePage = () => {
           ))}
 
         <div className="flex justify-around">
-          <button onClick={addEducation} className="btn-primary">
+          <button type="button" onClick={addEducation} className="btn-primary">
             Add Education
           </button>
         </div>
@@ -382,7 +395,11 @@ const ProfilePage = () => {
                 </div>
               ))}
             <div className="flex justify-around mb-2">
-              <button onClick={addLang} className="btn-primary mt-2 mb-4">
+              <button
+                type="button"
+                onClick={addLang}
+                className="btn-primary mt-2 mb-4"
+              >
                 Add Lang
               </button>
             </div>
@@ -391,7 +408,12 @@ const ProfilePage = () => {
           {skills.length > 0 &&
             skills.map((skill, indexSki) => (
               <div className="mt-2" key={indexSki}>
-                <input type="text" placeholder="skill" />
+                <input
+                  value={skills?.skills}
+                  onChange={(ev) => handleSkillChange(indexSki, skill, ev)}
+                  type="text"
+                  placeholder="skill"
+                />
                 <button
                   type="button"
                   onClick={() => removeSkill(indexSki)}
@@ -402,7 +424,11 @@ const ProfilePage = () => {
               </div>
             ))}
           <div className="flex justify-around mb-2">
-            <button onClick={addSkill} className="btn-primary mt-2 mb-4">
+            <button
+              type="button"
+              onClick={addSkill}
+              className="btn-primary mt-2 mb-4"
+            >
               Add Skill
             </button>
           </div>

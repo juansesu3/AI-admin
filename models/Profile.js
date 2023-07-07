@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const ProfileSchema = new Schema({
-  name: { type: String, require: true },
+    username: { type: String, require: true },
   greeting: { type: String, require: true },
   shortIntro: { type: String, require: true },
   introYourSelf: { type: String, require: true },
