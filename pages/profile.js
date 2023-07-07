@@ -131,10 +131,33 @@ const ProfilePage = () => {
   };
   console.log(education);
 
+  const handleDateGotItChange = (indexEd, edu, ev) => {
+    setEducation((prev) => {
+      const education = [...prev];
+      education[indexEd].gotDate = ev;
+      return education;
+    });
+  };
+
   const handleCertificationChange = (indexEd, edu, ev) => {
     setEducation((prev) => {
       const education = [...prev];
       education[indexEd].certificationName = ev.target.value;
+      return education;
+    });
+  };
+  const handleinstitutionChange = (indexEd, edu, ev) => {
+    setEducation((prev) => {
+      const education = [...prev];
+      education[indexEd].institutionName = ev.target.value;
+      return education;
+    });
+  };
+
+  const handleImgChange = (indexEd, edu, ev) => {
+    setEducation((prev) => {
+      const education = [...prev];
+      education[indexEd].imageCertification = ev.target.value;
       return education;
     });
   };
@@ -151,20 +174,23 @@ const ProfilePage = () => {
     <Layout>
       <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
+        <label>Name</label>
         <input readOnly={true} value={name} />
-
+        <label>Greeting!</label>
         <input
           value={greeting}
           onChange={(ev) => setGreeting(ev.target.value)}
           type="text"
-          placeholder="say hi!"
+          placeholder="greeting"
         />
+        <label>Short introduction</label>
         <textarea
           value={shortIntro}
           onChange={(ev) => setShortIntro(ev.target.value)}
           type="text"
           placeholder="Short introduction"
         ></textarea>
+        <label>Introduce yourself</label>
         <textarea
           value={introYourSelf}
           onChange={(ev) => setIntroYourSelf(ev.target.value)}
@@ -249,14 +275,14 @@ const ProfilePage = () => {
         {/*Fecha, institution, Certificacion*/}
         <label>Education</label>
         {education.length > 0 &&
-          education.map((indexEd, edu) => (
+          education.map((edu, indexEd) => (
             <div className="mb-2" key={edu}>
-              <div>
+              <div className="flex flex-col w-60">
                 <label>When you got it?</label>
                 <DatePicker
-                  placeholderText="date when you got it"
                   selected={edu.gotDate}
-                  onChange={(date) => setGotDate(date)}
+                  value={edu.gotDate}
+                  onChange={(ev) => handleDateGotItChange(indexEd, edu, ev)}
                 />
               </div>
               <input
@@ -265,10 +291,20 @@ const ProfilePage = () => {
                 type="text"
                 placeholder="certification"
               />
-              <input type="text" placeholder="institution" />
-              <input type="text" placeholder="url image certification" />
+              <input
+                value={edu.institutionName}
+                onChange={(ev) => handleinstitutionChange(indexEd, edu, ev)}
+                type="text"
+                placeholder="institution"
+              />
+              <input
+                value={edu.imageCertification}
+                type="text"
+                placeholder="url image certification"
+                onChange={(ev) => handleImgChange(indexEd, edu, ev)}
+              />
               <button
-                onClick={() => removeEducation(edu)}
+                onClick={() => removeEducation(indexEd)}
                 className="btn-red w-60"
               >
                 Remove
