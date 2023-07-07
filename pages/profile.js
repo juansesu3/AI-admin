@@ -139,68 +139,77 @@ const ProfilePage = () => {
         ></textarea>
         {/*Fecha, empresa, cargo */}
         <div>
-          <label>Experinces</label>
-          <button onClick={addExperince} className="btn-default">
-            Add Experinces
-          </button>
+          <label>Experiences:</label>
           {experinces.length > 0 &&
             experinces.map((experince, index) => (
-              <div key={index} className="flex gap-1 mb-2">
-                <div>
-                  <label>Start Date:</label>
-                  <DatePicker
-                    placeholderText="start date"
-                    selected={experince.startDateExp}
-                    value={experince.startDateExp}
-                    onChange={(date) =>
-                      handleStartDateChange(index, experince, date)
+              <div key={index} className="flex flex-col gap-1 mb-2">
+                <div className="flex gap-4">
+                  <div className="flex flex-col">
+                    <label>Start Date:</label>
+                    <DatePicker
+                      placeholderText="start date"
+                      selected={experince.startDateExp}
+                      value={experince.startDateExp}
+                      onChange={(date) =>
+                        handleStartDateChange(index, experince, date)
+                      }
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label>End Date:</label>
+                    <DatePicker
+                      placeholderText="end date"
+                      selected={experince.endDateExp}
+                      value={experince.endDateExp}
+                      onChange={(date) =>
+                        handleEndtDateChange(index, experince, date)
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <input
+                    value={experince.company}
+                    onChange={(ev) => handleCompanyChange(index, experince, ev)}
+                    type="text"
+                    placeholder="company"
+                  />
+                  <input
+                    value={experince.position}
+                    onChange={(ev) =>
+                      handlePositionChange(index, experince, ev)
                     }
+                    type="text"
+                    placeholder="position"
                   />
                 </div>
-                <div>
-                  <label>End Date:</label>
-                  <DatePicker
-                    placeholderText="end date"
-                    selected={experince.startDateExp}
-                    value={experince.endDateExp}
-                    onChange={(date) =>
-                      handleEndtDateChange(index, experince, date)
-                    }
+                <div className="flex gap-4">
+                  <input
+                    value={experince.urlCompany}
+                    onChange={(ev) => handleUrlComChange(index, experince, ev)}
+                    type="text"
+                    placeholder="url company"
                   />
+                  <textarea
+                    value={experince.roldescription}
+                    onChange={(ev) => handleRolDescChange(index, experince, ev)}
+                    placeholder="description"
+                  ></textarea>
                 </div>
-                <input
-                  value={experince.company}
-                  onChange={(ev) => handleCompanyChange(index, experince, ev)}
-                  type="text"
-                  placeholder="company"
-                />
-                <input
-                  value={experince.position}
-                  onChange={(ev) => handlePositionChange(index, experince, ev)}
-                  type="text"
-                  placeholder="position"
-                />
-                <input
-                  value={experince.urlCompany}
-                  onChange={(ev) => handleUrlComChange(index, experince, ev)}
-                  type="text"
-                  placeholder="url company"
-                />
-                <textarea
-                  value={experince.roldescription}
-                  onChange={(ev) => handleRolDescChange(index, experince, ev)}
-                  placeholder="description"
-                ></textarea>
-
                 <button
                   type="button"
                   onClick={() => removeExperinces(index)}
-                  className="btn-red"
+                  className="btn-red w-60"
                 >
                   Remove
                 </button>
               </div>
             ))}
+          <div className="flex justify-around">
+            <button onClick={addExperince} className="btn-primary">
+              Add Experinces
+            </button>
+          </div>
         </div>
         {/*Fecha, institution, Certificacion*/}
         <div>
