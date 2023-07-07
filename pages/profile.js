@@ -173,11 +173,11 @@ const ProfilePage = () => {
         ></textarea>
         {/*Fecha, empresa, cargo */}
         <div>
-          <label>Experiences:</label>
+          <label>Experinces</label>
           {experinces.length > 0 &&
             experinces.map((experince, index) => (
               <div key={index} className="flex flex-col gap-1 mb-2">
-                <div className="flex gap-4">
+                <div className="flex gap-4 ">
                   <div className="flex flex-col">
                     <label>Start Date:</label>
                     <DatePicker
@@ -201,7 +201,7 @@ const ProfilePage = () => {
                     />
                   </div>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 md:flex flex-col">
                   <input
                     value={experince.company}
                     onChange={(ev) => handleCompanyChange(index, experince, ev)}
@@ -217,7 +217,7 @@ const ProfilePage = () => {
                     placeholder="position"
                   />
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 md:flex flex-col">
                   <input
                     value={experince.urlCompany}
                     onChange={(ev) => handleUrlComChange(index, experince, ev)}
@@ -240,7 +240,7 @@ const ProfilePage = () => {
               </div>
             ))}
 
-          <div className="flex justify-around">
+          <div className="flex justify-around mb-2">
             <button onClick={addExperince} className="btn-primary">
               Add Experinces
             </button>
@@ -250,7 +250,7 @@ const ProfilePage = () => {
         <label>Education</label>
         {education.length > 0 &&
           education.map((indexEd, edu) => (
-            <div key={edu}>
+            <div className="mb-2" key={edu}>
               <div>
                 <label>When you got it?</label>
                 <DatePicker
