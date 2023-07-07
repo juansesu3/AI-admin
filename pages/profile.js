@@ -25,7 +25,11 @@ const ProfilePage = () => {
 
   //Start array education
   const [education, setEducation] = useState([]);
-  const [startDateEdu, setStartDateEdu] = useState(null);
+  const [gotDate, setGotDate] = useState(new Date());
+  const [certificationName, setNameCertificationName] = useState("");
+  const [institutionName, setInstitutionName] = useState("");
+  const [imageCertification, setImageCertification] = useState("");
+
   //End array education
 
   const [languages, setLanguage] = useState([]);
@@ -109,6 +113,36 @@ const ProfilePage = () => {
     setExperinces((prev) => {
       return [...prev].filter((t, tIndex) => {
         return tIndex !== indexToRemove;
+      });
+    });
+  };
+
+  const addEducation = () => {
+    const dataEdu = {
+      gotDate: gotDate,
+      certificationName: certificationName,
+      institutionName: institutionName,
+      imageCertification: imageCertification,
+    };
+
+    setEducation((prev) => {
+      return [...prev, dataEdu];
+    });
+  };
+  console.log(education);
+
+  const handleCertificationChange = (indexEd, edu, ev) => {
+    setEducation((prev) => {
+      const education = [...prev];
+      education[indexEd].certificationName = ev.target.value;
+      return education;
+    });
+  };
+
+  const removeEducation = (indexToRemove) => {
+    setEducation((prev) => {
+      return [...prev].filter((e, eIndex) => {
+        return eIndex !== indexToRemove;
       });
     });
   };
@@ -205,6 +239,7 @@ const ProfilePage = () => {
                 </button>
               </div>
             ))}
+
           <div className="flex justify-around">
             <button onClick={addExperince} className="btn-primary">
               Add Experinces
@@ -212,21 +247,41 @@ const ProfilePage = () => {
           </div>
         </div>
         {/*Fecha, institution, Certificacion*/}
-        <div>
-          <label>Education</label>
-          <div>
-            <label>When you got it?</label>
-            <DatePicker
-              placeholderText="date when you got it"
-              selected={startDateEdu}
-              onChange={(date) => setStartDateEdu(date)}
-            />
-          </div>
-          <input type="text" placeholder="certification" />
-          <input type="text" placeholder="institution" />
-          <input type="text" placeholder="url image certification" />
-          <button className="btn-default">Add Education</button>
+        <label>Education</label>
+        {education.length > 0 &&
+          education.map((indexEd, edu) => (
+            <div key={edu}>
+              <div>
+                <label>When you got it?</label>
+                <DatePicker
+                  placeholderText="date when you got it"
+                  selected={edu.gotDate}
+                  onChange={(date) => setGotDate(date)}
+                />
+              </div>
+              <input
+                value={edu.certificationName}
+                onChange={(ev) => handleCertificationChange(indexEd, edu, ev)}
+                type="text"
+                placeholder="certification"
+              />
+              <input type="text" placeholder="institution" />
+              <input type="text" placeholder="url image certification" />
+              <button
+                onClick={() => removeEducation(edu)}
+                className="btn-red w-60"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+
+        <div className="flex justify-around">
+          <button onClick={addEducation} className="btn-primary">
+            Add Education
+          </button>
         </div>
+
         <div>
           <label>Others</label>
           <div>
