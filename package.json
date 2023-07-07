@@ -23,6 +23,7 @@
     "next-auth": "^4.22.1",
     "postcss": "8.4.24",
     "react": "18.2.0",
+    "react-datepicker": "^4.15.0",
     "react-dom": "18.2.0",
     "react-quill": "^2.0.0",
     "react-sortable": "^2.0.0",
