@@ -32,7 +32,7 @@ const ProfilePage = () => {
 
   //End array education
 
-  const [languages, setLanguage] = useState([]);
+  const [languages, setLanguages] = useState([]);
   const [skills, setSkils] = useState([]);
 
   const handleSubmit = (ev) => {
@@ -129,7 +129,6 @@ const ProfilePage = () => {
       return [...prev, dataEdu];
     });
   };
-  console.log(education);
 
   const handleDateGotItChange = (indexEd, edu, ev) => {
     setEducation((prev) => {
@@ -170,6 +169,48 @@ const ProfilePage = () => {
     });
   };
 
+  const addLang = () => {
+    const dataLang = {
+      languages: languages,
+    };
+
+    setLanguages((prev) => {
+      return [...prev, dataLang];
+    });
+  };
+  const handleLanguagesChange = (indexLang, lang, ev) => {
+    setLanguages((prev) => {
+      const languages = [...prev];
+      languages[indexLang].languages = ev.target.value;
+      return languages;
+    });
+  };
+
+  const removeLang = (indexToRemove) => {
+    setLanguages((prev) => {
+      return [...prev].filter((l, lindex) => {
+        return lindex !== indexToRemove;
+      });
+    });
+  };
+
+  const addSkill = () => {
+    const dataSkill = {
+      skills: skills,
+    };
+
+    setSkils((prev) => {
+      return [...prev, dataSkill];
+    });
+  };
+
+  const removeSkill = (indexToRemove) => {
+    setSkils((prev) => {
+      return [...prev].filter((s, sindex) => {
+        return sindex !== indexToRemove;
+      });
+    });
+  };
   return (
     <Layout>
       <h1>Profile</h1>
@@ -319,17 +360,54 @@ const ProfilePage = () => {
         </div>
 
         <div>
-          <label>Others</label>
           <div>
-            <input type="text" placeholder="language" />
-            <button className="btn-default">Add Lang</button>
+            <label>Languages</label>
+            {languages.length > 0 &&
+              languages.map((lang, indexLang) => (
+                <div className="mt-2" key={indexLang}>
+                  <input
+                    value={lang?.language}
+                    onChange={(ev) =>
+                      handleLanguagesChange(indexLang, lang, ev)
+                    }
+                    type="text"
+                    placeholder="language"
+                  />
+                  <button
+                    onClick={() => removeLang(indexLang)}
+                    className="btn-red w-60"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            <div className="flex justify-around mb-2">
+              <button onClick={addLang} className="btn-primary mt-2 mb-4">
+                Add Lang
+              </button>
+            </div>
           </div>
-          <div>
-            <input type="text" placeholder="skill" />
-            <button className="btn-default">Add Skill</button>
+          <label>Skills</label>
+          {skills.length > 0 &&
+            skills.map((skill, indexSki) => (
+              <div className="mt-2" key={indexSki}>
+                <input type="text" placeholder="skill" />
+                <button
+                  type="button"
+                  onClick={() => removeSkill(indexSki)}
+                  className="btn-red w-60"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+          <div className="flex justify-around mb-2">
+            <button onClick={addSkill} className="btn-primary mt-2 mb-4">
+              Add Skill
+            </button>
           </div>
         </div>
-        <button type="submit" className="btn-primary">
+        <button type="submit" className="mt-4 btn-primary">
           Save
         </button>
       </form>
