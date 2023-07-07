@@ -4,59 +4,211 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const ProfilePage = () => {
   const { data } = useSession();
 
   const [name, setName] = useState(data?.user.name);
 
-  const [startDateExp, setStartDateExp] = useState(null);
-  const [endDateExp, setEndDateExp] = useState(null);
-  const [startDateEdu, setStartDateEdu] = useState(null);
+  const [greeting, setGreeting] = useState("");
+  const [shortIntro, setShortIntro] = useState("");
+  const [introYourSelf, setIntroYourSelf] = useState();
 
-  const handleSubmit =(ev)=>{
+  //Start array experiences
+  const [experinces, setExperinces] = useState([]);
+  const [startDateExp, setStartDateExp] = useState(new Date());
+  const [endDateExp, setEndDateExp] = useState(new Date());
+  const [company, setCompany] = useState("");
+  const [position, setPosition] = useState("");
+  const [urlCompany, setUrlCompany] = useState("");
+  const [roldescription, setRolDescription] = useState("");
+  //End array experiences
+
+  //Start array education
+  const [education, setEducation] = useState([]);
+  const [startDateEdu, setStartDateEdu] = useState(null);
+  //End array education
+
+  const [languages, setLanguage] = useState([]);
+  const [skills, setSkils] = useState([]);
+
+  const handleSubmit = (ev) => {
     ev.preventDefault();
 
-  }
+    const data = {
+      name,
+      greeting,
+      shortIntro,
+      introYourSelf,
+      experinces,
+      education,
+      languages,
+      skills,
+    };
+  };
+
+  const addExperince = () => {
+    const dataExp = {
+      startDateExp: startDateExp,
+      endDateExp: endDateExp,
+      company: company,
+      position: position,
+      urlCompany: urlCompany,
+      roldescription: roldescription,
+    };
+
+    setExperinces((prev) => {
+      return [...prev, dataExp];
+    });
+  };
+
+  const handleStartDateChange = (index, experince, date) => {
+    setExperinces((prev) => {
+      const experiences = [...prev];
+      experiences[index].startDateExp = date;
+      return experiences;
+    });
+  };
+  const handleEndtDateChange = (index, experince, date) => {
+    setExperinces((prev) => {
+      const experiences = [...prev];
+      experiences[index].endDateExp = date;
+      return experiences;
+    });
+  };
+
+  const handleCompanyChange = (index, experince, ev) => {
+    setExperinces((prev) => {
+      const experiences = [...prev];
+      experiences[index].company = ev.target.value;
+      return experiences;
+    });
+  };
+
+  const handlePositionChange = (index, experince, ev) => {
+    setExperinces((prev) => {
+      const experiences = [...prev];
+      experiences[index].position = ev.target.value;
+      return experiences;
+    });
+  };
+  const handleUrlComChange = (index, experince, ev) => {
+    setExperinces((prev) => {
+      const experiences = [...prev];
+      experiences[index].urlCompany = ev.target.value;
+      return experiences;
+    });
+  };
+  const handleRolDescChange = (index, experince, ev) => {
+    setExperinces((prev) => {
+      const experiences = [...prev];
+      experiences[index].roldescription = ev.target.value;
+      return experiences;
+    });
+  };
+  const removeExperinces = (indexToRemove) => {
+    setExperinces((prev) => {
+      return [...prev].filter((t, tIndex) => {
+        return tIndex !== indexToRemove;
+      });
+    });
+  };
 
   return (
     <Layout>
       <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
         <input readOnly={true} value={name} />
-       
-        <input type="text" placeholder="say hi!" />
-        <textarea type="text" placeholder="Short introduction"></textarea>
-        <textarea type="text" placeholder="Introduce yourself"></textarea>
+
+        <input
+          value={greeting}
+          onChange={(ev) => setGreeting(ev.target.value)}
+          type="text"
+          placeholder="say hi!"
+        />
+        <textarea
+          value={shortIntro}
+          onChange={(ev) => setShortIntro(ev.target.value)}
+          type="text"
+          placeholder="Short introduction"
+        ></textarea>
+        <textarea
+          value={introYourSelf}
+          onChange={(ev) => setIntroYourSelf(ev.target.value)}
+          type="text"
+          placeholder="Introduce yourself"
+        ></textarea>
         {/*Fecha, empresa, cargo */}
         <div>
           <label>Experinces</label>
-          <div>
-            <label>Fecha de inicio:</label>
-            <DatePicker
-              selected={startDateExp}
-              onChange={(date) => setStartDateExp(date)}
-            />
-          </div>
-          <div>
-            <label>Fecha de fin:</label>
-            <DatePicker
-              selected={endDateExp}
-              onChange={(date) => setEndDateExp(date)}
-            />
-          </div>
-          <input type="text" placeholder="company" />
-          <input type="text" placeholder="position" />
-          <input type="text" placeholder="url company" />
-          <textarea placeholder="description"></textarea>
-          <button className="btn-default">Add Experinces</button>
+          <button onClick={addExperince} className="btn-default">
+            Add Experinces
+          </button>
+          {experinces.length > 0 &&
+            experinces.map((experince, index) => (
+              <div key={index} className="flex gap-1 mb-2">
+                <div>
+                  <label>Start Date:</label>
+                  <DatePicker
+                    placeholderText="start date"
+                    selected={experince.startDateExp}
+                    value={experince.startDateExp}
+                    onChange={(date) =>
+                      handleStartDateChange(index, experince, date)
+                    }
+                  />
+                </div>
+                <div>
+                  <label>End Date:</label>
+                  <DatePicker
+                    placeholderText="end date"
+                    selected={experince.startDateExp}
+                    value={experince.endDateExp}
+                    onChange={(date) =>
+                      handleEndtDateChange(index, experince, date)
+                    }
+                  />
+                </div>
+                <input
+                  value={experince.company}
+                  onChange={(ev) => handleCompanyChange(index, experince, ev)}
+                  type="text"
+                  placeholder="company"
+                />
+                <input
+                  value={experince.position}
+                  onChange={(ev) => handlePositionChange(index, experince, ev)}
+                  type="text"
+                  placeholder="position"
+                />
+                <input
+                  value={experince.urlCompany}
+                  onChange={(ev) => handleUrlComChange(index, experince, ev)}
+                  type="text"
+                  placeholder="url company"
+                />
+                <textarea
+                  value={experince.roldescription}
+                  onChange={(ev) => handleRolDescChange(index, experince, ev)}
+                  placeholder="description"
+                ></textarea>
+
+                <button
+                  type="button"
+                  onClick={() => removeExperinces(index)}
+                  className="btn-red"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
         </div>
         {/*Fecha, institution, Certificacion*/}
         <div>
           <label>Education</label>
           <div>
-            <label>Fecha de inicio:</label>
+            <label>When you got it?</label>
             <DatePicker
+              placeholderText="date when you got it"
               selected={startDateEdu}
               onChange={(date) => setStartDateEdu(date)}
             />
@@ -77,7 +229,9 @@ const ProfilePage = () => {
             <button className="btn-default">Add Skill</button>
           </div>
         </div>
-        <button type="submit" className="btn-primary">Save</button>
+        <button type="submit" className="btn-primary">
+          Save
+        </button>
       </form>
     </Layout>
   );
