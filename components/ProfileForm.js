@@ -65,8 +65,8 @@ const ProfileForm = ({
       })),
     };
     console.log(data);
-    const dataWithoutCircular = data;
-    await axios.post("/api/profile", dataWithoutCircular);
+    
+    await axios.post("/api/profile", data);
   };
 
   const addExperince = () => {
