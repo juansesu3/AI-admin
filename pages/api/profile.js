@@ -7,6 +7,10 @@ const handle = async (req, res) => {
   await mongooseConnect();
   const { method } = req;
 
+  if (method === "GET") {
+    res.json(await Profile.find());
+  }
+
   if (method === "POST") {
     const {
       username,

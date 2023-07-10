@@ -14,10 +14,7 @@ const Proyects = () => {
 
   return (
     <Layout>
-      <Link
-        className="btn-primary"
-        href={"/proyects/new"}
-      >
+      <Link className="btn-primary" href={"/proyects/new"}>
         Add new proyect
       </Link>
       <table className="basic mt-2">
@@ -32,7 +29,10 @@ const Proyects = () => {
             <tr key={proyect._id}>
               <td>{proyect.title}</td>
               <td>
-                <Link className="btn-default" href={"/proyects/edit/" + proyect._id}>
+                <Link
+                  className="btn-default"
+                  href={"/proyects/edit/" + proyect._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -49,7 +49,10 @@ const Proyects = () => {
                   </svg>
                   Edit
                 </Link>
-                <Link className="btn-red" href={"/proyects/delete/" + proyect._id}>
+                <Link
+                  className="btn-red"
+                  href={"/proyects/delete/" + proyect._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

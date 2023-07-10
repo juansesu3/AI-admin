@@ -9,6 +9,8 @@ const ProfileSchema = new Schema({
   education: [{ type: Object, require: true }],
   languages: [{ type: Object, require: true }],
   skills: [{ type: Object, require: true }],
+},{
+  timestamps:true
 });
 
 export const Profile = models.Profile || model("Profile", ProfileSchema);
