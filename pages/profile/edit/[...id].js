@@ -13,7 +13,7 @@ const EditProfilePage = () => {
     if (!id) {
       return;
     }
-    axios.get("/api/profile?id=" + id).then((response) => {
+    axios.get("/api/profiles?id=" + id).then((response) => {
       for (const edu of response?.data?.education) {
         let cleanDate = edu.gotDate
           .split("T")

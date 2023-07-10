@@ -22,7 +22,7 @@ const ProfileForm = ({
   const { data } = useSession();
 
   const [username, setName] = useState(existingUsername || data?.user.name);
-
+  const [goProfiles, setGoProfiles] = useState(false);
   const [greeting, setGreeting] = useState(existingGreeting || "");
   const [shortIntro, setShortIntro] = useState(existingShortIntro || "");
   const [introYourSelf, setIntroYourSelf] = useState(
@@ -38,6 +38,7 @@ const ProfileForm = ({
   //End array education
   const [languages, setLanguages] = useState(existingLanguages || []);
   const [skills, setSkils] = useState(existingSkills || []);
+  console.log(skills)
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -70,11 +71,16 @@ const ProfileForm = ({
     };
     console.log(data);
     if (_id) {
-      await axios.put("/api/profile", { ...data, _id });
+      await axios.put("/api/profiles", { ...data, _id });
     } else {
-      await axios.post("/api/profile", data);
+      await axios.post("/api/profiles", data);
     }
+    setGoProfiles(true);
+
   };
+  if (goProfiles){
+    router.push("´profiles");
+  }
 
   const addExperince = () => {
     const dataExp = {

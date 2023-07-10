@@ -8,11 +8,11 @@ const ProfilePage = () => {
   const [profiles, setProfiles] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/profile").then((response) => {
-      setProfiles(response.data);
+    axios.get("/api/profiles").then((response) => {
+      setProfiles(response.data); 
     });
   }, []);
-  console.log(profiles);
+  console.log(profiles); 
   return (
     <Layout>
       <h1>Profiles</h1>

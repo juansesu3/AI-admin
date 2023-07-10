@@ -50,8 +50,8 @@ const Nav = ({ show }) => {
           <span>Dashboard</span>
         </Link>
         <Link
-          href={"/profile"}
-          className={pathname === "/profile" ? activeLink : inactiveLink}
+          href={"/profiles"}
+          className={pathname === "/profiles" ? activeLink : inactiveLink}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ const Nav = ({ show }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={pathname === "/profile" ? activeIcon : inactiveIcon}
+            className={pathname === "/profiles" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
