@@ -8,6 +8,17 @@ const handle = async (req, res) => {
   const { method } = req;
 
   if (method === "POST") {
+    const {
+      username,
+      greeting,
+      shortIntro,
+      introYourSelf,
+      experinces,
+      education,
+      languages,
+      skills,
+    } = req.body;
+   
     const profileDoc = await Profile.create({
       username,
       greeting,

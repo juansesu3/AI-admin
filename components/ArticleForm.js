@@ -51,6 +51,7 @@ const ArticleForm = ({
       articleCat,
       topics: articleTopics,
     };
+
     if (_id) {
       //update
       await axios.put("/api/articles", { ...data, _id });

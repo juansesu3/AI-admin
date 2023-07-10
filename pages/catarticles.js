@@ -47,6 +47,7 @@ const Catarticles = ({ swal }) => {
     setParentArticleCategory("");
     setTopics([]);
     fetchCategories();
+   
   };
 
   //edit category function

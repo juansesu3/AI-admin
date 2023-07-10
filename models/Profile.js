@@ -7,8 +7,8 @@ const ProfileSchema = new Schema({
   introYourSelf: { type: String, require: true },
   experinces: [{ type: String, require: true }],
   education: [{ type: String, require: true }],
-  languages: { type: String, require: true },
-  skills: { type: String, require: true },
+  languages: [{ type: String, require: true }],
+  skills: [{ type: String, require: true }],
 });
 
 export const Profile = models.Profile || model("Profile", ProfileSchema);

@@ -26,7 +26,7 @@ const ProfilePage = () => {
 
   //Start array education
   const [education, setEducation] = useState([]);
-  const [gotDate, setGotDate] = useState(new Date());
+  const [gotDate, setGotDate] = useState("");
   const [certificationName, setNameCertificationName] = useState("");
   const [institutionName, setInstitutionName] = useState("");
   const [imageCertification, setImageCertification] = useState("");
@@ -34,7 +34,9 @@ const ProfilePage = () => {
   //End array education
 
   const [languages, setLanguages] = useState([]);
+  const [language, setLanguage] = useState("");
   const [skills, setSkils] = useState([]);
+  const [skill, setSkill] = useState("");
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -44,23 +46,40 @@ const ProfilePage = () => {
       greeting,
       shortIntro,
       introYourSelf,
-      experinces,
-      education,
-      languages,
-      skills,
+      experinces: experinces.map((e) => ({
+        company: e.company,
+        endDateExp: e.endDateExp,
+        position: e.position,
+        roldescription: e.roldescription,
+        urlCompany: e.urlCompany,
+        startDateExp: e.startDateExp,
+      })),
+      education: education.map((edu) => ({
+        certificationName: edu.certificationName,
+        gotDate: edu.gotDate,
+        imageCertification: edu.imageCertification,
+        institutionName: edu.institutionName,
+      })),
+      languages: languages.map((lang) => ({
+        language: lang.language,
+      })),
+      skills: skills.map((ski) => ({
+        skill: ski.skill,
+      })),
     };
-
-    await axios.post("/api/profile", data);
+    console.log(data);
+    const dataWithoutCircular = JSON.parse(JSON.stringify(data));
+    await axios.post("/api/profile", dataWithoutCircular);
   };
 
   const addExperince = () => {
     const dataExp = {
-      startDateExp: startDateExp,
-      endDateExp: endDateExp,
-      company: company,
-      position: position,
-      urlCompany: urlCompany,
-      roldescription: roldescription,
+      startDateExp: "",
+      endDateExp: "",
+      company: "",
+      position: "",
+      urlCompany: "",
+      roldescription: "",
     };
 
     setExperinces((prev) => {
@@ -71,7 +90,11 @@ const ProfilePage = () => {
   const handleStartDateChange = (index, experince, date) => {
     setExperinces((prev) => {
       const experiences = [...prev];
+      console.log(typeof date);
+      console.log(index);
+
       experiences[index].startDateExp = date;
+
       return experiences;
     });
   };
@@ -184,7 +207,7 @@ const ProfilePage = () => {
   const handleLanguagesChange = (indexLang, lang, ev) => {
     setLanguages((prev) => {
       const languages = [...prev];
-      languages[indexLang].languages = ev.target.value;
+      languages[indexLang].language = ev.target.value;
       return languages;
     });
   };
@@ -206,10 +229,10 @@ const ProfilePage = () => {
       return [...prev, dataSkill];
     });
   };
-  const handleSkillChange = (indexSki, skill, ev) => {
+  const handleSkillChange = (indexSki, skilll, ev) => {
     setSkils((prev) => {
       const skills = [...prev];
-      skills[indexSki].skill = ev;
+      skills[indexSki].skilll = ev.target.value;
       return skills;
     });
   };
@@ -224,98 +247,116 @@ const ProfilePage = () => {
     <Layout>
       <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input readOnly={true} value={username} />
-        <label>Greeting!</label>
-        <input
-          value={greeting}
-          onChange={(ev) => setGreeting(ev.target.value)}
-          type="text"
-          placeholder="greeting"
-        />
-        <label>Short introduction</label>
-        <textarea
-          value={shortIntro}
-          onChange={(ev) => setShortIntro(ev.target.value)}
-          type="text"
-          placeholder="Short introduction"
-        ></textarea>
-        <label>Introduce yourself</label>
-        <textarea
-          value={introYourSelf}
-          onChange={(ev) => setIntroYourSelf(ev.target.value)}
-          type="text"
-          placeholder="Introduce yourself"
-        ></textarea>
+        <label>
+          Name
+          <input readOnly={true} value={username} name="username" />
+        </label>
+        <label>
+          Greeting!
+          <input
+            name="greeting"
+            value={greeting}
+            onChange={(ev) => setGreeting(ev.target.value)}
+            type="text"
+            placeholder="greeting"
+          />
+        </label>
+        <label>
+          Short introduction
+          <textarea
+            value={shortIntro}
+            onChange={(ev) => setShortIntro(ev.target.value)}
+            type="text"
+            placeholder="Short introduction"
+          ></textarea>
+        </label>
+        <label>
+          Introduce yourself
+          <textarea
+            value={introYourSelf}
+            onChange={(ev) => setIntroYourSelf(ev.target.value)}
+            type="text"
+            placeholder="Introduce yourself"
+          ></textarea>
+        </label>
         {/*Fecha, empresa, cargo */}
         <div>
-          <label>Experinces</label>
-          {experinces.length > 0 &&
-            experinces.map((experince, index) => (
-              <div key={index} className="flex flex-col gap-1 mb-2">
-                <div className="flex gap-4 ">
-                  <div className="flex flex-col">
-                    <label>Start Date:</label>
-                    <DatePicker
-                      placeholderText="start date"
-                      selected={experince.startDateExp}
-                      value={experince.startDateExp}
-                      onChange={(date) =>
-                        handleStartDateChange(index, experince, date)
+          <label>
+            Experinces
+            {experinces.length > 0 &&
+              experinces.map((experince, index) => (
+                <div key={index} className="flex flex-col gap-1 mb-2">
+                  <div className="flex gap-4 ">
+                    <div className="flex flex-col">
+                      <label>
+                        Start Date:
+                        <DatePicker
+                          placeholderText="start date"
+                          selected={experince.startDateExp}
+                          value={experince.startDateExp}
+                          onChange={(date) =>
+                            handleStartDateChange(index, experince, date)
+                          }
+                        />
+                      </label>
+                    </div>
+                    <div className="flex flex-col">
+                      <label>End Date:</label>
+                      <DatePicker
+                        placeholderText="end date"
+                        selected={experince.endDateExp}
+                        value={experince.endDateExp}
+                        onChange={(date) =>
+                          handleEndtDateChange(index, experince, date)
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-4 md:flex flex-col">
+                    <input
+                      value={experince.company}
+                      onChange={(ev) =>
+                        handleCompanyChange(index, experince, ev)
                       }
+                      type="text"
+                      placeholder="company"
+                    />
+                    <input
+                      value={experince.position}
+                      onChange={(ev) =>
+                        handlePositionChange(index, experince, ev)
+                      }
+                      type="text"
+                      placeholder="position"
                     />
                   </div>
-                  <div className="flex flex-col">
-                    <label>End Date:</label>
-                    <DatePicker
-                      placeholderText="end date"
-                      selected={experince.endDateExp}
-                      value={experince.endDateExp}
-                      onChange={(date) =>
-                        handleEndtDateChange(index, experince, date)
+                  <div className="flex gap-4 md:flex flex-col">
+                    <input
+                      value={experince.urlCompany}
+                      onChange={(ev) =>
+                        handleUrlComChange(index, experince, ev)
                       }
+                      type="text"
+                      placeholder="url company"
                     />
+                    <textarea
+                      value={experince.roldescription}
+                      onChange={(ev) =>
+                        handleRolDescChange(index, experince, ev)
+                      }
+                      placeholder="description"
+                    ></textarea>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => removeExperinces(index)}
+                    className="btn-red w-60"
+                  >
+                    Remove
+                  </button>
                 </div>
-                <div className="flex gap-4 md:flex flex-col">
-                  <input
-                    value={experince.company}
-                    onChange={(ev) => handleCompanyChange(index, experince, ev)}
-                    type="text"
-                    placeholder="company"
-                  />
-                  <input
-                    value={experince.position}
-                    onChange={(ev) =>
-                      handlePositionChange(index, experince, ev)
-                    }
-                    type="text"
-                    placeholder="position"
-                  />
-                </div>
-                <div className="flex gap-4 md:flex flex-col">
-                  <input
-                    value={experince.urlCompany}
-                    onChange={(ev) => handleUrlComChange(index, experince, ev)}
-                    type="text"
-                    placeholder="url company"
-                  />
-                  <textarea
-                    value={experince.roldescription}
-                    onChange={(ev) => handleRolDescChange(index, experince, ev)}
-                    placeholder="description"
-                  ></textarea>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => removeExperinces(index)}
-                  className="btn-red w-60"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-
+              ))}
+          </label>
           <div className="flex justify-around mb-2">
             <button
               type="button"
@@ -327,44 +368,47 @@ const ProfilePage = () => {
           </div>
         </div>
         {/*Fecha, institution, Certificacion*/}
-        <label>Education</label>
-        {education.length > 0 &&
-          education.map((edu, indexEd) => (
-            <div className="mb-2" key={edu}>
-              <div className="flex flex-col w-60">
-                <label>When you got it?</label>
-                <DatePicker
-                  selected={edu.gotDate}
-                  value={edu.gotDate}
-                  onChange={(ev) => handleDateGotItChange(indexEd, edu, ev)}
+        <label>
+          Education
+          {education.length > 0 &&
+            education.map((edu, indexEd) => (
+              <div className="mb-2" key={edu}>
+                <div className="flex flex-col w-60">
+                  <label>When you got it?</label>
+                  <DatePicker
+                    selected={edu.gotDate}
+                    value={edu.gotDate}
+                    onChange={(ev) => handleDateGotItChange(indexEd, edu, ev)}
+                  />
+                </div>
+                <input
+                  value={edu.certificationName}
+                  onChange={(ev) => handleCertificationChange(indexEd, edu, ev)}
+                  type="text"
+                  placeholder="certification"
                 />
+                <input
+                  value={edu.institutionName}
+                  onChange={(ev) => handleinstitutionChange(indexEd, edu, ev)}
+                  type="text"
+                  placeholder="institution"
+                />
+                <input
+                  value={edu.imageCertification}
+                  type="text"
+                  placeholder="url image certification"
+                  onChange={(ev) => handleImgChange(indexEd, edu, ev)}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeEducation(indexEd)}
+                  className="btn-red w-60"
+                >
+                  Remove
+                </button>
               </div>
-              <input
-                value={edu.certificationName}
-                onChange={(ev) => handleCertificationChange(indexEd, edu, ev)}
-                type="text"
-                placeholder="certification"
-              />
-              <input
-                value={edu.institutionName}
-                onChange={(ev) => handleinstitutionChange(indexEd, edu, ev)}
-                type="text"
-                placeholder="institution"
-              />
-              <input
-                value={edu.imageCertification}
-                type="text"
-                placeholder="url image certification"
-                onChange={(ev) => handleImgChange(indexEd, edu, ev)}
-              />
-              <button
-                onClick={() => removeEducation(indexEd)}
-                className="btn-red w-60"
-              >
-                Remove
-              </button>
-            </div>
-          ))}
+            ))}
+        </label>
 
         <div className="flex justify-around">
           <button type="button" onClick={addEducation} className="btn-primary">
@@ -374,26 +418,29 @@ const ProfilePage = () => {
 
         <div>
           <div>
-            <label>Languages</label>
-            {languages.length > 0 &&
-              languages.map((lang, indexLang) => (
-                <div className="mt-2" key={indexLang}>
-                  <input
-                    value={lang?.language}
-                    onChange={(ev) =>
-                      handleLanguagesChange(indexLang, lang, ev)
-                    }
-                    type="text"
-                    placeholder="language"
-                  />
-                  <button
-                    onClick={() => removeLang(indexLang)}
-                    className="btn-red w-60"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
+            <label>
+              Languages
+              {languages.length > 0 &&
+                languages.map((lang, indexLang) => (
+                  <div className="mt-2" key={indexLang}>
+                    <input
+                      value={lang?.language}
+                      onChange={(ev) =>
+                        handleLanguagesChange(indexLang, lang, ev)
+                      }
+                      type="text"
+                      placeholder="language"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeLang(indexLang)}
+                      className="btn-red w-60"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+            </label>
             <div className="flex justify-around mb-2">
               <button
                 type="button"
@@ -404,25 +451,27 @@ const ProfilePage = () => {
               </button>
             </div>
           </div>
-          <label>Skills</label>
-          {skills.length > 0 &&
-            skills.map((skill, indexSki) => (
-              <div className="mt-2" key={indexSki}>
-                <input
-                  value={skills?.skills}
-                  onChange={(ev) => handleSkillChange(indexSki, skill, ev)}
-                  type="text"
-                  placeholder="skill"
-                />
-                <button
-                  type="button"
-                  onClick={() => removeSkill(indexSki)}
-                  className="btn-red w-60"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
+          <label>
+            Skills
+            {skills.length > 0 &&
+              skills.map((skill, indexSki) => (
+                <div className="mt-2" key={indexSki}>
+                  <input
+                    value={skill?.skilll}
+                    onChange={(ev) => handleSkillChange(indexSki, skill, ev)}
+                    type="text"
+                    placeholder="skill"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeSkill(indexSki)}
+                    className="btn-red w-60"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+          </label>
           <div className="flex justify-around mb-2">
             <button
               type="button"
