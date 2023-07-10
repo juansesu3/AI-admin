@@ -391,7 +391,7 @@ const ProfileForm = ({
           Education
           {education.length > 0 &&
             education.map((edu, indexEd) => (
-              <div className="mb-2" key={edu}>
+              <div className="mb-2" key={indexEd}>
                 <div className="flex flex-col w-60">
                   <label>When you got it?</label>
                   <DatePicker

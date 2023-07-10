@@ -14,7 +14,9 @@ const EditProfilePage = () => {
       return;
     }
     axios.get("/api/profiles?id=" + id).then((response) => {
+      console.log(response.data.education)
       for (const edu of response?.data?.education) {
+        
         let cleanDate = edu.gotDate
           .split("T")
           .shift()
@@ -25,7 +27,9 @@ const EditProfilePage = () => {
         let m = cleanDate[1];
         let d = cleanDate[2];
         const orderDate = `${m}/${d}/${y}`;
-        response.data.education[0].gotDate = orderDate;
+        for (let i = 0; i < response.data.education.length; i++) {
+          response.data.education[i].gotDate = orderDate;
+        }
       }
       for (const exp of response?.data?.experinces) {
         let cleanDate = exp.endDateExp
@@ -39,7 +43,9 @@ const EditProfilePage = () => {
         let m = cleanDate[1];
         let d = cleanDate[2];
         const orderDate = `${m}/${d}/${y}`;
-        response.data.experinces[0].endDateExp = orderDate;
+        for (let i = 0; i < response.data.experinces.length; i++) {
+          response.data.experinces[i].endDateExp = orderDate;
+        }
       }
       for (const exp of response?.data?.experinces) {
         let cleanDate = exp.startDateExp
@@ -53,7 +59,9 @@ const EditProfilePage = () => {
         let m = cleanDate[1];
         let d = cleanDate[2];
         const orderDate = `${m}/${d}/${y}`;
-        response.data.experinces[0].startDateExp = orderDate;
+        for (let i = 0; i < response.data.experinces.length; i++) {
+          response.data.experinces[i].startDateExp = orderDate;
+        }
       }
 
       setProfoileInfo(response.data);
