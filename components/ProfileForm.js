@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 
@@ -16,6 +17,8 @@ const ProfileForm = ({
   shortIntro: existingShortIntro,
   skills: existingSkills,
 }) => {
+  const router = useRouter();
+  
   const { data } = useSession();
 
   const [username, setName] = useState(existingUsername || data?.user.name);
@@ -25,6 +28,7 @@ const ProfileForm = ({
   const [introYourSelf, setIntroYourSelf] = useState(
     existingIntroYourSelf || ""
   );
+
 
   //Start array experiences
   const [experinces, setExperinces] = useState(existingExperinces || []);
@@ -65,8 +69,11 @@ const ProfileForm = ({
       })),
     };
     console.log(data);
-    
-    await axios.post("/api/profile", data);
+    if (_id) {
+      await axios.put("/api/profile", { ...data, _id });
+    } else {
+      await axios.post("/api/profile", data);
+    }
   };
 
   const addExperince = () => {
@@ -90,7 +97,7 @@ const ProfileForm = ({
       console.log(typeof date);
       console.log(date);
 
-      experiences[index].startDateExp = new Date(date);
+      experiences[index].startDateExp = date;
 
       return experiences;
     });
@@ -243,6 +250,12 @@ const ProfileForm = ({
       });
     });
   };
+  const handleSelected = ()=>{
+    if (router.route.includes('/profile/edit/[...id]')){
+
+    }
+   
+  }
   return (
     <>
       <h1>Profile</h1>
@@ -292,8 +305,8 @@ const ProfileForm = ({
                         Start Date:
                         <DatePicker
                           placeholderText="start date"
-                          selected={experince.startDateExp}
-                          value={experince.startDateExp}
+                          //selected={experince?.startDateExp}
+                           value={experince.startDateExp}
                           onChange={(date) =>
                             handleStartDateChange(index, experince, date)
                           }
@@ -304,7 +317,7 @@ const ProfileForm = ({
                       <label>End Date:</label>
                       <DatePicker
                         placeholderText="end date"
-                        selected={experince.endDateExp}
+                        //selected={experince.endDateExp}
                         value={experince.endDateExp}
                         onChange={(date) =>
                           handleEndtDateChange(index, experince, date)
@@ -376,7 +389,7 @@ const ProfileForm = ({
                 <div className="flex flex-col w-60">
                   <label>When you got it?</label>
                   <DatePicker
-                    selected={edu.gotDate}
+                    //selected={edu.gotDate}
                     value={edu.gotDate}
                     onChange={(ev) => handleDateGotItChange(indexEd, edu, ev)}
                   />
@@ -457,7 +470,7 @@ const ProfileForm = ({
               skills.map((skill, indexSki) => (
                 <div className="mt-2" key={indexSki}>
                   <input
-                    value={skill?.skilll}
+                    value={skill?.skill}
                     onChange={(ev) => handleSkillChange(indexSki, skill, ev)}
                     type="text"
                     placeholder="skill"

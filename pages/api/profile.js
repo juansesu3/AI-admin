@@ -39,5 +39,33 @@ const handle = async (req, res) => {
     });
     res.json(profileDoc);
   }
+
+  if (method === "PUT") {
+    const {
+      username,
+      greeting,
+      shortIntro,
+      introYourSelf,
+      experinces,
+      education,
+      languages,
+      skills,
+      _id,
+    } = req.body;
+    await Profile.updateOne(
+      { _id },
+      {
+        username,
+        greeting,
+        shortIntro,
+        introYourSelf,
+        experinces,
+        education,
+        languages,
+        skills,
+      }
+    );
+    res.json(true);
+  }
 };
 export default handle;
