@@ -19,7 +19,7 @@ const ProfilePage = () => {
       <Link className="btn-primary" href={"/profile/new"}>
         New Profile
       </Link>
-      <table className="basic">
+      <table className="basic  mt-2">
         <thead>
           <tr>
             <td>Name</td>

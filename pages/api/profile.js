@@ -8,7 +8,11 @@ const handle = async (req, res) => {
   const { method } = req;
 
   if (method === "GET") {
-    res.json(await Profile.find());
+    if (req.query?.id) {
+      res.json(await Profile.findOne({ _id: req.query.id }));
+    } else {
+      res.json(await Profile.find());
+    }
   }
 
   if (method === "POST") {

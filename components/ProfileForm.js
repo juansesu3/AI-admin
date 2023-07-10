@@ -1,41 +1,39 @@
-import Layout from "@/components/Layout";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
+
 import "react-datepicker/dist/react-datepicker.css";
-const ProfileForm = () => {
+
+const ProfileForm = ({
+  _id,
+  username: existingUsername,
+  greeting: existingGreeting,
+  education: existingEducation,
+  experinces: existingExperinces,
+  introYourSelf: existingIntroYourSelf,
+  languages: existingLanguages,
+  shortIntro: existingShortIntro,
+  skills: existingSkills,
+}) => {
   const { data } = useSession();
 
-  const [username, setName] = useState(data?.user.name);
+  const [username, setName] = useState(existingUsername || data?.user.name);
 
-  const [greeting, setGreeting] = useState("");
-  const [shortIntro, setShortIntro] = useState("");
-  const [introYourSelf, setIntroYourSelf] = useState();
+  const [greeting, setGreeting] = useState(existingGreeting || "");
+  const [shortIntro, setShortIntro] = useState(existingShortIntro || "");
+  const [introYourSelf, setIntroYourSelf] = useState(
+    existingIntroYourSelf || ""
+  );
 
   //Start array experiences
-  const [experinces, setExperinces] = useState([]);
-  /*const [startDateExp, setStartDateExp] = useState(new Date());
-    const [endDateExp, setEndDateExp] = useState(new Date());
-    const [company, setCompany] = useState("");
-    const [position, setPosition] = useState("");
-    const [urlCompany, setUrlCompany] = useState("");
-    const [roldescription, setRolDescription] = useState("");*/
+  const [experinces, setExperinces] = useState(existingExperinces || []);
   //End array experiences
-
   //Start array education
-  const [education, setEducation] = useState([]);
-  /*-const [gotDate, setGotDate] = useState("");
-    const [certificationName, setNameCertificationName] = useState("");
-    const [institutionName, setInstitutionName] = useState("");
-    const [imageCertification, setImageCertification] = useState("");*/
-
+  const [education, setEducation] = useState(existingEducation || []);
   //End array education
-
-  const [languages, setLanguages] = useState([]);
-  const [language, setLanguage] = useState("");
-  const [skills, setSkils] = useState([]);
-  const [skill, setSkill] = useState("");
+  const [languages, setLanguages] = useState(existingLanguages || []);
+  const [skills, setSkils] = useState(existingSkills || []);
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -47,15 +45,15 @@ const ProfileForm = () => {
       introYourSelf,
       experinces: experinces.map((e) => ({
         company: e.company,
-        endDateExp: e.endDateExp,
+        endDateExp: new Date(e.endDateExp),
         position: e.position,
         roldescription: e.roldescription,
         urlCompany: e.urlCompany,
-        startDateExp: e.startDateExp,
+        startDateExp: new Date(e.startDateExp),
       })),
       education: education.map((edu) => ({
         certificationName: edu.certificationName,
-        gotDate: edu.gotDate,
+        gotDate: new Date(edu.gotDate),
         imageCertification: edu.imageCertification,
         institutionName: edu.institutionName,
       })),
@@ -90,9 +88,9 @@ const ProfileForm = () => {
     setExperinces((prev) => {
       const experiences = [...prev];
       console.log(typeof date);
-      console.log(index);
+      console.log(date);
 
-      experiences[index].startDateExp = date;
+      experiences[index].startDateExp = new Date(date);
 
       return experiences;
     });
@@ -100,7 +98,7 @@ const ProfileForm = () => {
   const handleEndtDateChange = (index, experince, date) => {
     setExperinces((prev) => {
       const experiences = [...prev];
-      experiences[index].endDateExp = date;
+      experiences[index].endDateExp = new Date(date);
       return experiences;
     });
   };
@@ -158,7 +156,7 @@ const ProfileForm = () => {
   const handleDateGotItChange = (indexEd, edu, ev) => {
     setEducation((prev) => {
       const education = [...prev];
-      education[indexEd].gotDate = ev;
+      education[indexEd].gotDate = new Date(ev);
       return education;
     });
   };
@@ -246,7 +244,7 @@ const ProfileForm = () => {
     });
   };
   return (
-   <>
+    <>
       <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -488,7 +486,7 @@ const ProfileForm = () => {
           Save
         </button>
       </form>
-      </>
+    </>
   );
 };
 
