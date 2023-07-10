@@ -18,7 +18,7 @@ const handle = async (req, res) => {
       languages,
       skills,
     } = req.body;
-   
+
     const profileDoc = await Profile.create({
       username,
       greeting,

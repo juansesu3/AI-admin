@@ -16,20 +16,20 @@ const ProfilePage = () => {
 
   //Start array experiences
   const [experinces, setExperinces] = useState([]);
-  const [startDateExp, setStartDateExp] = useState(new Date());
+  /*const [startDateExp, setStartDateExp] = useState(new Date());
   const [endDateExp, setEndDateExp] = useState(new Date());
   const [company, setCompany] = useState("");
   const [position, setPosition] = useState("");
   const [urlCompany, setUrlCompany] = useState("");
-  const [roldescription, setRolDescription] = useState("");
+  const [roldescription, setRolDescription] = useState("");*/
   //End array experiences
 
   //Start array education
   const [education, setEducation] = useState([]);
-  const [gotDate, setGotDate] = useState("");
+  /*-const [gotDate, setGotDate] = useState("");
   const [certificationName, setNameCertificationName] = useState("");
   const [institutionName, setInstitutionName] = useState("");
-  const [imageCertification, setImageCertification] = useState("");
+  const [imageCertification, setImageCertification] = useState("");*/
 
   //End array education
 
@@ -64,11 +64,11 @@ const ProfilePage = () => {
         language: lang.language,
       })),
       skills: skills.map((ski) => ({
-        skill: ski.skill,
+        skill: ski.skilll,
       })),
     };
     console.log(data);
-    const dataWithoutCircular = JSON.parse(JSON.stringify(data));
+    const dataWithoutCircular = data;
     await axios.post("/api/profile", dataWithoutCircular);
   };
 
@@ -145,10 +145,10 @@ const ProfilePage = () => {
 
   const addEducation = () => {
     const dataEdu = {
-      gotDate: gotDate,
-      certificationName: certificationName,
-      institutionName: institutionName,
-      imageCertification: imageCertification,
+      gotDate: "",
+      certificationName: "",
+      institutionName: "",
+      imageCertification: "",
     };
 
     setEducation((prev) => {
@@ -208,6 +208,7 @@ const ProfilePage = () => {
     setLanguages((prev) => {
       const languages = [...prev];
       languages[indexLang].language = ev.target.value;
+      console.log(languages);
       return languages;
     });
   };
@@ -232,7 +233,9 @@ const ProfilePage = () => {
   const handleSkillChange = (indexSki, skilll, ev) => {
     setSkils((prev) => {
       const skills = [...prev];
+
       skills[indexSki].skilll = ev.target.value;
+      console.log(skills);
       return skills;
     });
   };
