@@ -1,4 +1,5 @@
 import axios from "axios";
+import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -37,7 +38,6 @@ const ProfileForm = ({
   //End array education
   const [languages, setLanguages] = useState(existingLanguages || []);
   const [skills, setSkils] = useState(existingSkills || []);
- 
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -65,7 +65,7 @@ const ProfileForm = ({
         language: lang.language,
       })),
       skills: skills.map((ski) => ({
-        skill: ski.skilll,
+        skill: ski.skill,
       })),
     };
 
@@ -101,15 +101,25 @@ const ProfileForm = ({
       console.log(typeof date);
       console.log(date);
 
-      experiences[index].startDateExp = date;
-
+      const selectedDate = moment(date);
+      // Calcula la diferencia de zona horaria entre el cliente y el servidor
+      const timezoneOffset = selectedDate.utcOffset();
+      // Ajusta la fecha restando la diferencia de zona horaria
+      const adjustedDate = selectedDate.subtract(timezoneOffset, "minutes");
+      experiences[index].startDateExp = adjustedDate;
       return experiences;
     });
   };
   const handleEndtDateChange = (index, experince, date) => {
     setExperinces((prev) => {
       const experiences = [...prev];
-      experiences[index].endDateExp = new Date(date);
+
+      const selectedDate = moment(date);
+      // Calcula la diferencia de zona horaria entre el cliente y el servidor
+      const timezoneOffset = selectedDate.utcOffset();
+      // Ajusta la fecha restando la diferencia de zona horaria
+      const adjustedDate = selectedDate.subtract(timezoneOffset, "minutes");
+      experiences[index].endDateExp = adjustedDate;
       return experiences;
     });
   };
@@ -167,7 +177,13 @@ const ProfileForm = ({
   const handleDateGotItChange = (indexEd, edu, ev) => {
     setEducation((prev) => {
       const education = [...prev];
-      education[indexEd].gotDate = new Date(ev);
+
+      const selectedDate = moment(ev);
+      // Calcula la diferencia de zona horaria entre el cliente y el servidor
+      const timezoneOffset = selectedDate.utcOffset();
+      // Ajusta la fecha restando la diferencia de zona horaria
+      const adjustedDate = selectedDate.subtract(timezoneOffset, "minutes");
+      education[indexEd].gotDate = adjustedDate;
       return education;
     });
   };
@@ -238,12 +254,12 @@ const ProfileForm = ({
       return [...prev, dataSkill];
     });
   };
-  const handleSkillChange = (indexSki, skilll, ev) => {
+  const handleSkillChange = (indexSki, skill, ev) => {
     setSkils((prev) => {
       const skills = [...prev];
 
       skills[indexSki].skill = ev.target.value;
-     
+
       return skills;
     });
   };
@@ -323,7 +339,6 @@ const ProfileForm = ({
                       <label>End Date:</label>
                       <DatePicker
                         placeholderText="end date"
-                        //selected={experince.endDateExp}
                         selected={
                           experince?.endDateExp
                             ? new Date(experince.endDateExp)
@@ -400,8 +415,7 @@ const ProfileForm = ({
                 <div className="flex flex-col w-60">
                   <label>When you got it?</label>
                   <DatePicker
-                    //selected={edu.gotDate}
-                    selected={edu?.gotDate ? new Date(edu.gotDate) : null}
+                    selected={edu?.gotDate ? new Date(edu.gotDate) : new Date()}
                     value={edu.gotDate}
                     onChange={(ev) => handleDateGotItChange(indexEd, edu, ev)}
                   />
@@ -482,7 +496,7 @@ const ProfileForm = ({
               skills.map((skill, indexSki) => (
                 <div className="mt-2" key={indexSki}>
                   <input
-                    value={skill?.skill}
+                    value={skill.skill}
                     onChange={(ev) => handleSkillChange(indexSki, skill, ev)}
                     type="text"
                     placeholder="skill"

@@ -17,6 +17,7 @@
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "mime-types": "^2.1.35",
+    "moment": "^2.29.4",
     "mongodb": "^5.6.0",
     "mongoose": "^7.3.0",
     "multiparty": "^4.2.3",
