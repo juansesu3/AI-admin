@@ -3,9 +3,16 @@ import moment from "moment";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import DatePicker, { registerLocale } from "react-datepicker";
-
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+const ProgressBar = ({ percentage }) => {
+  return (
+    <div className="w-40 h-2 h-full bg-red">
+      <input className="w-40 h-full " readOnly value={percentage} />
+    </div>
+  );
+};
 
 const ProfileForm = ({
   _id,
@@ -38,6 +45,7 @@ const ProfileForm = ({
   //End array education
   const [languages, setLanguages] = useState(existingLanguages || []);
   const [skills, setSkils] = useState(existingSkills || []);
+  const [progres, setProgress] = useState(0);
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -259,6 +267,15 @@ const ProfileForm = ({
       const skills = [...prev];
 
       skills[indexSki].skill = ev.target.value;
+
+      return skills;
+    });
+  };
+  const handleSkillProgressChange = (indexSki, skill, ev) => {
+    setSkils((prev) => {
+      const skills = [...prev];
+
+      skills[indexSki].progress = ev.target.value;
 
       return skills;
     });
@@ -501,6 +518,19 @@ const ProfileForm = ({
                     type="text"
                     placeholder="skill"
                   />
+                  <div className="flex gap-2">
+                    <input
+                      className="shadow-none"
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={skill?.progress}
+                      onChange={(ev) =>
+                        handleSkillProgressChange(indexSki, skill, ev)
+                      }
+                    />
+                    <ProgressBar percentage={skill?.progress} />
+                  </div>
                   <button
                     type="button"
                     onClick={() => removeSkill(indexSki)}

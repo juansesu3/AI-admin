@@ -14,6 +14,7 @@ select {
     @apply mb-2;
 }
 
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -67,3 +68,4 @@ table.basic a {
 .btn-default {
     @apply bg-white text-gray-800 px-4 py-1 rounded-sm border border-gray-200 shadow-sm
 }
+
