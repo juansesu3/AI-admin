@@ -18,7 +18,7 @@ const ProfileForm = ({
   skills: existingSkills,
 }) => {
   const router = useRouter();
-  
+
   const { data } = useSession();
 
   const [username, setName] = useState(existingUsername || data?.user.name);
@@ -29,7 +29,6 @@ const ProfileForm = ({
     existingIntroYourSelf || ""
   );
 
-
   //Start array experiences
   const [experinces, setExperinces] = useState(existingExperinces || []);
   //End array experiences
@@ -38,7 +37,7 @@ const ProfileForm = ({
   //End array education
   const [languages, setLanguages] = useState(existingLanguages || []);
   const [skills, setSkils] = useState(existingSkills || []);
-  console.log(skills)
+ 
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -69,17 +68,16 @@ const ProfileForm = ({
         skill: ski.skilll,
       })),
     };
-    console.log(data);
+
     if (_id) {
       await axios.put("/api/profiles", { ...data, _id });
     } else {
       await axios.post("/api/profiles", data);
     }
     setGoProfiles(true);
-
   };
-  if (goProfiles){
-    router.push("´profiles");
+  if (goProfiles) {
+    router.push("/profiles");
   }
 
   const addExperince = () => {
@@ -244,8 +242,8 @@ const ProfileForm = ({
     setSkils((prev) => {
       const skills = [...prev];
 
-      skills[indexSki].skilll = ev.target.value;
-      console.log(skills);
+      skills[indexSki].skill = ev.target.value;
+     
       return skills;
     });
   };
@@ -256,12 +254,10 @@ const ProfileForm = ({
       });
     });
   };
-  const handleSelected = ()=>{
-    if (router.route.includes('/profile/edit/[...id]')){
-
+  const handleSelected = () => {
+    if (router.route.includes("/profile/edit/[...id]")) {
     }
-   
-  }
+  };
   return (
     <>
       <h1>Profile</h1>
@@ -311,8 +307,12 @@ const ProfileForm = ({
                         Start Date:
                         <DatePicker
                           placeholderText="start date"
-                          //selected={experince?.startDateExp}
-                           value={experince.startDateExp}
+                          selected={
+                            experince?.startDateExp
+                              ? new Date(experince.startDateExp)
+                              : null
+                          }
+                          value={experince.startDateExp}
                           onChange={(date) =>
                             handleStartDateChange(index, experince, date)
                           }
@@ -324,6 +324,11 @@ const ProfileForm = ({
                       <DatePicker
                         placeholderText="end date"
                         //selected={experince.endDateExp}
+                        selected={
+                          experince?.endDateExp
+                            ? new Date(experince.endDateExp)
+                            : null
+                        }
                         value={experince.endDateExp}
                         onChange={(date) =>
                           handleEndtDateChange(index, experince, date)
@@ -396,6 +401,7 @@ const ProfileForm = ({
                   <label>When you got it?</label>
                   <DatePicker
                     //selected={edu.gotDate}
+                    selected={edu?.gotDate ? new Date(edu.gotDate) : null}
                     value={edu.gotDate}
                     onChange={(ev) => handleDateGotItChange(indexEd, edu, ev)}
                   />

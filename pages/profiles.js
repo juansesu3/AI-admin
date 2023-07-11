@@ -9,10 +9,10 @@ const ProfilePage = () => {
 
   useEffect(() => {
     axios.get("/api/profiles").then((response) => {
-      setProfiles(response.data); 
+      setProfiles(response.data);
     });
   }, []);
-  console.log(profiles); 
+
   return (
     <Layout>
       <h1>Profiles</h1>
