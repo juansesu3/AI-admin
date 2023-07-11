@@ -6,14 +6,6 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const ProgressBar = ({ percentage }) => {
-  return (
-    <div className="w-40 h-2 h-full bg-red">
-      <input className="w-40 h-full " readOnly value={percentage} />
-    </div>
-  );
-};
-
 const ProfileForm = ({
   _id,
   username: existingUsername,
@@ -74,6 +66,7 @@ const ProfileForm = ({
       })),
       skills: skills.map((ski) => ({
         skill: ski.skill,
+        progress: ski.progress,
       })),
     };
 
@@ -529,7 +522,11 @@ const ProfileForm = ({
                         handleSkillProgressChange(indexSki, skill, ev)
                       }
                     />
-                    <ProgressBar percentage={skill?.progress} />
+                    <input
+                      className="w-40 h-full "
+                      readOnly
+                      value={skill?.progress}
+                    />
                   </div>
                   <button
                     type="button"
