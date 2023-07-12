@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import CheckBoxLevelLang from "./CheckBoxLevelLang";
 
 const ProfileForm = ({
   _id,
@@ -233,6 +234,15 @@ const ProfileForm = ({
     setLanguages((prev) => {
       const languages = [...prev];
       languages[indexLang].language = ev.target.value;
+      return languages;
+    });
+    console.log(languages);
+  };
+  const handleLanguagesLevelChange = (index, langLevelSelected, ev) => {
+    console.log(ev.target.value);
+    setLanguages((prev) => {
+      const languages = [...prev];
+      languages[index].levelLang = ev.target.value;
       return languages;
     });
     console.log(languages);
@@ -476,6 +486,11 @@ const ProfileForm = ({
                       }
                       type="text"
                       placeholder="language"
+                    />
+                    <CheckBoxLevelLang
+                      onChange={handleLanguagesLevelChange}
+                      index={indexLang}
+                      langLevelSelected={lang?.levelLang}
                     />
                     <div className="flex flex-wrap gap-4 mb-2"></div>
                     <button
