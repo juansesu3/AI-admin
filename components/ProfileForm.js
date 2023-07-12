@@ -37,7 +37,6 @@ const ProfileForm = ({
   //End array education
   const [languages, setLanguages] = useState(existingLanguages || []);
   const [skills, setSkils] = useState(existingSkills || []);
-  const [progres, setProgress] = useState(0);
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -63,6 +62,7 @@ const ProfileForm = ({
       })),
       languages: languages.map((lang) => ({
         language: lang.language,
+        levelLang: lang.levelLang,
       })),
       skills: skills.map((ski) => ({
         skill: ski.skill,
@@ -222,7 +222,7 @@ const ProfileForm = ({
 
   const addLang = () => {
     const dataLang = {
-      languages: languages,
+      languages,
     };
 
     setLanguages((prev) => {
@@ -233,9 +233,9 @@ const ProfileForm = ({
     setLanguages((prev) => {
       const languages = [...prev];
       languages[indexLang].language = ev.target.value;
-      console.log(languages);
       return languages;
     });
+    console.log(languages);
   };
 
   const removeLang = (indexToRemove) => {
@@ -280,10 +280,7 @@ const ProfileForm = ({
       });
     });
   };
-  const handleSelected = () => {
-    if (router.route.includes("/profile/edit/[...id]")) {
-    }
-  };
+
   return (
     <>
       <h1>Profile</h1>
@@ -480,6 +477,7 @@ const ProfileForm = ({
                       type="text"
                       placeholder="language"
                     />
+                    <div className="flex flex-wrap gap-4 mb-2"></div>
                     <button
                       type="button"
                       onClick={() => removeLang(indexLang)}
