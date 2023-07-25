@@ -3,12 +3,34 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-const ViewEmail = () => {
+import { withSwal } from "react-sweetalert2";
+const ViewEmail = ({swal}) => {
   const router = useRouter();
   const [email, setEmail] = useState([]);
 
   const { id } = router.query;
+
+  const deleCategory = (email) => {
+    swal
+      .fire({
+        title: "Are you sure?",
+        text: `Do you want to delete "${email.name}"?`,
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Yes, Delete!",
+        confirmButtonColor: "#d55",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        // when confirmed and promise resolved...
+        //console.log({result})
+        if (result.isConfirmed) {
+          const { _id } = email;
+          await axios.delete("/api/emails?_id=" + _id);
+         router.push("/emails")
+        }
+      });
+  };
 
   useEffect(() => {
     if (!id) {
@@ -63,9 +85,9 @@ const ViewEmail = () => {
             </svg>
             Back
           </Link>
-          <Link
+          <button
             className="btn-red flex items-center gap-1"
-            href={"/emails/delete/" + email._id}
+           onClick={()=>deleCategory(email)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,11 +104,11 @@ const ViewEmail = () => {
               />
             </svg>
             Delete
-          </Link>
+          </button>
         </div>
       </div>
     </Layout>
   );
 };
 
-export default ViewEmail;
+export default withSwal(({ swal }, ref) => <ViewEmail swal={swal} />);

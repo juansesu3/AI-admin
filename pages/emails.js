@@ -3,7 +3,8 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const Emails = () => {
+
+const Emails = ({swal}) => {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {

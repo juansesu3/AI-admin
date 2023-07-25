@@ -13,5 +13,10 @@ const handle = async (req, res) => {
       res.json(await Email.find());
     }
   }
+  if (method === "DELETE") {
+    const { _id } = req.query;
+    await Email.deleteOne({ _id });
+    res.json("ok");
+  }
 };
 export default handle;
