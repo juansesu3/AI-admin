@@ -15,7 +15,7 @@ const ProfilePage = () => {
 
   return (
     <Layout>
-      <h1>Profiles</h1>
+      <h1 className="text-primary">Profiles</h1>
       <Link className="btn-primary" href={"/profile/new"}>
         New Profile
       </Link>
@@ -23,7 +23,7 @@ const ProfilePage = () => {
         <thead>
           <tr>
             <td>Name</td>
-            <td>ID</td>
+            
             <td>options</td>
           </tr>
         </thead>
@@ -32,7 +32,7 @@ const ProfilePage = () => {
             profiles.map((profile) => (
               <tr key={profile._id}>
                 <td>{profile.username}</td>
-                <td>{profile._id}</td>
+               
 
                 <td>
                   <Link

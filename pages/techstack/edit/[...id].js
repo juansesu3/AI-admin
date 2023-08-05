@@ -20,7 +20,7 @@ const EditTechPage = () => {
 
   return (
     <Layout>
-      <h1>Edit technology</h1>
+      <h1 className="text-primary">Edit technology</h1>
       {techInfo && <TechForm {...techInfo} />}
     </Layout>
   );

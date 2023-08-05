@@ -42,27 +42,28 @@ const ViewEmail = ({swal}) => {
   }, [id]);
   return (
     <Layout>
-      <h1>Reading email...</h1>
-      <div className="shadow-md rounded-md p-4 flex flex-col gap-4">
-        <h1>Hi Boss!</h1>
-        <div className="flex gap-4">
-          <div className="shadow-md rounded-md p-4">
+      <h1 className="text-primary">Reading email...</h1>
+      <div className="shadow-md rounded-md p-4 flex flex-col gap-4 ">
+        <h1 className="text-white">Hi Boss!</h1>
+        <div className="flex gap-4 flex-col md:flex-row ">
+          <div className="shadow-md rounded-md p-4 bg-tableBg">
             <p>This email come from</p>
-            <h2>Name: {email.name}</h2>
-            <h2>Email: {email.email} </h2>
+            <h2 className="text-primary">Name: <span className="text-white">{email.name}</span></h2>
+            <h2  className="text-primary">Email: <span className="text-white">{email.email}</span> </h2>
           </div>
-          <div className="shadow-md rounded-md p-4">
+          <div className="shadow-md rounded-md p-4 bg-tableBg">
             <p>Date & Subject</p>
-            <h2>
-              Created at:
+            <h2  className="text-primary">
+              Created at:<span className="text-white">
               <time> {new Date(email.createdAt).toLocaleString("sv-SE")}</time>
+              </span>
             </h2>
-            <h3>Subject: {email.subject}</h3>
+            <h2 className="text-primary">Subject:  <span className="text-white">{email.subject}</span></h2>
           </div>
         </div>
-        <div className="shadow-md rounded-md p-4 ">
-          <h3>Message:</h3>
-          <p>{email.message}</p>
+        <div className="shadow-md rounded-md p-4 bg-tableBg">
+          <h3 className="text-primary">Message:</h3>
+          <p><span className="text-white">{email.message}</span></p>
         </div>
         <div className="flex justify-between ">
           <Link

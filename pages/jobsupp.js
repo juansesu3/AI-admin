@@ -11,7 +11,6 @@ const JobsPage = () => {
       <table className="basic mt-2">
         <thead>
           <tr>
-            <td>Job id</td>
             <td>Job Name</td>
             <td>Company</td>
             <td></td>
@@ -19,7 +18,6 @@ const JobsPage = () => {
         </thead>
         <tbody>
           <tr>
-            <td>123</td>
             <td>Developer</td>
             <td>negiupp.com</td>
             <td>
@@ -43,7 +41,7 @@ const JobsPage = () => {
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                view
+              
               </Link>
             </td>
           </tr>

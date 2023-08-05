@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 const NewArticle = () => {
   return (
     <Layout>
-      <h1>New article</h1>
+      <h1 className="text-primary">New article</h1>
       <ArticleForm />
     </Layout>
   );

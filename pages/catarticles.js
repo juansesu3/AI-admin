@@ -116,7 +116,7 @@ const Catarticles = ({ swal }) => {
 
   return (
     <Layout>
-      <h1>Article categories</h1>
+      <h1 className="text-primary">Article categories</h1>
       <label>
         {editedCategoryArticle
           ? `Edit article category "${editedCategoryArticle.name}"`

@@ -8,7 +8,7 @@ import { useState } from "react";
 const NewProduct = () => {
   return (
     <Layout>
-      <h1>New proyect</h1>
+      <h1 className="text-primary">New proyect</h1>
       <ProyectForm />
     </Layout>
   );

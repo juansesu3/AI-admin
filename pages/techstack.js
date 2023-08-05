@@ -14,7 +14,7 @@ const TechStack = () => {
 
   return (
     <Layout>
-      <h1>Technologies Stack</h1>
+      <h1 className="text-primary">Technologies Stack</h1>
 
       <Link
         className="btn-primary "

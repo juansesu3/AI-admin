@@ -21,7 +21,7 @@ const EditArticlePage = () => {
 
   return (
     <Layout>
-      <h1>Edit article</h1>
+      <h1 className="text-primary">Edit article</h1>
       {articleInfo && <ArticleForm {...articleInfo} />}
     </Layout>
   );

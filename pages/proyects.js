@@ -27,7 +27,7 @@ const Proyects = () => {
         <tbody>
           {proyects.map((proyect) => (
             <tr key={proyect._id}>
-              <td>{proyect.title}</td>
+              <td className="">{proyect.title}</td>
               <td>
                 <Link
                   className="btn-default"

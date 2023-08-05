@@ -20,7 +20,7 @@ const EditProyectPage = () => {
 
   return (
     <Layout>
-      <h1>Edit proyect</h1>
+      <h1 className="text-primary">Edit proyect</h1>
       {proyectInfo && <ProyectForm {...proyectInfo} />}
     </Layout>
   );

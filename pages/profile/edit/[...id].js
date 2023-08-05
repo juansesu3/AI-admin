@@ -20,7 +20,7 @@ const EditProfilePage = () => {
 
   return (
     <Layout>
-      <h1>Edit Profile</h1>
+      <h1 className="text-primary">Edit Profile</h1>
       {profoileInfo && <ProfileForm {...profoileInfo} />}
     </Layout>
   );

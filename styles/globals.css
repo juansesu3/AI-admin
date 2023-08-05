@@ -9,7 +9,7 @@ img {
 input,
 textarea,
 select {
-    @apply border border-gray-200 rounded-sm px-1 w-full py-2 px-3;
+    @apply border border-0 shadow-md rounded-sm px-1 w-full py-2 px-3 bg-inputColor text-white;
     @apply shadow-sm;
     @apply mb-2;
 }
@@ -31,7 +31,7 @@ h1 {
 }
 
 label {
-    @apply text-gray-600;
+    @apply text-gray-300;
 }
 
 .btn-primary {
@@ -40,15 +40,15 @@ label {
 }
 
 table.basic {
-    @apply w-full bg-white rounded-sm shadow-md;
+    @apply w-full bg-tableBg rounded-sm shadow-md;
 }
 
 table.basic thead tr td {
-    @apply text-sm text-gray-600 uppercase border-b border-gray-200 px-4 py-2;
+    @apply text-sm text-primary uppercase border-b border-gray-700 px-4 py-2;
 }
 
 table.basic tr td {
-    @apply px-4 py-1;
+    @apply px-4 py-1 text-white ;
 }
 
 table.basic a {

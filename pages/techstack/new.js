@@ -5,6 +5,7 @@ import React from "react";
 const newTechnology = () => {
   return (
     <Layout>
+      <h1 className="text-primary">New Tech</h1>
       <TechForm />
     </Layout>
   );

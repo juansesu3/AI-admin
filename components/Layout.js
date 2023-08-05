@@ -7,8 +7,8 @@ const Layout = ({ children }) => {
   const [showNav, setShowNav] = useState(false);
   const { data: session } = useSession();
   if (!session) {
-    return (
-      <div className="bg-bgGray w-screen h-screen flex items-center">
+    return ( 
+      <div className="bg-black w-screen h-screen flex items-center">
         <div className="text-center w-full">
           <button
             onClick={() => signIn("google")}
@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 text-white"
           >
             <path
               fillRule="evenodd"

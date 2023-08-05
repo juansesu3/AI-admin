@@ -125,7 +125,7 @@ const ProyectForm = ({
         value={title}
         onChange={(ev) => setTitle(ev.target.value)}
       />
-      <label>Proyect about</label>
+      <label className="">Proyect about</label>
       <textarea
         placeholder="proyect about"
         value={about}
@@ -143,7 +143,7 @@ const ProyectForm = ({
               <div
                 key={link}
                 className=" h-24 bg-white p-2 shadow-sm rounded-lg border border-gray-100"
-              >
+              >{console.log(link)}
                 <img src={link} alt="image-proyect" className="rounded-lg" />
               </div>
             ))}

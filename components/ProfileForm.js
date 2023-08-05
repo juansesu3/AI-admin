@@ -293,7 +293,7 @@ const ProfileForm = ({
 
   return (
     <>
-      <h1>Profile</h1>
+      
       <form onSubmit={handleSubmit}>
         <label>
           Name

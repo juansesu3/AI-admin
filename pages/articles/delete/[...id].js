@@ -29,7 +29,7 @@ const DeleteProyectPage = () => {
 
   return (
     <Layout>
-      <h1 className="text-center">
+      <h1 className="text-center text-primary">
         Do you really want to delete&nbsp;&quot;{articleInfo?.title}&quot;
         article?
       </h1>
