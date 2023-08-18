@@ -10,7 +10,8 @@ const handle = async (req, res) => {
     if (req.query?.id) {
       res.json(await Email.findOne({ _id: req.query.id }));
     } else {
-      res.json(await Email.find());
+      const emails = await Email.find().sort({ createdAt: -1 });
+      res.json(emails);
     }
   }
   if (method === "DELETE") {

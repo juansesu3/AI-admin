@@ -12,7 +12,8 @@ const handle = async (req, res) => {
     if (req.query?.id) {
       res.json(await Proyect.findOne({ _id: req.query.id }));
     } else {
-      res.json(await Proyect.find());
+      const proyects = await Proyect.find().sort({ createdAt: -1 });
+      res.json(proyects);
     }
   }
 

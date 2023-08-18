@@ -1,16 +1,29 @@
 import Layout from "@/components/Layout";
+import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const { data: session } = useSession();
   const conte =
     "w-full md:w-1/3 p-4 bg-inputColor flex flex-col items-center justify-between rounded-md shadow-lg";
-  return (
+  
+  
+    const [emails, setEmails] = useState([]);
+
+    useEffect(() => {
+      axios.get("/api/emails").then((response) => {
+        setEmails(response.data);
+      });
+    }, []);
+
+    console.log(emails)
+    return (
     <Layout>
       <div className="text-primary flex justify-between">
         <h2>
           {" "}
-          <span className="text-white">Hi Boss,</span>
+          <span className="text-white">Hi Mr,</span>
           <br /> <b>{session?.user?.name}</b>
         </h2>
         <div className="flex gap-1 text-white rounded-lg overflow-hidden">
@@ -25,8 +38,9 @@ const Home = () => {
       <div className="flex gap-2 flex-wrap justify-center mt-4">
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">Emails</h3>
-          <p className="text-primary text-4xl">5</p>
-          <p className="text-gray-500">last email from</p>
+          
+          <p className="text-primary text-4xl">{emails && emails.length}</p>
+          <p className="text-gray-500 text-center">Last email from:<br/> {emails && emails[0]?.email}</p>
         </div>
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">Job Application</h3>
