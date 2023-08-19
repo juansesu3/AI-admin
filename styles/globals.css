@@ -69,3 +69,27 @@ table.basic a {
     @apply bg-white text-gray-800 px-4 py-1 rounded-sm border border-gray-200 shadow-sm
 }
 
+.conversation-bubble {
+    position: relative;
+  }
+  
+
+  .custom-scrollbar {
+    /* Cambia los colores según tus preferencias */
+    scrollbar-width: thin;
+    scrollbar-color: #4d61fc #f3f4f6; /* Color del pulgar y color de fondo de la barra */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px; /* Ancho de la barra de desplazamiento */
+    
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4d61fc; /* Color del pulgar */
+    border-radius: 3px; /* Bordes redondeados del pulgar */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #f3f4f6; /* Color de fondo de la barra */
+  }

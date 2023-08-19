@@ -2,12 +2,13 @@ import Nav from "@/components/Nav";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import Logo from "./Logo";
+import Suggestion from "./Suggestion";
 
 const Layout = ({ children }) => {
   const [showNav, setShowNav] = useState(false);
   const { data: session } = useSession();
   if (!session) {
-    return ( 
+    return (
       <div className="bg-black w-screen h-screen flex items-center">
         <div className="text-center w-full">
           <button
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <div className="bg-bgGray min-h-screen ">
+    <div className="bg-bgGray min-h-screen relative">
       <div className="block md:hidden flex items-center p-4">
         <button onClick={() => setShowNav(true)}>
           <svg
@@ -43,10 +44,12 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      <div className="flex">
+      <div className="flex relative">
         <Nav show={showNav} />
-        <div className="flex-grow p-4">
-          {children}
+
+        <div className="flex-grow p-4">{children}</div>
+        <div className="fixed bottom-4 right-4">
+          <Suggestion />
         </div>
       </div>
     </div>

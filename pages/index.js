@@ -18,7 +18,6 @@ const Home = () => {
     });
   }, []);
 
-
   return (
     <Layout>
       <div className="text-primary flex justify-between">
@@ -38,10 +37,7 @@ const Home = () => {
       <h1 className="text-white text-center mt-4">Principal info</h1>
 
       <div className="flex gap-2 flex-wrap justify-center mt-4">
-        <div className={conte}>
-          <h3 className="text-gray-400 font-medium">Hi Boss, I&apos;m your Asissten</h3>
-          <Suggestion/>
-        </div>
+       
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">Emails</h3>
 
