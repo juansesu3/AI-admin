@@ -1,4 +1,6 @@
 import Layout from "@/components/Layout";
+import Suggestion from "@/components/Suggestion";
+
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -7,18 +9,17 @@ const Home = () => {
   const { data: session } = useSession();
   const conte =
     "w-full md:w-1/3 p-4 bg-inputColor flex flex-col items-center justify-between rounded-md shadow-lg";
-  
-  
-    const [emails, setEmails] = useState([]);
 
-    useEffect(() => {
-      axios.get("/api/emails").then((response) => {
-        setEmails(response.data);
-      });
-    }, []);
+  const [emails, setEmails] = useState([]);
 
-    console.log(emails)
-    return (
+  useEffect(() => {
+    axios.get("/api/emails").then((response) => {
+      setEmails(response.data);
+    });
+  }, []);
+
+
+  return (
     <Layout>
       <div className="text-primary flex justify-between">
         <h2>
@@ -35,12 +36,20 @@ const Home = () => {
         </div>
       </div>
       <h1 className="text-white text-center mt-4">Principal info</h1>
+
       <div className="flex gap-2 flex-wrap justify-center mt-4">
         <div className={conte}>
+          <h3 className="text-gray-400 font-medium">Hi Boss, I&apos;m your Asissten</h3>
+          <Suggestion/>
+        </div>
+        <div className={conte}>
           <h3 className="text-gray-400 font-medium">Emails</h3>
-          
+
           <p className="text-primary text-4xl">{emails && emails.length}</p>
-          <p className="text-gray-500 text-center">Last email from:<br/> {emails && emails[0]?.email}</p>
+          <p className="text-gray-500 text-center">
+            Last email from:
+            <br /> {emails && emails[0]?.email}
+          </p>
         </div>
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">Job Application</h3>
