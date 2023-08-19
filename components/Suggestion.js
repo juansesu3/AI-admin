@@ -1,3 +1,4 @@
+import OpenAIKey, { key } from "@/lib/openAIKey";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
@@ -41,7 +42,7 @@ const Suggestion = () => {
     const url = "https://api.openai.com/v1/chat/completions";
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer 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`,
     };
     const data = {
       /*model: "gpt-3.5-turbo",
