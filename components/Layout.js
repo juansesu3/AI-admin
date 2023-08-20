@@ -9,11 +9,11 @@ const Layout = ({ children }) => {
   const { data: session } = useSession();
   if (!session) {
     return (
-      <div className="bg-black w-screen h-screen flex items-center">
+      <div className="bg-bgGray w-screen h-screen flex items-center">
         <div className="text-center w-full">
           <button
             onClick={() => signIn("google")}
-            className="bg-highlight p-2 px-4 rounded-lg"
+            className="bg-primary p-2 px-4 rounded-lg text-white font-medium"
           >
             Login with Google
           </button>
@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
 
   return (
     <div className="bg-bgGray min-h-screen relative">
-      <div className="block md:hidden flex items-center p-4">
+      <div className="md:hidden flex items-center p-4">
         <button onClick={() => setShowNav(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

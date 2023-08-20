@@ -42,7 +42,7 @@ const Suggestion = () => {
     const url = "https://api.openai.com/v1/chat/completions";
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer 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`,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
     };
     const data = {
       /*model: "gpt-3.5-turbo",
@@ -93,7 +93,7 @@ const Suggestion = () => {
   return (
     <div className="relative ">
       <div
-        className={`fixed bottom-0 right-6 w-56  shadow-md flex flex-col gap-2 p-4 rounded-md  bg-[#1d1d1f]   mb-20 ${
+        className={`fixed bottom-0 right-6 w-56  shadow-lg flex flex-col gap-2 p-4 rounded-md  bg-[#1d1d1f]   mb-20 ${
           isOpen ? "" : "hidden"
         }`}
       >

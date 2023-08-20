@@ -11,10 +11,19 @@ const Home = () => {
     "w-full md:w-1/3 p-4 bg-inputColor flex flex-col items-center justify-between rounded-md shadow-lg";
 
   const [emails, setEmails] = useState([]);
+  const [proyects, setProyects] = useState([]);
+  const [technologies, settechnologies] = useState([]);
+
 
   useEffect(() => {
     axios.get("/api/emails").then((response) => {
       setEmails(response.data);
+    });
+    axios.get("/api/proyects").then((response) => {
+      setProyects(response.data);
+    });
+    axios.get("/api/techstack").then((response) => {
+      settechnologies(response.data);
     });
   }, []);
 
@@ -54,12 +63,12 @@ const Home = () => {
         </div>
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">Proyects</h3>
-          <p className="text-primary text-4xl">5</p>
+          <p className="text-primary text-4xl">{proyects && proyects.length}</p>
           <p className="text-gray-500">the most popular proyect</p>
         </div>
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">TechStack</h3>
-          <p className="text-primary text-4xl">5</p>
+          <p className="text-primary text-4xl">{technologies && technologies.length}</p>
           <p className="text-gray-500">your favorite technology</p>
         </div>
       </div>
