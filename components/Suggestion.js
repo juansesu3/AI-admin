@@ -93,7 +93,7 @@ const Suggestion = () => {
   return (
     <div className="relative ">
       <div
-        className={`fixed bottom-0 right-6 w-56  shadow-lg flex flex-col gap-2 p-4 rounded-md  bg-[#1d1d1f]   mb-20 ${
+        className={`fixed bottom-0 right-6 w-64  shadow-lg flex flex-col gap-2 p-4 rounded-md  bg-[#1d1d1f]   mb-20 ${
           isOpen ? "" : "hidden"
         }`}
       >
