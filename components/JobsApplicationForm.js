@@ -8,6 +8,8 @@ const JobsApplicationForm = () => {
   const [jobDescription, setJobDescription] = useState("");
   const [jobContacts, setJobContacts] = useState("");
   const [jobtype, setJobType] = useState("");
+  //back to proyects after created a new one
+  const [goToJobs, setGoToJobs] = useState(false);
 
   const jobTypes = [
     {
@@ -19,7 +21,7 @@ const JobsApplicationForm = () => {
     { id_: Number("03"), name: "On-Site", code: "O-S-t" },
   ];
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     ev.preventDefault();
     const data = {
       company,
@@ -30,8 +32,16 @@ const JobsApplicationForm = () => {
       jobtype,
     };
 
-    axios.post("/api/jobApplication", data);
+    await axios.post("/api/jobApplication", data);
+
+    setGoToJobs(true);
   };
+
+  if (goToJobs) {
+    //use router
+    router.push("/");
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <input

@@ -1,3 +1,5 @@
+import { mongooseConnect } from "@/lib/mongoose";
+
 const { JobApp } = require("@/models/JobApp");
 
 const handle = async (req, res) => {
