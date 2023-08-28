@@ -14,7 +14,6 @@ const Home = () => {
   const [proyects, setProyects] = useState([]);
   const [technologies, settechnologies] = useState([]);
 
-
   useEffect(() => {
     axios.get("/api/emails").then((response) => {
       setEmails(response.data);
@@ -46,7 +45,6 @@ const Home = () => {
       <h1 className="text-white text-center mt-4">Principal info</h1>
 
       <div className="flex gap-2 flex-wrap justify-center mt-4">
-       
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">Emails</h3>
 
@@ -68,7 +66,9 @@ const Home = () => {
         </div>
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">TechStack</h3>
-          <p className="text-primary text-4xl">{technologies && technologies.length}</p>
+          <p className="text-primary text-4xl">
+            {technologies && technologies.length}
+          </p>
           <p className="text-gray-500">your favorite technology</p>
         </div>
       </div>
@@ -80,22 +80,22 @@ const Home = () => {
           <div className={conte}>
             <h3 className="text-gray-400 font-medium">Contracts</h3>
             <p className="text-primary text-4xl">1</p>
-            <p className="text-gray-500">priority contract: finansupp</p>
+            <p className="text-gray-500">priority contract: RemmiUpp</p>
           </div>
           <div className={conte}>
             <h3 className="text-gray-400 font-medium">Expenses</h3>
-            <p className="text-primary text-4xl">200.00 €</p>
+            <p className="text-primary text-4xl">600.00 €</p>
             <p className="text-gray-500">capacity: 75%</p>
           </div>
           <div className={conte}>
             <h3 className="text-gray-400 font-medium">Revenue</h3>
-            <p className="text-primary text-4xl">600.00 €</p>
-            <p className="text-gray-500">last week: 300.00 €</p>
+            <p className="text-primary text-4xl">00.00 €</p>
+            <p className="text-gray-500">last week: 00.00 €</p>
           </div>
           <div className={conte}>
             <h3 className="text-gray-400 font-medium">Profit</h3>
-            <p className="text-primary text-4xl">400.00 €</p>
-            <p className="text-gray-500 ">last week: $2000</p>
+            <p className="text-primary text-4xl">Experince €</p>
+            <p className="text-gray-500 ">last week: Descipline</p>
           </div>
         </div>
       </div>

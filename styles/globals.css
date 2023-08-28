@@ -48,11 +48,11 @@ table.basic thead tr td {
 }
 
 table.basic tr td {
-    @apply px-4 py-1 text-white ;
+    @apply px-4 py-1 text-white;
 }
 
 table.basic a {
-    @apply  px-4 rounded-sm inline-flex my-1 mx-1 items-center gap-1  text-sm py-1 shadow-sm;
+    @apply px-4 rounded-sm inline-flex my-1 mx-1 items-center gap-1 text-sm py-1 shadow-sm;
 }
 
 .btn-red,
@@ -71,25 +71,50 @@ table.basic a {
 
 .conversation-bubble {
     position: relative;
-  }
-  
+}
 
-  .custom-scrollbar {
+
+.custom-scrollbar {
     /* Cambia los colores según tus preferencias */
     scrollbar-width: thin;
-    scrollbar-color: #4d61fc #f3f4f6; /* Color del pulgar y color de fondo de la barra */
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px; /* Ancho de la barra de desplazamiento */
-    
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #4d61fc; /* Color del pulgar */
-    border-radius: 3px; /* Bordes redondeados del pulgar */
-  }
-  
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background-color: #f3f4f6; /* Color de fondo de la barra */
-  }
+    scrollbar-color: #4d61fc #f3f4f6;
+    /* Color del pulgar y color de fondo de la barra */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    /* Ancho de la barra de desplazamiento */
+
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4d61fc;
+    /* Color del pulgar */
+    border-radius: 3px;
+    /* Bordes redondeados del pulgar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #f3f4f6;
+    /* Color de fondo de la barra */
+}
+
+@keyframes bright-glow {
+    from {
+        box-shadow: 0 0 20px rgba(255, 196, 46, 0.7);
+    }
+
+    to {
+        box-shadow: 0 0 40px rgba(255, 196, 46, 0.9);
+    }
+}
+
+@keyframes bright-glow-reverse {
+    from {
+        box-shadow: 0 0 40px rgba(255, 196, 46, 0.9);
+    }
+
+    to {
+        box-shadow: 0 0 20px rgba(255, 196, 46, 0.7);
+    }
+}

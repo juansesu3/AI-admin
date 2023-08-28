@@ -166,7 +166,7 @@ const Suggestion = () => {
         </form>
       </div>
       <button
-        className="fixed bottom-8 right-6 w-10 h-10 flex items-center justify-center shadow-md rounded-full bg-sky-500"
+        className="fixed bottom-2 right-2 w-10 h-10 flex items-center justify-center shadow-md rounded-full bg-sky-500"
         onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
       >
         {isOpen ? (

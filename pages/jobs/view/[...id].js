@@ -20,7 +20,7 @@ const ViewJob = () => {
   return (
     <Layout>
       <div>
-        <h1 className="text-center text-primary">Your job Application</h1>
+        <h1 className="text-center text-primary">My job Application</h1>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
@@ -68,6 +68,17 @@ const ViewJob = () => {
                 </div>
               ))}
           </span>
+        </div>
+        <div className="flex flex-row gap-2 justify-center">
+          <button className="bg-[#FFC42E]  animate-bright-glow px-4 py-2  rounded-md text-gray-100 font-medium">
+            Interview
+          </button>
+          <button className="bg-green-500 animate-bright-glow px-4 py-2 rounded-md text-gray-100 font-medium">
+            Was Hired
+          </button>
+          <button className="bg-red-500 animate-bright-glow px-4 py-2 rounded-md text-gray-100 font-medium">
+            Head Shot
+          </button>
         </div>
       </div>
     </Layout>
