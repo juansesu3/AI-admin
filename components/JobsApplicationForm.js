@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const JobsApplicationForm = () => {
@@ -28,6 +29,8 @@ const JobsApplicationForm = () => {
       jobContacts,
       jobtype,
     };
+
+    axios.post("/api/jobApplication", data);
   };
   return (
     <form onSubmit={handleSubmit}>

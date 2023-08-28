@@ -1,0 +1,24 @@
+{
+    "name":"AI Admin",
+    "short_name":"AID",
+    "icons":[
+        {
+            "src":"/icon-192x192.png",
+            "sizes":"192x192",
+            "type":"image/png"
+
+        },
+        {
+            "src":"/icon-512x512.png",
+            "sizes":"512x512",
+            "type":"image/png"
+            
+        }
+
+    ],
+    "theme_colot":"#4d61fc",
+    "background_color":"#1d1d1f",
+    "start_url":"/",
+    "display":"standalone",
+    "orientation":"portatil"
+}
