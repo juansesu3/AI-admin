@@ -1,10 +1,15 @@
 import { useRouter } from "next/router";
-import Editor from "./Editor";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+
+const DynamicQuillEditor = dynamic(() => import("./Editor"), {
+  ssr: false,
+});
 
 const ArticleForm = ({
   _id,
@@ -202,7 +207,9 @@ const ArticleForm = ({
         onChange={(ev) => setSummary(ev.target.value)}
       ></textarea>
       <label>Article content</label>
-      <Editor value={content} onChange={setContent} />
+      {typeof window !== "undefined" && (
+        <DynamicQuillEditor value={content} onChange={setContent} />
+      )}
       <label>Article author</label>
       <div className="flex bg-gray-300 gap-1 text-black rounded-lg overflow-hidden mb-2">
         <img
