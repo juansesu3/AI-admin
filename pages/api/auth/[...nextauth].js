@@ -1,35 +1,53 @@
-import clientPromise from "@/lib/mongodb";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import { mongooseConnect } from "@/lib/mongoose";
+import { User } from "@/models/user";
 import NextAuth, { getServerSession } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 
-const adminEmails = ["juan.se.suarez.ra@gmail.com"];
+const isAdminEmails = async (email) => {
+  return true
+  return !!(await User.findOne({ email }));
+};
+
 export const authOptions = {
-  // Configure one or more authentication providers
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {},
+      async authorize(credentials) {
+        const { email, password } = credentials;
+        try {
+          await mongooseConnect();
+          const user = await User.findOne({ email });
+          if (!user) {
+            return null;
+          }
+          const passwordMatch = await bcrypt.compare(password, user.password);
+          if (!passwordMatch) {
+            return null;
+          }
+          return user;
+        } catch (error) {
+          console.log(error);
+        }
+      },
     }),
-    // ...add more providers here
   ],
-  adapter: MongoDBAdapter(clientPromise),
-  callbacks: {
-    session: ({ session, token, user }) => {
-      if (adminEmails.includes(session?.user?.email)) {
-        return session;
-      } else {
-        return false;
-      }
-    },
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/",
   },
 };
+
 export default NextAuth(authOptions);
 
 export const isAdminRequest = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
-  
-  if (!adminEmails.includes(session?.user?.email)) {
+
+  if (!(await isAdminEmails(session?.user?.email))) {
     res.status(401);
     res.end();
     throw "Not an admin";

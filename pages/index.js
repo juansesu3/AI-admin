@@ -3,6 +3,7 @@ import Suggestion from "@/components/Suggestion";
 
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -36,6 +37,8 @@ const Home = () => {
         </h2>
         <div className="flex gap-1 text-white rounded-lg overflow-hidden">
           <img
+            width={100}
+            height={100}
             src={session?.user?.image}
             alt="image-boss"
             className="w-12 h-12 rounded-md"

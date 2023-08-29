@@ -1,22 +1,78 @@
 import Nav from "@/components/Nav";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useState } from "react";
 import Logo from "./Logo";
 import Suggestion from "./Suggestion";
+import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
   const [showNav, setShowNav] = useState(false);
   const { data: session } = useSession();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const router = useRouter();
+
+  const handleSignInCredentials = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result.error) {
+        setError(true);
+        console.log(error);
+        return;
+      }
+      router.replace("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   if (!session) {
     return (
-      <div className="bg-bgGray w-screen h-screen flex items-center">
-        <div className="text-center w-full">
-          <button
-            onClick={() => signIn("google")}
-            className="bg-primary p-2 px-4 rounded-lg text-white font-medium"
-          >
-            Login with Google
-          </button>
+      <div className="bg-bgGray w-screen h-screen flex justify-center tems-center">
+        <div className="text-center w-full m-auto">
+          <div className="flex flex-col gap-2 w-52 m-auto">
+            <div className="flex flex-col  w-52 m-auto">
+              <div>
+                <img src="https://juan-sesu-ecommerce.s3.amazonaws.com/1693293993081.png" />
+              </div>
+              <form className="flex flex-col gap-2 mt-2">
+                <input
+                  type="text"
+                  placeholder="user"
+                  value={email}
+                  className="rounded-md"
+                  onChange={(ev) => setEmail(ev.target.value)}
+                />
+                <input
+                  type="password"
+                  placeholder="password"
+                  value={password}
+                  className="rounded-md"
+                  onChange={(ev) => setPassword(ev.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={handleSignInCredentials}
+                  href={"https://e-commerce-admin-kappa.vercel.app/"}
+                  className="bg-gray-700 p-2 px-4 rounded-md text-[#0080fd] font-medium shadow-md"
+                >
+                  Login
+                </button>
+
+                {error && (
+                  <p className="px-2 bg-red-500 text-white rounded-md">
+                    Invalid Credentials{" "}
+                  </p>
+                )}
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     );
