@@ -1,6 +1,7 @@
 import OpenAIKey, { key } from "@/lib/openAIKey";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const Suggestion = () => {
@@ -128,7 +129,12 @@ const Suggestion = () => {
             </p>
             <p></p>
             <span className=" flex items-center justify-center w-12 h-12 m-auto ">
-              <img src="https://juan-sesu-ecommerce.s3.amazonaws.com/1693293993081.png" />
+              <Image
+                width={100}
+                height={70}
+                alt="ai image"
+                src="https://juan-sesu-ecommerce.s3.amazonaws.com/1693293993081.png"
+              />
             </span>
 
             <div className="flex gap-1 ">
@@ -183,7 +189,12 @@ const Suggestion = () => {
           </svg>
         ) : (
           <span className="flex items-center justify-center w-12 h-12 rounded-full">
-            <img src="https://juan-sesu-ecommerce.s3.amazonaws.com/1693293993081.png" />
+            <Image
+              width={100}
+              height={70}
+              src="https://juan-sesu-ecommerce.s3.amazonaws.com/1693293993081.png"
+              alt="ai image"
+            />
           </span>
         )}
       </button>
