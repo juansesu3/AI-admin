@@ -29,14 +29,20 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="text-primary flex justify-between">
+      <div className="text-primary flex justify-between items-center">
         <h2>
           {" "}
           <span className="text-white">Hi Mr,</span>
           <br /> <b>{session?.user?.name}</b>
+          <div className="btn-primary mt-2 text-center">
+            <a href="http://example.com" target="_blank">
+              Deploy
+            </a>
+          </div>
         </h2>
+
         <div className="flex gap-1 text-white rounded-lg overflow-hidden">
-          <img
+          <Image
             width={100}
             height={100}
             src={session?.user?.image}
