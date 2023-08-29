@@ -39,12 +39,13 @@ const Layout = ({ children }) => {
         <div className="text-center w-full m-auto">
           <div className="flex flex-col gap-2 w-52 m-auto">
             <div className="flex flex-col  w-52 m-auto">
-              <div>
+              <div className="flex items-center justify-center">
                 <Image
-                width={100}
-                height={100}
-                alt="aid image"
-                src="https://juan-sesu-ecommerce.s3.amazonaws.com/1693293993081.png" />
+                  width={100}
+                  height={100}
+                  alt="aid image"
+                  src="https://juan-sesu-ecommerce.s3.amazonaws.com/1693293993081.png"
+                />
               </div>
               <form className="flex flex-col gap-2 mt-2">
                 <input
