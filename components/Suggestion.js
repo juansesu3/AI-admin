@@ -7,7 +7,6 @@ import React, { useEffect, useState } from "react";
 const Suggestion = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-  const openaiKey = process.env.OPENAI_API_KEY;
   const [inputValue, setInputValue] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

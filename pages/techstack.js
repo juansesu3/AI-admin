@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -16,10 +17,7 @@ const TechStack = () => {
     <Layout>
       <h1 className="text-primary">Technologies Stack</h1>
 
-      <Link
-        className="btn-primary "
-        href={"/techstack/new"}
-      >
+      <Link className="btn-primary " href={"/techstack/new"}>
         Add new Technology
       </Link>
       <table className="basic mt-2">
@@ -44,7 +42,10 @@ const TechStack = () => {
                 </div>
               </td>
               <td>
-                <Link className="btn-default" href={"/techstack/edit/" + technology._id}>
+                <Link
+                  className="btn-default"
+                  href={"/techstack/edit/" + technology._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -61,7 +62,10 @@ const TechStack = () => {
                   </svg>
                   Edit
                 </Link>
-                <Link className="btn-red" href={"/techstack/delete/" + technology._id}>
+                <Link
+                  className="btn-red"
+                  href={"/techstack/delete/" + technology._id}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

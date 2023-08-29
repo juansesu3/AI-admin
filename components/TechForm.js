@@ -60,7 +60,6 @@ const TechForm = ({
 
   return (
     <>
-      
       <form onSubmit={saveTechnology} className="flex flex-col gap-1">
         <label>New technology name</label>
         <input

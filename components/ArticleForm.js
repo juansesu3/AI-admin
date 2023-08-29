@@ -6,6 +6,7 @@ import Spinner from "./Spinner";
 import { ReactSortable } from "react-sortablejs";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+import Image from "next/image";
 
 const DynamicQuillEditor = dynamic(() => import("./Editor"), {
   ssr: false,
@@ -172,7 +173,7 @@ const ArticleForm = ({
                 key={link}
                 className=" h-24 bg-white p-2 shadow-sm rounded-lg border border-gray-100"
               >
-                <img src={link} alt="image-proyect" className="rounded-lg" />
+                <Image width={100} height={100} src={link} alt="image-proyect" className="rounded-lg" />
               </div>
             ))}
         </ReactSortable>
@@ -212,7 +213,9 @@ const ArticleForm = ({
       )}
       <label>Article author</label>
       <div className="flex bg-gray-300 gap-1 text-black rounded-lg overflow-hidden mb-2">
-        <img
+        <Image
+        width={100}
+        height={100}
           src={imgAuthor}
           alt="image-boss"
           className="w-8 h-8 rounded-md mt-1 ml-1.5"
