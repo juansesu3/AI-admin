@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const JobsApplicationForm = () => {
@@ -10,6 +11,7 @@ const JobsApplicationForm = () => {
   const [jobtype, setJobType] = useState("");
   //back to proyects after created a new one
   const [goToJobs, setGoToJobs] = useState(false);
+  const router = useRouter();
 
   const jobTypes = [
     {
