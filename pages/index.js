@@ -35,7 +35,7 @@ const Home = () => {
           <span className="text-white">Hi Mr,</span>
           <br /> <b>{session?.user?.name}</b>
           <div className="btn-primary mt-2 text-center">
-            <a href="https://ne-gi-upp-page.vercel.app/" target="_blank">
+            <a href="https://negiupp.com/" target="_blank">
               Deploy
             </a>
           </div>
