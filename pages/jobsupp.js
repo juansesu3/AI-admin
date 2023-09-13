@@ -76,7 +76,7 @@ const JobsPage = () => {
                     {job.seconState === "interview" && (
                       <div
                         className="w-4 h-4 shadow-md  border-0  rounded-full"
-                        style={{ backgroundColor: "Plum" }}
+                        style={{ backgroundColor: "#ffc42e" }}
                       />
                     )}
                     {job.seconState === "hired" && (
