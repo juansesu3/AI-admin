@@ -19,7 +19,7 @@ const JobsPage = () => {
     },
     {
       name: "Cold",
-      color: "Cyan",
+      color: "DodgerBlue",
     },
     {
       name: "Zombie",
@@ -68,11 +68,29 @@ const JobsPage = () => {
               return (
                 <tr key={job._id}>
                   <td>{job.jobName}</td>
-                  <td>
+                  <td className="flex flex-row items-center justify-start my-4 gap-1 p-0">
                     <div
-                      className="w-4 h-4 shadow-md  border-0 m-auto rounded-full"
+                      className="w-4 h-4 shadow-md  border-0  rounded-full"
                       style={{ backgroundColor: stateColor }}
                     />
+                    {job.seconState === "interview" && (
+                      <div
+                        className="w-4 h-4 shadow-md  border-0  rounded-full"
+                        style={{ backgroundColor: "Plum" }}
+                      />
+                    )}
+                    {job.seconState === "hired" && (
+                      <div
+                        className="w-4 h-4 shadow-md  border-0  rounded-full"
+                        style={{ backgroundColor: "LawnGreen" }}
+                      />
+                    )}
+                    {job.seconState === "hedShot" && (
+                      <div
+                        className="w-4 h-4 shadow-md  border-0  rounded-full"
+                        style={{ backgroundColor: "red" }}
+                      />
+                    )}
                   </td>
                   <td>
                     <Link
