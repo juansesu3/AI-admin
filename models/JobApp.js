@@ -8,6 +8,7 @@ const JobAppSchema = new Schema(
     jobDescription: { type: String, require: true },
     jobContacts: { type: String, require: true },
     jobtype: { type: String, require: true },
+    seconState: { type: String },
   },
   {
     timestamps: true,

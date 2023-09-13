@@ -76,12 +76,11 @@ const Suggestion = () => {
     axios
       .post(url, data, { headers: headers })
       .then((response) => {
-        console.log(response);
         setChatLog((prevChatLog) => [
           ...prevChatLog,
           { type: "bot", message: response.data.choices[0].message.content },
         ]);
-        console.log(chatLog);
+
         setIsLoading(false);
       })
       .catch((error) => {

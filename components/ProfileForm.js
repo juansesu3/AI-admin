@@ -100,8 +100,8 @@ const ProfileForm = ({
   const handleStartDateChange = (index, experince, date) => {
     setExperinces((prev) => {
       const experiences = [...prev];
-      console.log(typeof date);
-      console.log(date);
+    
+      
 
       const selectedDate = moment(date);
       // Calcula la diferencia de zona horaria entre el cliente y el servidor
@@ -236,16 +236,16 @@ const ProfileForm = ({
       languages[indexLang].language = ev.target.value;
       return languages;
     });
-    console.log(languages);
+    
   };
   const handleLanguagesLevelChange = (index, langLevelSelected, ev) => {
-    console.log(ev.target.value);
+    
     setLanguages((prev) => {
       const languages = [...prev];
       languages[index].levelLang = ev.target.value;
       return languages;
     });
-    console.log(languages);
+   
   };
 
   const removeLang = (indexToRemove) => {

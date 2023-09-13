@@ -9,7 +9,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
   const router = useRouter();
-  console.log(image, email, password, name);
+
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     const data = { name, email, password, image };

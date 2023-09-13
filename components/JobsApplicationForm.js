@@ -9,6 +9,7 @@ const JobsApplicationForm = () => {
   const [jobDescription, setJobDescription] = useState("");
   const [jobContacts, setJobContacts] = useState("");
   const [jobtype, setJobType] = useState("");
+  const [seconState, setSeconState] = useState("");
   //back to proyects after created a new one
   const [goToJobs, setGoToJobs] = useState(false);
   const router = useRouter();
@@ -32,6 +33,7 @@ const JobsApplicationForm = () => {
       jobDescription,
       jobContacts,
       jobtype,
+      seconState,
     };
 
     await axios.post("/api/jobApplication", data);
@@ -41,7 +43,7 @@ const JobsApplicationForm = () => {
 
   if (goToJobs) {
     //use router
-    router.push("/");
+    router.push("/jobsupp");
   }
 
   return (

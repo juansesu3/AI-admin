@@ -9,7 +9,7 @@ img {
 input,
 textarea,
 select {
-    @apply  border-0 shadow-md rounded-sm  w-full py-2 px-3 bg-inputColor text-white;
+    @apply border-0 shadow-md rounded-sm w-full py-2 px-3 bg-inputColor text-white;
     @apply shadow-sm;
     @apply mb-2;
 }
@@ -35,7 +35,7 @@ label {
 }
 
 .btn-primary {
-    @apply bg-primary text-white px-4 py-1 rounded-sm shadow-sm;
+    @apply bg-primary text-white px-4 py-1 rounded-sm shadow-md;
 
 }
 

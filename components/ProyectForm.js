@@ -143,7 +143,7 @@ const ProyectForm = ({
               <div
                 key={link}
                 className=" h-24 bg-white p-2 shadow-sm rounded-lg border border-gray-100"
-              >{console.log(link)}
+              >
                 <img src={link} alt="image-proyect" className="rounded-lg" />
               </div>
             ))}

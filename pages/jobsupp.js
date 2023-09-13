@@ -11,19 +11,19 @@ const JobsPage = () => {
   const states = [
     {
       name: "Hot",
-      color: "#fb4100",
+      color: "LawnGreen",
     },
     {
       name: "Alive",
-      color: "#3dff2b",
+      color: "orange",
     },
     {
       name: "Cold",
-      color: "#00b0ea",
+      color: "Cyan",
     },
     {
       name: "Zombie",
-      color: "#76005c",
+      color: "DarkMagenta",
     },
   ];
   useEffect(() => {
@@ -49,7 +49,6 @@ const JobsPage = () => {
           {jobs.length > 0 &&
             jobs.map((job) => {
               let stateColor = "#3dff2b"; // Initialize stateColor for each job
-
               if (new Date(job.createdAt) > subHours(new Date(), 24 * 7)) {
                 stateColor = states[0].color;
               } else if (
@@ -71,7 +70,8 @@ const JobsPage = () => {
                   <td>{job.jobName}</td>
                   <td>
                     <div
-                      className={`w-4 h-4 shadow-md border border-gray-600 m-auto rounded-full bg-[${stateColor}]`}
+                      className="w-4 h-4 shadow-md  border-0 m-auto rounded-full"
+                      style={{ backgroundColor: stateColor }}
                     />
                   </td>
                   <td>

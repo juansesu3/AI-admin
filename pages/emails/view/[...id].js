@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { withSwal } from "react-sweetalert2";
-const ViewEmail = ({swal}) => {
+const ViewEmail = ({ swal }) => {
   const router = useRouter();
   const [email, setEmail] = useState([]);
 
@@ -27,7 +27,7 @@ const ViewEmail = ({swal}) => {
         if (result.isConfirmed) {
           const { _id } = email;
           await axios.delete("/api/emails?_id=" + _id);
-         router.push("/emails")
+          router.push("/emails");
         }
       });
   };
@@ -45,25 +45,43 @@ const ViewEmail = ({swal}) => {
       <h1 className="text-primary">Reading email...</h1>
       <div className="shadow-md rounded-md p-4 flex flex-col gap-4 ">
         <h1 className="text-white">Hi Boss!</h1>
-        <div className="flex gap-4 flex-col md:flex-row ">
-          <div className="shadow-md rounded-md p-4 bg-tableBg">
-            <p>This email come from</p>
-            <h2 className="text-primary">Name: <span className="text-white">{email.name}</span></h2>
-            <h2  className="text-primary">Email: <span className="text-white">{email.email}</span> </h2>
+        <div className="flex gap-4 flex-col md:flex-row max-w-lg">
+          <div>
+            <label className="">This email come from</label>
+            <div className="shadow-md rounded-md p-4 bg-tableBg mt-1">
+              <h2 className="text-primary">
+                Name: <span className="text-white">{email.name}</span>
+              </h2>
+              <h2 className="text-primary">
+                Email: <span className="text-white">{email.email}</span>{" "}
+              </h2>
+            </div>
           </div>
-          <div className="shadow-md rounded-md p-4 bg-tableBg">
-            <p>Date & Subject</p>
-            <h2  className="text-primary">
-              Created at:<span className="text-white">
-              <time> {new Date(email.createdAt).toLocaleString("sv-SE")}</time>
-              </span>
-            </h2>
-            <h2 className="text-primary">Subject:  <span className="text-white">{email.subject}</span></h2>
+          <div>
+            <label>Date & Subject</label>
+            <div className="shadow-md rounded-md p-4 bg-tableBg mt-1">
+              <h2 className="text-primary">
+                Created at:
+                <span className="text-white">
+                  <time>
+                    {" "}
+                    {new Date(email.createdAt).toLocaleString("sv-SE")}
+                  </time>
+                </span>
+              </h2>
+              <h2 className="text-primary">
+                Subject: <span className="text-white">{email.subject}</span>
+              </h2>
+            </div>
           </div>
         </div>
-        <div className="shadow-md rounded-md p-4 bg-tableBg">
-          <h3 className="text-primary">Message:</h3>
-          <p><span className="text-white">{email.message}</span></p>
+        <div>
+          <label>Message:</label>
+          <div className="shadow-md max-w-lg rounded-md p-4 bg-tableBg mt-1">
+            <p>
+              <span className="text-white ">{email.message}</span>
+            </p>
+          </div>
         </div>
         <div className="flex justify-between ">
           <Link
@@ -88,7 +106,7 @@ const ViewEmail = ({swal}) => {
           </Link>
           <button
             className="btn-red flex items-center gap-1"
-           onClick={()=>deleCategory(email)}
+            onClick={() => deleCategory(email)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

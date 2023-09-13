@@ -9,7 +9,8 @@ const handle = async (req, res) => {
     if (req.query?.id) {
       res.json(await JobApp.findOne({ _id: req.query.id }));
     } else {
-      res.json(await JobApp.find());
+      const jobsSort = await JobApp.find().sort({ createdAt: -1 });
+      res.json(jobsSort);
     }
   }
   if (method === "POST") {
@@ -20,6 +21,7 @@ const handle = async (req, res) => {
       jobDescription,
       jobContacts,
       jobtype,
+      seconState,
     } = req.body;
 
     const jobAppDoc = await JobApp.create({
@@ -29,6 +31,7 @@ const handle = async (req, res) => {
       jobDescription,
       jobContacts,
       jobtype,
+      seconState,
     });
     res.json(jobAppDoc);
   }
@@ -41,6 +44,7 @@ const handle = async (req, res) => {
       jobDescription,
       jobContacts,
       jobtype,
+      seconState,
       _id,
     } = req.body;
     await JobApp.updateOne(
@@ -52,6 +56,7 @@ const handle = async (req, res) => {
         jobDescription,
         jobContacts,
         jobtype,
+        seconState,
       }
     );
     res.json(true);

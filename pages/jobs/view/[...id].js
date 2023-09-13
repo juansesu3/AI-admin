@@ -16,7 +16,25 @@ const ViewJob = () => {
       setJob(response.data);
     });
   }, [id]);
-  console.log(job);
+
+  const handleChangeState = async (id, state) => {
+    const updatedState = { ...job, seconState: state };
+
+    if (id) {
+      try {
+        const response = await axios.put("/api/jobApplication", {
+          ...updatedState,
+          id,
+        });
+
+        // Aquí puedes actualizar el estado o hacer algo más con la respuesta.
+      } catch (error) {
+        console.log("Error al actualizar:", error);
+        // Manejar el error
+      }
+    }
+  };
+
   return (
     <Layout>
       <div>
@@ -37,11 +55,11 @@ const ViewJob = () => {
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="m-0 font-medium text-gray-500">Requirements</h2>
-          <span className="flex flex-wrap justify-around items-center gap-2 rounded-md shadow-md p-4 bg-tableBg text-white text-center">
+          <span className="flex flex-wrap justify-around items-center gap-1 rounded-md shadow-md p-4 bg-tableBg text-white text-center">
             {job?.requirements.split(",").length > 0 &&
               job?.requirements.split(",").map((jobreq) => (
                 <div
-                  className="bg-bgGray  px-4 py-2 text-xl  rounded-sm text-primary shadow-md"
+                  className="bg-bgGray  px-4 py-1 text-xl  rounded-sm text-primary shadow-md"
                   key={jobreq}
                 >
                   {jobreq}
@@ -51,32 +69,47 @@ const ViewJob = () => {
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="m-0 font-medium text-gray-500">Job Description</h2>
-          <span className="rounded-md shadow-md p-4 bg-tableBg text-white text-center">
-            {job?.jobDescription}
-          </span>
+          <div
+            className="rounded-md shadow-md p-4 bg-tableBg text-white text-center"
+            dangerouslySetInnerHTML={{ __html: job?.jobDescription }}
+          ></div>
         </div>
         <div className="flex flex-col gap-1">
           <h2 className="m-0 font-medium text-gray-500">Job Contacts</h2>
-          <span className="flex flex-col gap-2 rounded-md shadow-md p-4 bg-tableBg text-white text-center">
+          <span className="flex flex-col gap-2 rounded-md shadow-md p-4 bg-tableBg text-white text-center  w-full">
             {job?.jobContacts.split(",").length > 0 &&
               job?.jobContacts.split(",").map((jobcont) => (
                 <div
-                  className="bg-bgGray  px-4 py-2 text-xl rounded-sm text-primary shadow-md"
+                  className="bg-bgGray w-[310px] md:w-full  px-4 py-2 text-xl rounded-sm text-primary shadow-md truncate whitespace-nowrap"
                   key={jobcont}
                 >
+                  {jobcont.includes("https://") && (
+                    <a href={`${jobcont}`} target="_blank">
+                      {jobcont}
+                    </a>
+                  )}
                   {jobcont}
                 </div>
               ))}
           </span>
         </div>
         <div className="flex flex-row gap-2 justify-center">
-          <button className="bg-[#FFC42E]  animate-bright-glow px-4 py-2  rounded-md text-gray-100 font-medium">
+          <button
+            onClick={() => handleChangeState(job._id, "interview")}
+            className="bg-[#FFC42E]  animate-bright-glow px-4 py-2  rounded-md text-gray-100 font-medium"
+          >
             Interview
           </button>
-          <button className="bg-green-500 animate-bright-glow px-4 py-2 rounded-md text-gray-100 font-medium">
+          <button
+            onClick={() => handleChangeState(job._id, "hired")}
+            className="bg-green-500 animate-bright-glow px-4 py-2 rounded-md text-gray-100 font-medium"
+          >
             Was Hired
           </button>
-          <button className="bg-red-500 animate-bright-glow px-4 py-2 rounded-md text-gray-100 font-medium">
+          <button
+            onClick={() => handleChangeState(job._id, "hedShot")}
+            className="bg-red-500 animate-bright-glow px-4 py-2 rounded-md text-gray-100 font-medium"
+          >
             Head Shot
           </button>
         </div>
