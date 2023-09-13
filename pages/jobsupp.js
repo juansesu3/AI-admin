@@ -2,11 +2,13 @@ import Layout from "@/components/Layout";
 import axios from "axios";
 import { subHours } from "date-fns";
 import Link from "next/link";
+
 import React, { useEffect, useState } from "react";
 
 const JobsPage = () => {
   const [jobs, setJobs] = useState([]);
   const [state, setState] = useState("");
+
 
   const states = [
     {

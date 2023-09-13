@@ -8,6 +8,8 @@ const ViewJob = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  const [goToJobs, setGoToJobs] = useState(false);
+
   useEffect(() => {
     if (!id) {
       return;
@@ -26,7 +28,7 @@ const ViewJob = () => {
           ...updatedState,
           id,
         });
-
+        setGoToJobs(true);
         // Aquí puedes actualizar el estado o hacer algo más con la respuesta.
       } catch (error) {
         console.log("Error al actualizar:", error);
@@ -34,7 +36,10 @@ const ViewJob = () => {
       }
     }
   };
-
+  if (goToJobs) {
+    //use router
+    router.push("/jobsupp");
+  }
   return (
     <Layout>
       <div>
