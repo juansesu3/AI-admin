@@ -6,11 +6,17 @@ const StorePage = () => {
   return (
     <>
       <Layout>
-        <div className="flex gap-4">
-          <Link className="btn-primary p-10" href={"/digital-products"}>
+        <div className="flex gap-4 flex-col">
+          <Link
+            className="transition duration-300 ease-in-out bg-[#8f8f8f1c] hover:bg-primary p-10 text-center text-xl text-primary hover:text-white font-semibold shadow-md rounded-md"
+            href={"/digital-products"}
+          >
             Digital Products
           </Link>
-          <Link className="btn-primary" href={"/physical-products"}>
+          <Link
+            className="transition duration-300 ease-in-out bg-[#8f8f8f1c] hover:bg-primary p-10 text-center text-xl text-primary  hover:text-white font-semibold shadow-md rounded-md"
+            href={"/physical-products"}
+          >
             Fisical Products
           </Link>
         </div>
