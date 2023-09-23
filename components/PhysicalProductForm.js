@@ -4,12 +4,19 @@ import Spinner from "./Spinner";
 import { useRouter } from "next/router";
 import axios from "axios";
 
-const PhysicalProductForm = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [images, setImages] = useState([]);
-  const [stock, setStock] = useState("");
+const PhysicalProductForm = ({
+  _id,
+  name: existingName,
+  description: existingDescription,
+  price: existingPrice,
+  images: existingImage,
+  stock: existingStock,
+}) => {
+  const [name, setName] = useState(existingName || "");
+  const [description, setDescription] = useState(existingDescription || "");
+  const [price, setPrice] = useState(existingPrice || "");
+  const [images, setImages] = useState(existingImage || []);
+  const [stock, setStock] = useState(existingStock || "");
   const [isUploading, setIsUploading] = useState(false);
   const [goToFisicalProducts, setGoToFisicalProducts] = useState(false);
 
@@ -46,7 +53,12 @@ const PhysicalProductForm = () => {
       images,
       stock,
     };
-    await axios.post("/api/physicalProducts", data);
+
+    if (_id) {
+      await axios.put("/api/physicalProducts", { ...data, _id });
+    } else {
+      await axios.post("/api/physicalProducts", data);
+    }
     setGoToFisicalProducts(true);
   };
   if (goToFisicalProducts) {
@@ -133,7 +145,7 @@ const PhysicalProductForm = () => {
           onChange={(ev) => setStock(ev.target.value)}
         />
         <button type="submit" className="btn btn-primary">
-          Create
+          Save
         </button>
       </form>
     </>

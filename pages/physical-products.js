@@ -43,7 +43,7 @@ const FisicalProductsPage = () => {
       <div className="flex flex-col justify-center gap-4">
         {products?.length > 0 &&
           products.map((product) => (
-            <>
+            <div key={product._id}>
               <div className="flex gap-2 items-start">
                 <div className="w-16 h-full shadow-md ">
                   <img
@@ -64,12 +64,18 @@ const FisicalProductsPage = () => {
                     </div>
 
                     <div className="flex flex-col items-center justify-end gap-1">
-                      <button className="bg-white/10 text-sm w-full text-[#0070e2] px-4 py-0 rounded-lg font-medium">
+                      <Link
+                        href={"/physical-product/edit/" + product._id}
+                        className="flex justify-center bg-white/10 text-sm w-full text-[#0070e2] px-4 py-0 rounded-lg font-medium"
+                      >
                         Edit
-                      </button>
-                      <button className="bg-red-500 text-sm w-full text-white px-4 py-0 rounded-lg font-medium">
+                      </Link>
+                      <Link
+                        href={"/physical-product/delete/" + product._id}
+                        className="flex justify-center bg-red-500 text-sm w-full text-white px-4 py-0 rounded-lg font-medium"
+                      >
                         Delete
-                      </button>
+                      </Link>
                       <p className="text-sm text-white/40">
                         Stock:{" "}
                         <span className="text-[#0070e2]"> {product.stock}</span>
@@ -79,7 +85,7 @@ const FisicalProductsPage = () => {
                   <div className="w-full h-px bg-gray-300 mt-2" />
                 </div>
               </div>
-            </>
+            </div>
           ))}
       </div>
     </Layout>
