@@ -17,7 +17,7 @@ const StorePage = () => {
             className="transition duration-300 ease-in-out bg-[#8f8f8f1c] hover:bg-primary p-10 text-center text-xl text-primary  hover:text-white font-semibold shadow-md rounded-md"
             href={"/physical-products"}
           >
-            Fisical Products
+            Physical Products
           </Link>
         </div>
       </Layout>
