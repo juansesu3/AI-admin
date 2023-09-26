@@ -7,9 +7,18 @@ const handle = async (req, res) => {
 
   await mongooseConnect();
   await isAdminRequest(req, res);
+
+  if (method === "GET") {
+    if (req.query?.id) {
+      res.json(await PpCategory.findOne({ _id: req.query.id }));
+    } else {
+      res.json(await PpCategory.find());
+    }
+  }
+
   if (method === "POST") {
-    const { name } = req.body;
-    const pPCategoryDoc = await PpCategory.create({ name });
+    const { name, parentPpCategory } = req.body;
+    const pPCategoryDoc = await PpCategory.create({ name, parent:parentPpCategory });
     res.json(pPCategoryDoc);
   }
 };
