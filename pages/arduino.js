@@ -4,23 +4,28 @@ import axios from "axios";
 
 const ArduinoPage = () => {
   const [buttonStates, setButtonStates] = useState([]);
+
+  const fetchButtonStates = async () => {
+    await axios.get("/api/arduino").then((response) => {
+      setButtonStates(response.data);
+    });
+  };
+
   useEffect(() => {
     // Obtener el estado inicial desde MongoDB
     // Asume que tienes una API de servidor que pueda devolver el último estado del botón
-    axios.get("/api/arduino").then((response) => {
-      setButtonStates(response.data);
-    });
-
+    fetchButtonStates();
     // Aquí podrías usar Websockets o similar para obtener actualizaciones en tiempo real
   }, []);
 
-  const sendCommandToArduino = async (command) => {
+  const sendCommandToArduino = async (buttonState) => {
     try {
-      const response = await axios.post("/api/arduino", { command });
+      const response = await axios.post("/api/arduino", { buttonState });
       console.log(response.data);
     } catch (error) {
       console.error("Error enviando comando al Arduino:", error);
     }
+    fetchButtonStates();
   };
 
   return (
@@ -28,14 +33,14 @@ const ArduinoPage = () => {
       <div className="flex gap-2 mb-2">
         <button
           className="btn-primary"
-          onClick={() => sendCommandToArduino("TURN_ON")}
+          onClick={() => sendCommandToArduino("SwitchState: HIGH")}
         >
           Encender
         </button>
 
         <button
           className="btn-red"
-          onClick={() => sendCommandToArduino("TURN_OFF")}
+          onClick={() => sendCommandToArduino("SwitchState: LOW")}
         >
           Apagar
         </button>

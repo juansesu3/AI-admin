@@ -16,16 +16,21 @@ const handle = async (req, res) => {
   }
 
   if (method === "POST") {
-    const { command } = req.body;
-    
+    const { buttonState } = req.body;
+    console.log(buttonState)
 
-    if (command === "TURN_ON") {
-      port.write("TURN_ON\n");
-    } else if (command === "TURN_OFF") {
-      port.write("TURN_OFF\n");
+    const arduinoDataDoc = await ArduinoData.create({
+      buttonState,
+    });
+
+    // Si el estado del botón es "encendido", enviar un comando al Arduino.
+    if (buttonState === "SwitchState: HIGH") {
+      port.write("TURN_ON_LED"); // Asume que "port.write" escribe al puerto serie
+    } else if (buttonState === "OFF") {
+      port.write("TURN_OFF_LED");
     }
 
-    res.json({ message: "Comando enviado al Arduino" });
+    res.json(arduinoDataDoc);
   }
 };
 
