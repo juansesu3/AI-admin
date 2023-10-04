@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout";
 import axios from "axios";
-import { set } from "mongoose";
 import React, { useEffect, useState } from "react";
 
 import { withSwal } from "react-sweetalert2";
