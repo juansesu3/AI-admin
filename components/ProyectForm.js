@@ -17,6 +17,7 @@ const ProyectForm = ({
   service: existingService,
   proyectType: existingProyectType,
   releaseDate: existingReleaseDate,
+  imagesMobile: existingImagesMobile,
 }) => {
   //states to storage my data proyect
   const [title, setTitle] = useState(existingTitle || "");
@@ -33,6 +34,7 @@ const ProyectForm = ({
   const [linkCode, setLinkCode] = useState(existingLinkCode || "");
   const [linkDeploy, setLinkDeploy] = useState(existingLinkDeploy || "");
   const [images, setImages] = useState(existingImages || []);
+  const [imagesMobile, setImagesMobile] = useState(existingImagesMobile || []);
 
   //technologies come from our DB
   const [technologies, setTechnologies] = useState([]);
@@ -69,6 +71,7 @@ const ProyectForm = ({
       linkCode,
       linkDeploy,
       images,
+      imagesMobile,
     };
 
     if (_id) {
@@ -103,6 +106,25 @@ const ProyectForm = ({
       setIsUploading(false);
     }
   };
+
+  const uploadImagesMobile = async (ev) => {
+    const files = ev.target?.files;
+    if (files?.length > 0) {
+      setIsUploading(true);
+      const data = new FormData();
+
+      for (const file of files) {
+        data.append("file", file);
+      }
+
+      const res = await axios.post("/api/upload", data);
+      setImagesMobile((oldImages) => {
+        return [...oldImages, ...res.data.links];
+      });
+      setIsUploading(false);
+    }
+  };
+
   const updateImagesOrder = (images) => {
     setImages(images);
   };
@@ -131,7 +153,7 @@ const ProyectForm = ({
         value={about}
         onChange={(ev) => setAbout(ev.target.value)}
       ></textarea>
-      <label>Photos</label>
+      <label>Desktop Photos (5 photos max)</label>
       <div className="mb-2 flex flex-wrap gap-1">
         <ReactSortable
           list={images}
@@ -172,6 +194,44 @@ const ProyectForm = ({
           <input type="file" onChange={uploadImages} className="hidden" />
         </label>
       </div>
+
+      <label>Mobile Photos (3 photos max)</label>
+      <div className="mb-2 flex flex-wrap gap-1">
+        {!!imagesMobile?.length &&
+          imagesMobile.map((link) => (
+            <div
+              key={link}
+              className=" h-24 bg-white p-2 shadow-sm rounded-lg border border-gray-100"
+            >
+              <img src={link} alt="image-proyect" className="rounded-lg" />
+            </div>
+          ))}
+
+        {isUploading && (
+          <div className="h-24 flex items-center ">
+            <Spinner />
+          </div>
+        )}
+        <label className=" w-24 h-24 cursor-pointer text-center flex flex-col items-center justify-center text-sm gap-1 text-primary rounded-lg bg-white shadow-sm border border-primary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
+            />
+          </svg>
+          <div>Add image</div>
+          <input type="file" onChange={uploadImagesMobile} className="hidden" />
+        </label>
+      </div>
+
       <label>Proyect description</label>
       <textarea
         placeholder="proyect description"

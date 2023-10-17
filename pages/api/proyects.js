@@ -29,6 +29,7 @@ const handle = async (req, res) => {
       linkCode,
       linkDeploy,
       images,
+      imagesMobile,
       releaseDate,
     } = req.body;
     const proyectDoc = await Proyect.create({
@@ -42,6 +43,7 @@ const handle = async (req, res) => {
       linkCode,
       linkDeploy,
       images,
+      imagesMobile,
       releaseDate,
     });
     res.json(proyectDoc);
@@ -59,6 +61,7 @@ const handle = async (req, res) => {
       linkCode,
       linkDeploy,
       images,
+      imagesMobile,
       releaseDate,
       _id,
     } = req.body;
@@ -75,6 +78,7 @@ const handle = async (req, res) => {
         linkCode,
         linkDeploy,
         images,
+        imagesMobile,
         releaseDate,
       }
     );
