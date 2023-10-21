@@ -110,9 +110,7 @@ const Layout = ({ children }) => {
         <Nav show={showNav} />
 
         <div className="flex-grow p-4">{children}</div>
-        <div className="fixed bottom-4 right-4">
-          <Suggestion />
-        </div>
+       
       </div>
     </div>
   );

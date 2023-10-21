@@ -37,6 +37,7 @@ const ArticleForm = ({
   const [articleCategories, setArticleCategories] = useState([]);
   const [articleCat, setArticleCat] = useState(assignedArticleCat || "");
   const [articleTopics, setArticleTopics] = useState(assignedTopics || {});
+
   const router = useRouter();
 
   useEffect(() => {
@@ -117,8 +118,66 @@ const ArticleForm = ({
     }
   }
 
+  const generateArticle = async (topic, focusOn) => {
+    const prompt = `Create an article about the topic ${topic} with a focus on ${focusOn}.`;
+
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+    };
+
+    const data = {
+      prompt,
+      max_tokens: 4000, // Puedes ajustar esto según tus necesidades
+    };
+
+    const response = await axios.post(
+      "https://api.openai.com/v1/engines/text-davinci-002/completions",
+      data,
+      { headers }
+    );
+
+    const generatedText = response.data.choices[0]?.text.trim();
+
+    // Aquí dividimos el contenido en resumen y contenido principal
+    const indexOfFirstParagraph = generatedText.indexOf("\n");
+    const summary = generatedText.slice(0, indexOfFirstParagraph);
+    const mainContent = generatedText.slice(indexOfFirstParagraph + 1);
+
+    return { summary, mainContent };
+  };
+
+  const onClickGenerate = async () => {
+    const { summary, mainContent } = await generateArticle(topic, focusOn);
+    setSummary(summary);
+    setContent(mainContent);
+  };
+
+  const [topic, setTopic] = useState("");
+  const [focusOn, setFocusOn] = useState("");
+
   return (
     <form onSubmit={saveArticle}>
+      <label>Topic</label>
+      <input
+        type="text"
+        placeholder="article topic"
+        value={topic}
+        onChange={(ev) => setTopic(ev.target.value)}
+      />
+      <label>Focus On</label>
+      <input
+        type="text"
+        placeholder="article focus on"
+        value={focusOn}
+        onChange={(ev) => setFocusOn(ev.target.value)}
+      />
+      <button type="button" className="btn-primary" onClick={onClickGenerate}>
+        Generar Contenido
+      </button>
+      <br />
+      <br />
+
       <label>Article name</label>
       <input
         type="text"
@@ -173,7 +232,13 @@ const ArticleForm = ({
                 key={link}
                 className=" h-24 bg-white p-2 shadow-sm rounded-lg border border-gray-100"
               >
-                <Image width={100} height={100} src={link} alt="image-proyect" className="rounded-lg" />
+                <Image
+                  width={100}
+                  height={100}
+                  src={link}
+                  alt="image-proyect"
+                  className="rounded-lg"
+                />
               </div>
             ))}
         </ReactSortable>
@@ -214,8 +279,8 @@ const ArticleForm = ({
       <label>Article author</label>
       <div className="flex bg-gray-300 gap-1 text-black rounded-lg overflow-hidden mb-2">
         <Image
-        width={100}
-        height={100}
+          width={100}
+          height={100}
           src={imgAuthor}
           alt="image-boss"
           className="w-8 h-8 rounded-md mt-1 ml-1.5"
