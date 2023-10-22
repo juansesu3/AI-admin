@@ -7,6 +7,7 @@ import { ReactSortable } from "react-sortablejs";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import Image from "next/image";
+import Prompt from "./Prompt";
 
 const DynamicQuillEditor = dynamic(() => import("./Editor"), {
   ssr: false,
@@ -38,7 +39,13 @@ const ArticleForm = ({
   const [articleCat, setArticleCat] = useState(assignedArticleCat || "");
   const [articleTopics, setArticleTopics] = useState(assignedTopics || {});
 
+  const [topic, setTopic] = useState("");
+  const [focusOn, setFocusOn] = useState("");
+  const [mainKeyword, setMainKeyword] = useState("");
+  const [secondaryKeywords, setSecondaryKeywords] = useState("");
   const router = useRouter();
+
+
 
   useEffect(() => {
     axios.get("/api/catarticles").then((result) => {
@@ -118,66 +125,12 @@ const ArticleForm = ({
     }
   }
 
-  const generateArticle = async (topic, focusOn) => {
-    const prompt = `Create an article about the topic ${topic} with a focus on ${focusOn}.`;
 
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
-    };
-
-    const data = {
-      prompt,
-      max_tokens: 4000, // Puedes ajustar esto según tus necesidades
-    };
-
-    const response = await axios.post(
-      "https://api.openai.com/v1/engines/text-davinci-002/completions",
-      data,
-      { headers }
-    );
-
-    const generatedText = response.data.choices[0]?.text.trim();
-
-    // Aquí dividimos el contenido en resumen y contenido principal
-    const indexOfFirstParagraph = generatedText.indexOf("\n");
-    const summary = generatedText.slice(0, indexOfFirstParagraph);
-    const mainContent = generatedText.slice(indexOfFirstParagraph + 1);
-
-    return { summary, mainContent };
-  };
-
-  const onClickGenerate = async () => {
-    const { summary, mainContent } = await generateArticle(topic, focusOn);
-    setSummary(summary);
-    setContent(mainContent);
-  };
-
-  const [topic, setTopic] = useState("");
-  const [focusOn, setFocusOn] = useState("");
 
   return (
     <form onSubmit={saveArticle}>
-      <label>Topic</label>
-      <input
-        type="text"
-        placeholder="article topic"
-        value={topic}
-        onChange={(ev) => setTopic(ev.target.value)}
-      />
-      <label>Focus On</label>
-      <input
-        type="text"
-        placeholder="article focus on"
-        value={focusOn}
-        onChange={(ev) => setFocusOn(ev.target.value)}
-      />
-      <button type="button" className="btn-primary" onClick={onClickGenerate}>
-        Generar Contenido
-      </button>
-      <br />
-      <br />
-
+      <Prompt/>
+     
       <label>Article name</label>
       <input
         type="text"
@@ -198,7 +151,6 @@ const ArticleForm = ({
             </option>
           ))}
       </select>
-
       {topictsToFill.length > 0 &&
         topictsToFill.map((t) => (
           <div className="" key={t.name}>
@@ -218,7 +170,6 @@ const ArticleForm = ({
             </div>
           </div>
         ))}
-
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
         <ReactSortable
@@ -274,7 +225,12 @@ const ArticleForm = ({
       ></textarea>
       <label>Article content</label>
       {typeof window !== "undefined" && (
-        <DynamicQuillEditor value={content} onChange={setContent} />
+        <DynamicQuillEditor
+          style={{ color: "white" }}
+          value={content}
+          onChange={setContent}
+          className="text-white"
+        />
       )}
       <label>Article author</label>
       <div className="flex bg-gray-300 gap-1 text-black rounded-lg overflow-hidden mb-2">
