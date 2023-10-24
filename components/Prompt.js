@@ -10,6 +10,11 @@ const Prompt = () => {
     expertTopic: "",
     websiteAbout: "",
     userQuestion: "",
+    numberWords: "",
+    mainKeyword: "",
+    secondaryKeywords1: "",
+    secondaryKeywords2: "",
+    secondaryKeywords3: "",
     // ...other states
   });
 
@@ -60,6 +65,7 @@ const Prompt = () => {
     // Copiar el texto al portapapeles
     try {
       await navigator.clipboard.writeText(textToCopy.trim());
+      console.log(textToCopy);
       console.log("Texto copiado al portapapeles");
     } catch (err) {
       console.error("Error al copiar texto: ", err);
@@ -360,7 +366,7 @@ const Prompt = () => {
         type="button"
         onClick={handleCopyClick}
       >
-        Copiar prompt
+        Copie prompt
       </button>
     </div>
   );
