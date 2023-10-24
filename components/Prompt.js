@@ -23,19 +23,35 @@ const Prompt = () => {
     setInputs((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const InfoCopie = () => {
+    Swal.fire({
+      title: "Ready ",
+      text: "Your prompt has been copied to the clipboard. Head over to Chat GPT to paste it and generate your article.",
+      icon: "success",
+      confirmButtonText: "Ok!",
+    });
+  };
+
+  const InfoCompleteInputs = () => {
+    Swal.fire({
+      title: "incomplete",
+      text: "Please complete all fields before copying.",
+      icon: "error",
+      confirmButtonText: "Ok!",
+    });
+  };
+
+  const areInputsEmpty = () => {
+    return Object.values(inputs).some((value) => value === "");
+  };
+
   const handleCopyClick = async () => {
+    if (areInputsEmpty()) {
+      InfoCompleteInputs();
+      return;
+    }
     const promptDiv = document.getElementById("prompt");
     let textToCopy = "";
-
-    // Añadir valores de los inputs al principio del texto copiado
-    textToCopy += `Expert Topic: ${inputs.expertTopic}\n`;
-    textToCopy += `Website About: ${inputs.websiteAbout}\n`;
-    textToCopy += `User Question: ${inputs.userQuestion}\n`;
-    textToCopy += `Number of Words: ${inputs.numberWords}\n`;
-    textToCopy += `Main Keyword: ${inputs.mainKeyword}\n`;
-    textToCopy += `Secondary Keywords 1: ${inputs.secondaryKeywords1}\n`;
-    textToCopy += `Secondary Keywords 2: ${inputs.secondaryKeywords2}\n`;
-    textToCopy += `Secondary Keywords 3: ${inputs.secondaryKeywords3}\n`;
 
     // Iterar a través de cada elemento hijo del div
     promptDiv.childNodes.forEach((node) => {
@@ -70,6 +86,7 @@ const Prompt = () => {
     } catch (err) {
       console.error("Error al copiar texto: ", err);
     }
+    InfoCopie();
   };
 
   const handleSvgClick = (info) => {
@@ -98,7 +115,9 @@ const Prompt = () => {
             className={inputsPrompt}
             type="text"
             placeholder="expert topic"
-          ></input>{" "}
+            required
+          />{" "}
+          <span className="hidden">{inputs.expertTopic}</span>
           <span
             className="cursor-pointer  hover:text-primary"
             onClick={() =>
@@ -132,7 +151,9 @@ const Prompt = () => {
             className={inputsPrompt}
             type="text"
             placeholder="what is your website about?"
+            required
           />
+          <span className="hidden">{inputs.websiteAbout}</span>
           <span
             className="cursor-pointer hover:text-primary"
             onClick={() =>
@@ -171,7 +192,9 @@ const Prompt = () => {
               className={inputsPrompt}
               type="text"
               placeholder="answer user question"
+              required
             />
+            <span className="hidden">{inputs.userQuestion}</span>
             <span
               className="cursor-pointer hover:text-primary"
               onClick={() =>
@@ -209,7 +232,9 @@ const Prompt = () => {
               className={inputsPrompt}
               type="number"
               placeholder="number of words or length"
+              required
             />
+            <span className="hidden">{inputs.numberWords}</span>
             <span
               className="cursor-pointer hover:text-primary"
               onClick={() =>
@@ -247,7 +272,9 @@ const Prompt = () => {
               className={inputsPrompt}
               type="text"
               placeholder="primary keywords for SEO"
+              required
             />
+            <span className="hidden">{inputs.mainKeyword}</span>
             <span
               className="cursor-pointer hover:text-primary"
               onClick={() =>
@@ -284,8 +311,9 @@ const Prompt = () => {
             className="w-auto h-6 text-center"
             type="text"
             placeholder="secondary keywords"
+            required
           />
-          ,{" "}
+          <span className="hidden">{inputs.secondaryKeywords1}</span>,{" "}
           <input
             name="secondaryKeywords2"
             value={inputs.secondaryKeywords2}
@@ -293,8 +321,9 @@ const Prompt = () => {
             className="w-auto h-6 text-center"
             type="text"
             placeholder="secondary keywords"
+            required
           />
-          , and{" "}
+          <span className="hidden">{inputs.secondaryKeywords2}</span>, and{" "}
           <span className="inline-flex">
             <input
               name="secondaryKeywords3"
@@ -304,6 +333,7 @@ const Prompt = () => {
               type="text"
               placeholder="secondary keywords"
             />
+            <span className="hidden">{inputs.secondaryKeywords3}</span>
             <span
               className="cursor-pointer hover:text-primary"
               onClick={() =>
