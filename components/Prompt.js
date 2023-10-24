@@ -115,7 +115,7 @@ const Prompt = () => {
             className={inputsPrompt}
             type="text"
             placeholder="expert topic"
-            required
+            
           />{" "}
           <span className="hidden">{inputs.expertTopic}</span>
           <span
@@ -151,7 +151,7 @@ const Prompt = () => {
             className={inputsPrompt}
             type="text"
             placeholder="what is your website about?"
-            required
+            
           />
           <span className="hidden">{inputs.websiteAbout}</span>
           <span
@@ -192,7 +192,7 @@ const Prompt = () => {
               className={inputsPrompt}
               type="text"
               placeholder="answer user question"
-              required
+              
             />
             <span className="hidden">{inputs.userQuestion}</span>
             <span
@@ -232,7 +232,7 @@ const Prompt = () => {
               className={inputsPrompt}
               type="number"
               placeholder="number of words or length"
-              required
+              
             />
             <span className="hidden">{inputs.numberWords}</span>
             <span
@@ -272,7 +272,7 @@ const Prompt = () => {
               className={inputsPrompt}
               type="text"
               placeholder="primary keywords for SEO"
-              required
+              
             />
             <span className="hidden">{inputs.mainKeyword}</span>
             <span
@@ -311,7 +311,7 @@ const Prompt = () => {
             className="w-auto h-6 text-center"
             type="text"
             placeholder="secondary keywords"
-            required
+            
           />
           <span className="hidden">{inputs.secondaryKeywords1}</span>,{" "}
           <input
@@ -321,7 +321,7 @@ const Prompt = () => {
             className="w-auto h-6 text-center"
             type="text"
             placeholder="secondary keywords"
-            required
+            
           />
           <span className="hidden">{inputs.secondaryKeywords2}</span>, and{" "}
           <span className="inline-flex">
