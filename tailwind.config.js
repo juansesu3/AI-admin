@@ -8,13 +8,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#0070e2",
-        highlight: "#674fffa3",
-        bgGray: "#1d1d1f",
+        primary: "#5ae59b",
+        highlight: "#182729",
+        bgGray: "#161c24",
         colorText: "#ffffff",
         colorW: "#4d61fc",
-        inputColor: "#404040a3",
-        tableBg: "#8f8f8f1c",
+        inputColor: "#212b36",
+        tableBg: "#212b36",
       },
     },
   },

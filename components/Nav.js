@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import Logo from "./Logo";
 
 const Nav = ({ show }) => {
-  const inactiveLink = "flex gap-1 p-1";
-  const activeLink = inactiveLink + " bg-highlight text-white rounded-sm";
+  const inactiveLink = "flex gap-1 p-2 w-30";
+  const activeLink = inactiveLink + " bg-highlight text-white rounded-md p-2 w-52";
   const inactiveIcon = "w-6 h-6 text-primary";
   const activeIcon = inactiveIcon + " text-primary";
 
@@ -21,7 +21,7 @@ const Nav = ({ show }) => {
     <aside
       className={
         (show ? "left-0" : "-left-full") +
-        " top-0 text-colorText p-4 fixed w-full bg-bgGray h-full md:static md:w-auto transition-all"
+        " top-0 text-colorText p-4 fixed h-[100vh] w-80 bg-bgGray shadow-xl  md:static md:w-auto transition-all border-dashed border-r-[1px] border-gray-700"
       }
     >
       <div className="mb-4 mr-4">

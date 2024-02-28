@@ -106,10 +106,10 @@ const Layout = ({ children }) => {
         </div>
       </div>
 
-      <div className="flex relative">
+      <div className="flex relative h-dvh">
         <Nav show={showNav} />
 
-        <div className="flex-grow p-4">{children}</div>
+        <div className="flex-grow p-4 h-dvh">{children}</div>
        
       </div>
     </div>

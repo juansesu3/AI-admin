@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const { data: session } = useSession();
   const conte =
-    "w-full md:w-1/3 p-4 bg-inputColor flex flex-col items-center justify-between rounded-md shadow-lg";
+    "w-full md:w-1/3 p-4 bg-inputColor flex flex-col items-center justify-between rounded-2xl shadow-lg";
 
   const [emails, setEmails] = useState([]);
   const [proyects, setProyects] = useState([]);
@@ -53,7 +53,7 @@ const Home = () => {
       </div>
       <h1 className="text-white text-center mt-4">Principal info</h1>
 
-      <div className="flex gap-2 flex-wrap justify-center mt-4">
+      <div className="flex gap-4 flex-wrap justify-center mt-6">
         <div className={conte}>
           <h3 className="text-gray-400 font-medium">Emails</h3>
 
