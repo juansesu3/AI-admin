@@ -107,7 +107,7 @@ const Layout = ({ children }) => {
       </div>
 
       <div className="flex relative h-dvh">
-        <Nav show={showNav} />
+        <Nav show={showNav} setShowNav={setShowNav} />
 
         <div className="flex-grow p-4 h-dvh">{children}</div>
        

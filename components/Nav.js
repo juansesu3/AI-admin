@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo from "./Logo";
 
-const Nav = ({ show }) => {
+const Nav = ({ show, setShowNav }) => {
   const inactiveLink = "flex gap-1 p-2 w-30";
   const activeLink = inactiveLink + " bg-highlight text-white rounded-md p-2 w-52";
   const inactiveIcon = "w-6 h-6 text-primary";
@@ -21,11 +21,17 @@ const Nav = ({ show }) => {
     <aside
       className={
         (show ? "left-0" : "-left-full") +
-        " top-0 text-colorText p-4 fixed h-[100vh] w-80 bg-bgGray shadow-xl  md:static md:w-auto transition-all border-dashed border-r-[1px] border-gray-700"
+        " top-0 text-colorText p-4 fixed h-[100vh] w-70 bg-bgGray shadow-xl md:static md:w-auto transition-all border-dashed border-r-[1px] border-gray-700"
       }
     >
-      <div className="mb-4 mr-4">
-        <Logo />
+      <div onClick={()=>setShowNav(false)} className="cursor-pointer text-primary bg-highlight mb-4 mr-4 absolute left-[227px] top-[22px] w-[25px] h-[25px] rounded-full border border-[1px] border-gray-700 flex items-center justify-center">
+
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m18.75 4.5-7.5 7.5 7.5 7.5m-6-15L5.25 12l7.5 7.5" />
+</svg>
+
+     
+
       </div>
 
       <nav className="flex flex-col gap-2">

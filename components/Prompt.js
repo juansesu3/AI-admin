@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 const Prompt = () => {
   const numberStyle = "text-primary font-medium";
   const listStyle = "mb-2";
-  const inputsPrompt = "w-auto h-6 text-center";
+  const inputsPrompt = "w-auto h-6 text-center border rounded-md bg-gray-800";
 
   const [inputs, setInputs] = useState({
     expertTopic: "",
@@ -308,7 +308,7 @@ const Prompt = () => {
             name="secondaryKeywords1"
             value={inputs.secondaryKeywords1}
             onChange={handleInputChange}
-            className="w-auto h-6 text-center"
+            className="w-auto h-6 text-center border rounded-md bg-gray-800"
             type="text"
             placeholder="secondary keywords"
             
@@ -318,7 +318,7 @@ const Prompt = () => {
             name="secondaryKeywords2"
             value={inputs.secondaryKeywords2}
             onChange={handleInputChange}
-            className="w-auto h-6 text-center"
+            className="w-auto h-6 text-center border rounded-md bg-gray-800"
             type="text"
             placeholder="secondary keywords"
             
@@ -329,7 +329,7 @@ const Prompt = () => {
               name="secondaryKeywords3"
               value={inputs.secondaryKeywords3}
               onChange={handleInputChange}
-              className="w-auto h-6 text-center"
+              className="w-auto h-6 text-center border rounded-md bg-gray-800"
               type="text"
               placeholder="secondary keywords"
             />
